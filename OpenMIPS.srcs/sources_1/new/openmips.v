@@ -94,31 +94,46 @@ module openmips(
         .rst(rst),
         .pc_i(id_pc_i),
         .inst_i(id_inst_i),
+
         //来自regfile模块的输入
         .reg1_data_i(reg1_data),
         .reg2_data_i(reg2_data),
+
         //送到regfile模块的信息
         .reg1_read_o(reg1_read),
         .reg2_read_o(reg2_read),
         .reg1_addr_o(reg1_addr),
         .reg2_addr_o(reg2_addr),
+
         //送到ID/EX模块的信息
         .aluop_o(id_aluop_o),
         .alusel_o(id_alusel_o),
         .reg1_o(id_reg1_o),
         .reg2_o(id_reg2_o),
         .wd_o(id_wd_o),
-        .wreg_o(id_wreg_o)
+        .wreg_o(id_wreg_o),
+
+        //EX阶段指令结果的数据通路信息
+        .ex_wreg_i(ex_wreg_o),
+        .ex_wd_i(ex_wd_o),
+        .ex_wdata_i(ex_wdata_o),
+
+        //MEM阶段指令结果的数据通路信息
+        .mem_wreg_i(mem_wreg_o),
+        .mem_wd_i(mem_wd_o),
+        .mem_wdata_i(mem_wdata_o)
         );
 
     //通用寄存器regfile模块例化
     regfile regfile1(
         .clk(clk),
         .rst(rst),
+
         //通用寄存器写回端输入
         .we(wb_wreg_i),
         .waddr(wb_wd_i),
         .wdata(wb_wdata_i),
+
         //ID端取操作数输入
         .re1(reg1_read),
         .raddr1(reg1_addr),
@@ -126,6 +141,7 @@ module openmips(
         .re2(reg2_read),
         .raddr2(reg2_addr),
         .rdata2(reg2_data),
+
         //与数码管展示模块相连
         .raddr3(display_reg_raddr),
         .rdata3(reg_display_rdata)
@@ -135,6 +151,7 @@ module openmips(
     id_ex id_ex0(
         .clk(clk),
         .rst(rst),
+
         //从ID模块传递过来的信息
         .id_aluop(id_aluop_o),
         .id_alusel(id_alusel_o),
@@ -142,6 +159,7 @@ module openmips(
         .id_reg2(id_reg2_o),
         .id_wd(id_wd_o),
         .id_wreg(id_wreg_o),
+
         //传递到EX模块的信息
         .ex_aluop(ex_aluop_i),
         .ex_alusel(ex_alusel_i),
@@ -154,6 +172,7 @@ module openmips(
     //EX模块例化
     ex ex0(
         .rst(rst),
+
         //从ID/EX模块传递过来的信息
         .aluop_i(ex_aluop_i),
         .alusel_i(ex_alusel_i),
@@ -161,6 +180,7 @@ module openmips(
         .reg2_i(ex_reg2_i),
         .wd_i(ex_wd_i),
         .wreg_i(ex_wreg_i),
+
         //输出到EX/MEM模块的信息
         .wd_o(ex_wd_o),
         .wreg_o(ex_wreg_o),
@@ -171,10 +191,12 @@ module openmips(
     ex_mem ex_mem0(
         .clk(clk),
         .rst(rst),
+
         //来自EX模块的信息
         .ex_wd(ex_wd_o),
         .ex_wreg(ex_wreg_o),
         .ex_wdata(ex_wdata_o),
+
         //送到MEM模块的信息
         .mem_wd(mem_wd_i),
         .mem_wreg(mem_wreg_i),
@@ -184,23 +206,28 @@ module openmips(
     //MEM模块例化
     mem mem0(
         .rst(rst),
+
         //来自EX/MEM模块的信息
         .wd_i(mem_wd_i),
         .wreg_i(mem_wreg_i),
         .wdata_i(mem_wdata_i),
+
         //送到MEM/WB模块的信息
         .wd_o(mem_wd_o),
         .wreg_o(mem_wreg_o),
         .wdata_o(mem_wdata_o)
         );
+
     //MEM/WB模块例化
     mem_wb mem_wb0(
         .clk(clk),
         .rst(rst),
+
         //来自MEM模块的信息
         .mem_wd(mem_wd_o),
         .mem_wreg(mem_wreg_o),
         .mem_wdata(mem_wdata_o),
+        
         //送到回写阶段(regfile)的信息
         .wb_wd(wb_wd_i),
         .wb_wreg(wb_wreg_i),

@@ -60,6 +60,7 @@ module regfile(
             rdata1 <= `ZeroWord;
         end else if(raddr1 == `RegNumLog2'b0) begin
             rdata1 <= `ZeroWord;
+        //此处解决了相隔两条指令的RAW数据相关
         end else if((raddr1 == waddr) && (we == `WriteEnable) && (re1 == `ReadEnable)) begin
             rdata1 <= wdata;
         end else if(re1 == `ReadEnable) begin
@@ -78,6 +79,7 @@ module regfile(
             rdata2 <= `ZeroWord;
         end else if(raddr2 == `RegNumLog2'b0) begin
             rdata2 <= `ZeroWord;
+        //此处解决了相隔两条指令的RAW数据相关
         end else if((raddr2 == waddr) && (we == `WriteEnable) && (re2 == `ReadEnable)) begin
             rdata2 <= wdata;
         end else if(re2 == `ReadEnable) begin

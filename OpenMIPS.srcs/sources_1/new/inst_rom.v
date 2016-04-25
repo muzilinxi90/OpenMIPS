@@ -20,17 +20,17 @@ module inst_rom(
     //inst_rom.txt是一个文本文件，里面每行存储一条32位宽度的指令（十六进制），
     //系统函数$readmemh将inst_rom.txt中的数据一次填写到inst_mem数组中
     //如果要综合，需要修改这里初始化存储器的方法
-    // initial $readmemh("C:/Users/LMX/Desktop/MyProject/TestFile/inst_rom.txt",inst_mem);
+    initial $readmemh("C:/Users/LMX/Desktop/MyProject/TestFile/inst_rom_correlation.data",inst_mem);
 
     //板级测试，程序写死在ROM中
-    always @ ( * ) begin
-        if(write == 1'b1) begin
-            inst_mem[0] <= 32'h3401_0123;
-            inst_mem[1] <= 32'h3402_4567;
-            inst_mem[2] <= 32'h3403_89AB;
-            inst_mem[3] <= 32'h3404_CDEF;
-        end
-    end
+    // always @ ( * ) begin
+    //     if(write == 1'b1) begin
+    //         inst_mem[0] <= 32'h3401_0123;
+    //         inst_mem[1] <= 32'h3402_4567;
+    //         inst_mem[2] <= 32'h3403_89AB;
+    //         inst_mem[3] <= 32'h3404_CDEF;
+    //     end
+    // end
 
     //当复位信号无效时，依据输入的地址，给出指令存储器ROM中对应的元素
     always @ ( * ) begin

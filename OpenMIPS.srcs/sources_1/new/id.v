@@ -25,7 +25,17 @@ module id(
     output reg[`RegBus] reg1_o,             //译码阶段的指令要进行的运算的源操作数1
     output reg[`RegBus] reg2_o,             //译码阶段的指令要进行的运算的源操作数2
     output reg[`RegAddrBus] wd_o,           //译码阶段的指令要写入的目的寄存器地址
-    output reg wreg_o                       //译码阶段的指令是否有要写入的目的寄存器
+    output reg wreg_o,                      //译码阶段的指令是否有要写入的目的寄存器
+
+    //执行阶段指令的运算结果前推
+    input wire ex_wreg_i,
+    input wire[`RegAddrBus] ex_wd_i,
+    input wire[`RegBus] ex_wdata_i,
+
+    //访存阶段指令的运算结果前推
+    input wire mem_wreg_i,
+    input wire[`RegAddrBus] mem_wd_i,
+    input wire[`RegBus] mem_wdata_i
     );
 
     //取得指令的指令码，功能码
@@ -95,12 +105,26 @@ module id(
         end//else
     end//always
 
-//******************************************************
-//  第二段：确定进行运算的源操作数1
-//******************************************************
+//******************************************************************************
+//                      第二段：确定进行运算的源操作数1
+//  为了解决相邻指令RAW数据相关和隔一条指令的RAW数据相关，给reg1_o赋值的过程增加了两
+//种情况：
+//  1.如果regfile模块读端口1要读取的寄存器就是执行阶段要写的目的寄存器，那么直接把执行
+//阶段的结果ex_wdata_i作为reg1_o的值
+//  2.如果regfile模块读端口1要读取的寄存器就是访存阶段要写的目的寄存器，那么直接把访存
+//阶段的结果mem_wdata_i作为reg1_o的值
+//******************************************************************************
     always @ ( * ) begin
         if(rst == `RstEnable) begin
             reg1_o <= `ZeroWord;
+            //解决相邻指令间RAW数据相关的数据通路
+        end else if((reg1_read_o == 1'b1) && (ex_wreg_i == 1'b1)
+                    && (ex_wd_i == reg1_addr_o)) begin
+            reg1_o <= ex_wdata_i;
+            //解决间隔一条指令间RAW数据相关的数据通路
+        end else if((reg1_read_o == 1'b1) && (mem_wreg_i == 1'b1)
+                    && (mem_wd_i == reg1_addr_o)) begin
+            reg1_o <= mem_wdata_i;
         end else if(reg1_read_o == 1'b1) begin
             reg1_o <= reg1_data_i;   //regfile读端口1的输出值
         end else if(reg1_read_o == 1'b0) begin
@@ -110,12 +134,26 @@ module id(
         end
     end
 
-//******************************************************
-//  第三段：确定进行运算的源操作数2
-//******************************************************
+//******************************************************************************
+//                      第三段：确定进行运算的源操作数2
+//  为了解决相邻指令RAW数据相关和隔一条指令的RAW数据相关，给reg2_o赋值的过程增加了两
+//种情况：
+//  1.如果regfile模块读端口2要读取的寄存器就是执行阶段要写的目的寄存器，那么直接把执行
+//阶段的结果ex_wdata_i作为reg2_o的值
+//  2.如果regfile模块读端口2要读取的寄存器就是访存阶段要写的目的寄存器，那么直接把访存
+//阶段的结果mem_wdata_i作为reg2_o的值
+//******************************************************************************
     always @ ( * ) begin
         if(rst == `RstEnable) begin
             reg2_o <= `ZeroWord;
+            //解决相邻指令间RAW数据相关的数据通路
+        end else if((reg2_read_o == 1'b1) && (ex_wreg_i == 1'b1)
+                    && (ex_wd_i == reg2_addr_o)) begin
+            reg2_o <= ex_wdata_i;
+            //解决间隔一条指令间RAW数据相关的数据通路
+        end else if((reg2_read_o == 1'b1) && (mem_wreg_i == 1'b1)
+                    && (mem_wd_i == reg2_addr_o)) begin
+            reg2_o <= mem_wdata_i;
         end else if(reg2_read_o == 1'b1) begin
             reg2_o <= reg2_data_i;   //regfile读端口2的输出值
         end else if(reg2_read_o == 1'b0) begin
