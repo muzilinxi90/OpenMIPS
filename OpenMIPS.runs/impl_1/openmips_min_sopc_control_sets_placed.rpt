@@ -1,0 +1,58 @@
+Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2015.4 (win64) Build 1412921 Wed Nov 18 09:43:45 MST 2015
+| Date         : Sun Apr 24 16:49:36 2016
+| Host         : LMX-PC running 64-bit Service Pack 1  (build 7601)
+| Command      : report_control_sets -verbose -file openmips_min_sopc_control_sets_placed.rpt
+| Design       : openmips_min_sopc
+| Device       : xc7a35ti
+----------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Flip-Flop Distribution
+3. Detailed Control Set Information
+
+1. Summary
+----------
+
++-------------------------------------------------------------------+-------+
+|                               Status                              | Count |
++-------------------------------------------------------------------+-------+
+| Number of unique control sets                                     |     5 |
+| Minimum Number of register sites lost to control set restrictions |    16 |
++-------------------------------------------------------------------+-------+
+
+
+2. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |               2 |            1 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |              78 |           20 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |               0 |            0 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+3. Detailed Control Set Information
+-----------------------------------
+
++--------------------------+----------------------------------+---------------------------+------------------+----------------+
+|       Clock Signal       |           Enable Signal          |      Set/Reset Signal     | Slice Load Count | Bel Load Count |
++--------------------------+----------------------------------+---------------------------+------------------+----------------+
+|  clk_div0/count_reg[1]_0 |                                  |                           |                1 |              2 |
+|  clk_IBUF_BUFG           |                                  | openmips0/pc_reg0/clear   |                3 |             12 |
+|  clk_IBUF_BUFG           |                                  | clk_div0/count[0]_i_1_n_0 |                8 |             32 |
+|  clk_IBUF_BUFG           | openmips0/mem_wb0/disp_a_to_g[0] |                           |                4 |             32 |
+|  clk_IBUF_BUFG           |                                  | rst_IBUF                  |                9 |             34 |
++--------------------------+----------------------------------+---------------------------+------------------+----------------+
+
+

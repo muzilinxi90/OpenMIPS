@@ -1,0 +1,63 @@
+#-----------------------------------------------------------
+# Vivado v2015.4 (64-bit)
+# SW Build 1412921 on Wed Nov 18 09:43:45 MST 2015
+# IP Build 1412160 on Tue Nov 17 13:47:24 MST 2015
+# Start of session at: Sun Apr 24 16:55:24 2016
+# Process ID: 6520
+# Current directory: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/impl_1
+# Command line: vivado.exe -log openmips_min_sopc.vdi -applog -messageDb vivado.pb -mode batch -source openmips_min_sopc.tcl -notrace
+# Log file: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/impl_1/openmips_min_sopc.vdi
+# Journal file: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source openmips_min_sopc.tcl -notrace
+Command: open_checkpoint openmips_min_sopc_routed.dcp
+INFO: [Netlist 29-17] Analyzing 24 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2015.4
+INFO: [Device 21-403] Loading part xc7a35ticpg236-1L
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/impl_1/.Xil/Vivado-6520-/dcp/openmips_min_sopc.xdc]
+Finished Parsing XDC File [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/impl_1/.Xil/Vivado-6520-/dcp/openmips_min_sopc.xdc]
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.100 . Memory (MB): peak = 450.953 ; gain = 0.000
+Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.100 . Memory (MB): peak = 450.953 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 4 instances were transformed.
+  RAM32M => RAM32M (RAMS32, RAMS32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32): 4 instances
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2015.4 (64-bit) build 1412921
+open_checkpoint: Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 450.953 ; gain = 262.930
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35ti'
+Running DRC as a precondition to command write_bitstream
+INFO: [DRC 23-27] Running DRC with 2 threads
+WARNING: [DRC 23-20] Rule violation (BUFC-1) Input Buffer Connections - Input buffer write_IBUF_inst has no loads. An input buffer must drive an internal load.
+WARNING: [DRC 23-20] Rule violation (CFGBVS-1) Missing CFGBVS and CONFIG_VOLTAGE Design Properties - Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_design.  Configuration bank voltage select (CFGBVS) must be set to VCCO or GND, and CONFIG_VOLTAGE must be set to the correct configuration voltage, in order to determine the I/O voltage support for the pins in bank 0.  It is suggested to specify these either using the 'Edit Device Properties' function in the GUI or directly in the XDC file using the following syntax:
+
+ set_property CFGBVS value1 [current_design]
+ #where value1 is either VCCO or GND
+
+ set_property CONFIG_VOLTAGE value2 [current_design]
+ #where value2 is the voltage provided to configuration bank 0
+
+Refer to the device configuration user guide for more information.
+WARNING: [DRC 23-20] Rule violation (RTSTAT-10) No routable loads - 1 net(s) have no routable loads. The problem bus(es) and/or net(s) are write_IBUF.
+INFO: [Vivado 12-3199] DRC finished with 0 Errors, 3 Warnings
+INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
+Loading data files...
+Loading site data...
+Loading route data...
+Processing options...
+Creating bitmap...
+Creating bitstream...
+Writing bitstream ./openmips_min_sopc.bit...
+Writing bitstream ./openmips_min_sopc.bin...
+INFO: [Vivado 12-1842] Bitgen Completed Successfully.
+INFO: [Project 1-118] WebTalk data collection is enabled (User setting is ON. Install Setting is ON.).
+INFO: [Common 17-83] Releasing license: Implementation
+write_bitstream: Time (s): cpu = 00:00:37 ; elapsed = 00:00:49 . Memory (MB): peak = 789.984 ; gain = 339.031
+INFO: [Vivado_Tcl 4-395] Unable to parse hwdef file openmips_min_sopc.hwdef
+INFO: [Common 17-206] Exiting Vivado at Sun Apr 24 16:56:31 2016...

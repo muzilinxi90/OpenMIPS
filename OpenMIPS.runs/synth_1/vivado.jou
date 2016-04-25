@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2015.4 (64-bit)
+# SW Build 1412921 on Wed Nov 18 09:43:45 MST 2015
+# IP Build 1412160 on Tue Nov 17 13:47:24 MST 2015
+# Start of session at: Sun Apr 24 16:46:28 2016
+# Process ID: 5392
+# Current directory: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/synth_1
+# Command line: vivado.exe -log openmips_min_sopc.vds -mode batch -messageDb vivado.pb -notrace -source openmips_min_sopc.tcl
+# Log file: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/synth_1/openmips_min_sopc.vds
+# Journal file: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source openmips_min_sopc.tcl -notrace

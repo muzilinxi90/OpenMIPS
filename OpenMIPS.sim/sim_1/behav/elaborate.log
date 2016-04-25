@@ -1,0 +1,26 @@
+Vivado Simulator 2015.4
+Copyright 1986-1999, 2001-2015 Xilinx, Inc. All Rights Reserved.
+Running: D:/Xilinx/Vivado/2015.4/bin/unwrapped/win64.o/xelab.exe -wto bc1267a011e3447b9e44d7f1aa7d39ff --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot openmips_min_sopc_tb_behav xil_defaultlib.openmips_min_sopc_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.pc_reg
+Compiling module xil_defaultlib.if_id
+Compiling module xil_defaultlib.id
+Compiling module xil_defaultlib.regfile
+Compiling module xil_defaultlib.id_ex
+Compiling module xil_defaultlib.ex
+Compiling module xil_defaultlib.ex_mem
+Compiling module xil_defaultlib.mem
+Compiling module xil_defaultlib.mem_wb
+Compiling module xil_defaultlib.openmips
+Compiling module xil_defaultlib.inst_rom
+Compiling module xil_defaultlib.clk_div
+Compiling module xil_defaultlib.regfile_display
+Compiling module xil_defaultlib.openmips_min_sopc
+Compiling module xil_defaultlib.openmips_min_sopc_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot openmips_min_sopc_tb_behav

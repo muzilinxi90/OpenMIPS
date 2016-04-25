@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a35ticpg236-1L" LaunchTime="1461487573">
+  <File Type="OPT-DCP" Name="openmips_min_sopc_opt.dcp"/>
+  <File Type="RUN-CONSTRS" Name="$PDATADIR/runs/impl_1/constrs_in.xml"/>
+  <File Type="RUN-SRCS" Name="$PDATADIR/runs/impl_1/sources.xml"/>
+  <File Type="ROUTE-DCP" Name="openmips_min_sopc_routed.dcp"/>
+  <File Type="PA-TCL" Name="openmips_min_sopc.tcl"/>
+  <File Type="RUN-STRAT" Name="$PDATADIR/runs/impl_1/impl_1.psg"/>
+  <File Type="OPT-DRC" Name="openmips_min_sopc_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="openmips_min_sopc_timing_summary_init.rpt"/>
+  <File Type="OPT-TIMING" Name="openmips_min_sopc_timing_summary_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="openmips_min_sopc.hwdef"/>
+  <File Type="PWROPT-DCP" Name="openmips_min_sopc_pwropt.dcp"/>
+  <File Type="PWROPT-DRC" Name="openmips_min_sopc_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="openmips_min_sopc_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="openmips_min_sopc_placed.dcp"/>
+  <File Type="PLACE-IO" Name="openmips_min_sopc_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="openmips_min_sopc_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="openmips_min_sopc_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="openmips_min_sopc_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="openmips_min_sopc_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="openmips_min_sopc_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="openmips_min_sopc_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-TIMING" Name="openmips_min_sopc_timing_summary_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="openmips_min_sopc_postplace_pwropt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="openmips_min_sopc_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="openmips_min_sopc_physopt.dcp"/>
+  <File Type="RDI-RDI" Name="openmips_min_sopc.vdi"/>
+  <File Type="PHYSOPT-DRC" Name="openmips_min_sopc_drc_physopted.rpt"/>
+  <File Type="PHYSOPT-TIMING" Name="openmips_min_sopc_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-DRC" Name="openmips_min_sopc_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="openmips_min_sopc_drc_routed.pb"/>
+  <File Type="ROUTE-PWR" Name="openmips_min_sopc_power_routed.rpt"/>
+  <File Type="ROUTE-PWR-SUM" Name="openmips_min_sopc_power_summary_routed.pb"/>
+  <File Type="ROUTE-STATUS" Name="openmips_min_sopc_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="openmips_min_sopc_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="openmips_min_sopc_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="openmips_min_sopc_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="openmips_min_sopc_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="openmips_min_sopc_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="openmips_min_sopc_clock_utilization_routed.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="openmips_min_sopc_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="openmips_min_sopc_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="openmips_min_sopc_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="openmips_min_sopc_timing_summary_postroute_physopted.rpx"/>
+  <File Type="BG-BIT" Name="openmips_min_sopc.bit"/>
+  <File Type="BG-BIN" Name="openmips_min_sopc.bin"/>
+  <File Type="BITSTR-MSK" Name="openmips_min_sopc.msk"/>
+  <File Type="BITSTR-RBT" Name="openmips_min_sopc.rbt"/>
+  <File Type="BITSTR-NKY" Name="openmips_min_sopc.nky"/>
+  <File Type="BITSTR-BMM" Name="openmips_min_sopc_bd.bmm"/>
+  <File Type="BITSTR-MMI" Name="openmips_min_sopc.mmi"/>
+  <File Type="BITSTR-SYSDEF" Name="openmips_min_sopc.sysdef"/>
+  <File Type="BG-BGN" Name="openmips_min_sopc.bgn"/>
+  <File Type="BG-DRC" Name="openmips_min_sopc.drc"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/defines.v">
+      <FileInfo>
+        <Attr Name="IsGlobalInclude" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/regfile.v">
+      <FileInfo>
+        <Attr Name="Library" Val="xil_defaultlib"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/pc_reg.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/mem_wb.v">
+      <FileInfo>
+        <Attr Name="Library" Val="xil_defaultlib"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/mem.v">
+      <FileInfo>
+        <Attr Name="Library" Val="xil_defaultlib"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/if_id.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/id_ex.v">
+      <FileInfo>
+        <Attr Name="Library" Val="xil_defaultlib"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/id.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/ex_mem.v">
+      <FileInfo>
+        <Attr Name="Library" Val="xil_defaultlib"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/ex.v">
+      <FileInfo>
+        <Attr Name="Library" Val="xil_defaultlib"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/regfile_display.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/clk_div.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/inst_rom.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/openmips.v">
+      <FileInfo>
+        <Attr Name="Library" Val="xil_defaultlib"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/openmips_min_sopc.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="openmips_min_sopc"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/new/openmips_display.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/openmips_display.xdc"/>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream">
+      <Option Id="BinFile">1</Option>
+    </Step>
+  </Strategy>
+</GenRun>
