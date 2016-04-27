@@ -25,7 +25,7 @@ module openmips_min_sopc_tb();
         rst = `RstEnable;
         write = 1'b1;
         sw_HL = 1'b0;
-        sw = 5'b00011;
+        sw = 5'b00001;
         #100 rst = `RstDisable;
         #400 sw_HL = 1'b1;
         #1000 $stop;

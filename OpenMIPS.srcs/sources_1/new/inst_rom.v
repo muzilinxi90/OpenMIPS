@@ -20,7 +20,7 @@ module inst_rom(
     //inst_rom.txt是一个文本文件，里面每行存储一条32位宽度的指令（十六进制），
     //系统函数$readmemh将inst_rom.txt中的数据一次填写到inst_mem数组中
     //如果要综合，需要修改这里初始化存储器的方法
-    initial $readmemh("C:/Users/LMX/Desktop/MyProject/TestFile/inst_rom_correlation.data",inst_mem);
+    initial $readmemh("C:/Users/LMX/Desktop/MyProject/TestFile/LogicInstTest.data",inst_mem);
 
     //板级测试，程序写死在ROM中
     // always @ ( * ) begin

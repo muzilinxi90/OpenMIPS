@@ -22,28 +22,63 @@ module ex(
 
     //保存逻辑运算的结果
     reg[`RegBus] logicout;
+    //保存移位运算结果
+    reg[`RegBus] shiftres;
 
 //********************************************************************
-//  第一段：依据aluop_i指示的运算子类型进行运算，此处只有逻辑或运算
+//  第一段：依据aluop_i指示的运算子类型进行运算
 //********************************************************************
+    //逻辑运算
     always @ ( * ) begin
         if(rst == `RstEnable) begin
             logicout <= `ZeroWord;
         end else begin
             case(aluop_i)
+                `EXE_AND_OP:begin
+                    logicout <= reg1_i & reg2_i;
+                end
                 `EXE_OR_OP:begin
-                    logicout <= reg1_i | reg2_i;
+                logicout <= reg1_i | reg2_i;
+                end
+                `EXE_XOR_OP:begin
+                    logicout <= reg1_i ^ reg2_i;
+                end
+                `EXE_NOR_OP:begin
+                    logicout <= ~(reg1_i | reg2_i);
                 end
                 default:begin
                     logicout <= `ZeroWord;
                 end
             endcase
         end//else
-    end
+    end//always
+
+    //移位运算
+    always @ ( * ) begin
+        if(rst == `RstEnable) begin
+            shiftres <= `ZeroWord;
+        end else begin
+            case(aluop_i)
+                `EXE_SLL_OP:begin
+                    shiftres <= reg2_i << reg1_i[4:0];
+                end
+                `EXE_SRL_OP:begin
+                    shiftres <= reg2_i >> reg1_i[4:0];
+                end
+                `EXE_SRA_OP:begin
+                    //(数据逻辑右移n位,32个1逻辑左移32-n位,两部分或运算相当于算术右移)
+                    shiftres <= ({32{reg2_i[31]}}<<(6'd32 - {reg1_i[4:0]}))
+                                | reg2_i >> reg1_i[4:0];
+                end
+                default:begin
+                    shiftres <= `ZeroWord;
+                end
+            endcase
+        end//else
+    end//always
 
 //********************************************************************
 //  第二段：依据alusel_i指示的运算类型，选择一个运算结果作为最终的结果
-//  此处只有逻辑运算结果
 //********************************************************************
     always @ ( * ) begin
         wd_o <= wd_i;                       //要写的目的寄存器地址
@@ -52,9 +87,13 @@ module ex(
             `EXE_RES_LOGIC:begin
                 wdata_o <= logicout;        //wdata_o中存放运算结果
             end
+            `EXE_RES_SHIFT:begin
+                wdata_o <= shiftres;
+            end
             default:begin
                 wdata_o <= `ZeroWord;
             end
         endcase
     end
+
 endmodule
