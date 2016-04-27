@@ -25,7 +25,7 @@ module id(
     output reg[`RegBus] reg1_o,             //译码阶段的指令要进行的运算的源操作数1
     output reg[`RegBus] reg2_o,             //译码阶段的指令要进行的运算的源操作数2
     output reg[`RegAddrBus] wd_o,           //译码阶段的指令要写入的目的寄存器地址
-    output reg wreg_o,                      //译码阶段的指令是否有要写入的目的寄存器
+    output reg wreg_o,                      //译码阶段的指令是否有要写入的通用寄存器
 
     //执行阶段指令的运算结果前推
     input wire ex_wreg_i,
@@ -157,6 +157,61 @@ module id(
                                     reg1_read_o <= 1'b0;
                                     reg2_read_o <= 1'b1;
                                     instvalid <= `InstValid;
+                                end
+                                `EXE_MFHI:begin
+                                    wreg_o <= `WriteEnable;
+                                    aluop_o <= `EXE_MFHI_OP;
+                                    alusel_o <= `EXE_RES_MOVE;
+                                    reg1_read_o <= 1'b0;
+                                    reg2_read_o <= 1'b0;
+                                    instvalid <= `InstValid;
+                                end
+                                `EXE_MFLO:begin
+                                    wreg_o <= `WriteEnable;
+                                    aluop_o <= `EXE_MFLO_OP;
+                                    alusel_o <= `EXE_RES_MOVE;
+                                    reg1_read_o <= 1'b0;
+                                    reg2_read_o <= 1'b0;
+                                    instvalid <= `InstValid;
+                                end
+                                `EXE_MTHI:begin
+                                    wreg_o <= `WriteDisable;
+                                    aluop_o <= `EXE_MTHI_OP;
+                                    reg1_read_o <= 1'b1;
+                                    reg2_read_o <= 1'b0;
+                                    instvalid <= `InstValid;
+                                end
+                                `EXE_MTLO:begin
+                                    wreg_o <= `WriteDisable;
+                                    aluop_o <= `EXE_MTLO_OP;
+                                    reg1_read_o <= 1'b1;
+                                    reg2_read_o <= 1'b0;
+                                    instvalid <= `InstValid;
+                                end
+                                `EXE_MOVN:begin
+                                    aluop_o <= `EXE_MOVN_OP;
+                                    alusel_o <= `EXE_RES_MOVE;
+                                    reg1_read_o <= 1'b1;
+                                    reg2_read_o <= 1'b1;
+                                    instvalid <= `InstValid;
+                                    //reg2_o的值就是地址为rt的通用寄存器的值
+                                    if(reg2_o != `ZeroWord) begin
+                                        wreg_o <= `WriteEnable;
+                                    end else begin
+                                        wreg_o <= `WriteDisable;
+                                    end
+                                end
+                                `EXE_MOVZ:begin
+                                    aluop_o <= `EXE_MOVZ_OP;
+                                    alusel_o <= `EXE_RES_MOVE;
+                                    reg1_read_o <= 1'b1;
+                                    reg2_read_o <= 1'b1;
+                                    instvalid <= `InstValid;
+                                    if(reg2_o == `ZeroWord) begin
+                                        wreg_o <= `WriteEnable;
+                                    end else begin
+                                        wreg_o <= `WriteDisable;
+                                    end
                                 end
                                 default:begin
                                 end

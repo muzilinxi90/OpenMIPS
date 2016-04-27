@@ -41,6 +41,14 @@
 `define EXE_SRA 6'b000011           //sra指令功能码
 `define EXE_SRAV 6'b000111          //srav指令功能码
 
+//移动操作指令功能码
+`define EXE_MOVZ 6'b001010          //movz指令功能码
+`define EXE_MOVN 6'b001011          //movn指令功能码
+`define EXE_MFHI 6'b010000          //mfhi指令功能码
+`define EXE_MTHI 6'b010001          //mthi指令功能码
+`define EXE_MFLO 6'b010010          //mflo指令功能码
+`define EXE_MTLO 6'b010011          //mtlo指令功能码
+
 //空指令
 `define EXE_NOP 6'b000000           //空指令功能码
 `define SSNOP 32'h0000_0040         //SSNOP指令
@@ -68,12 +76,20 @@
 `define EXE_SRA_OP 8'b0000_0011
 `define EXE_SRAV_OP 8'b0000_0111
 
+`define EXE_MOVZ_OP 8'b0000_1010
+`define EXE_MOVN_OP 8'b0000_1011
+`define EXE_MFHI_OP 8'b0001_0000
+`define EXE_MTHI_OP 8'b0001_0001
+`define EXE_MFLO_OP 8'b0001_0010
+`define EXE_MTLO_OP 8'b0001_0011
+
 `define EXE_NOP_OP 8'b0000_0000
 
 
 //*********AluSel：指令要执行的运算类型（ID输出到EX）************
 `define EXE_RES_LOGIC 3'b001
 `define EXE_RES_SHIFT 3'b010
+`define EXE_RES_MOVE 3'b011 
 
 `define EXE_RES_NOP 3'b000
 
