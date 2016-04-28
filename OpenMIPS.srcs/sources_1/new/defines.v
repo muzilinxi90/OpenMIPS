@@ -49,6 +49,24 @@
 `define EXE_MFLO 6'b010010          //mflo指令功能码
 `define EXE_MTLO 6'b010011          //mtlo指令功能码
 
+//算术操作指令
+`define EXE_SLT 6'b101010           //slt指令功能码
+`define EXE_SLTU 6'b101011          //sltu指令功能码
+`define EXE_SLTI 6'b001010          //slti指令码
+`define EXE_SLTIU 6'b001011         //sltiu指令码
+`define EXE_ADD 6'b100000           //add指令功能码
+`define EXE_ADDU 6'b100001          //addu指令功能码
+`define EXE_SUB 6'b100010           //sub指令功能码
+`define EXE_SUBU 6'b100011          //subu指令功能码
+`define EXE_ADDI 6'b001000          //addi指令码
+`define EXE_ADDIU 6'b001001         //addiu指令码
+`define EXE_CLZ 6'b100000           //clz指令功能码
+`define EXE_CLO 6'b100001           //clo指令功能码
+
+`define EXE_MULT 6'b011000          //mult指令功能码
+`define EXE_MULTU 6'b011001         //multu指令功能码
+`define EXE_MUL 6'b000010           //mul指令功能码
+
 //空指令
 `define EXE_NOP 6'b000000           //空指令功能码
 `define SSNOP 32'h0000_0040         //SSNOP指令
@@ -57,7 +75,8 @@
 `define EXE_SYNC 6'b001111          //sync指令功能码
 `define EXE_PREF 6'b110011          //pref指令码
 `define EXE_SPECIAL_INST 6'b000000  //SPECIAL类指令的指令码
-
+`define EXE_SPECIAL2_INST 6'b011100 //SPECIAL2类指令的指令码
+`define EXE_REGIMM_INST 6'b000001   //???
 
 //*********AluOp：指令要执行的运算子类型（ID输出到EX）***********
 `define EXE_AND_OP 8'b0010_0100
@@ -83,13 +102,32 @@
 `define EXE_MFLO_OP 8'b0001_0010
 `define EXE_MTLO_OP 8'b0001_0011
 
+`define EXE_SLT_OP 8'b0010_1010
+`define EXE_SLTU_OP 8'b0010_1011
+`define EXE_SLTI_OP 8'b0101_0111
+`define EXE_SLTIU_OP 8'b0101_1000
+`define EXE_ADD_OP 8'b0010_0000
+`define EXE_ADDU_OP 8'b0010_0001
+`define EXE_SUB_OP 8'b0010_0010
+`define EXE_SUBU_OP 8'b0010_0011
+`define EXE_ADDI_OP 8'b0101_0101
+`define EXE_ADDIU_OP 8'b0101_0110
+`define EXE_CLZ_OP 8'b1011_0000
+`define EXE_CLO_OP 8'b1011_0001
+
+`define EXE_MULT_OP 8'b0001_1000
+`define EXE_MULTU_OP 8'b0001_1001
+`define EXE_MUL_OP 8'b1010_1001
+
 `define EXE_NOP_OP 8'b0000_0000
 
 
 //*********AluSel：指令要执行的运算类型（ID输出到EX）************
 `define EXE_RES_LOGIC 3'b001
 `define EXE_RES_SHIFT 3'b010
-`define EXE_RES_MOVE 3'b011 
+`define EXE_RES_MOVE 3'b011
+`define EXE_RES_ARITHMETIC 3'b100
+`define EXE_RES_MUL 3'b101
 
 `define EXE_RES_NOP 3'b000
 
