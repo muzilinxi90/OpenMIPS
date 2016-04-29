@@ -4,9 +4,14 @@
 //  寄存器地址等结果，在下一个时钟传递到流水线执行
 //***********************************************
 
+`include "defines.v"
+
 module id_ex(
     input wire clk,
     input wire rst,
+
+    //来自ctrl模块的信息
+    input wire[5:0] stall,
 
     //从译码阶段传递过来的信息
     input wire[`AluSelBus] id_alusel,   //译码阶段指令运算类型
@@ -25,6 +30,11 @@ module id_ex(
     output reg ex_wreg                  //执行阶段指令是否有目的寄存器
     );
 
+    // 1.当stall[2]为Stop，stall[3]为NoStop时，表示译码阶段暂停，而执行阶段
+    // 继续，所以使用空指令作为下一个周期进入执行阶段的指令
+    // 2.当stall[2]为NoStop时，译码阶段继续，译码后的指令进入执行阶段
+    // 3.其余情况下，保持执行阶段的寄存器ex_aluop、ex_alusel、ex_reg1、ex_reg2、
+    // ex_wd、ex_wreg不变
     always @ ( posedge clk ) begin
         if(rst == `RstEnable) begin
             ex_aluop <= `EXE_NOP_OP;
@@ -33,7 +43,14 @@ module id_ex(
             ex_reg2 <= `ZeroWord;
             ex_wd <= `NOPRegAddr;
             ex_wreg <= `WriteDisable;
-        end else begin
+        end else if(stall[2] == `Stop && stall[3] == `NoStop) begin
+            ex_aluop <= `EXE_NOP_OP;
+            ex_alusel <= `EXE_RES_NOP;
+            ex_reg1 <= `ZeroWord;
+            ex_reg2 <= `ZeroWord;
+            ex_wd <= `NOPRegAddr;
+            ex_wreg <= `WriteDisable;
+        end else if(stall[2] == `NoStop) begin
             ex_aluop <= id_aluop;
             ex_alusel <= id_alusel;
             ex_reg1 <= id_reg1;

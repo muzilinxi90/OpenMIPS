@@ -4,6 +4,8 @@
 //  两个寄存器的读操作和一个寄存器的写操作
 //*****************************************
 
+`include "defines.v"
+
 module regfile(
     input wire clk,
     input wire rst,

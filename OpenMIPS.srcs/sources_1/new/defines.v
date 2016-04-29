@@ -66,6 +66,10 @@
 `define EXE_MULT 6'b011000          //mult指令功能码
 `define EXE_MULTU 6'b011001         //multu指令功能码
 `define EXE_MUL 6'b000010           //mul指令功能码
+`define EXE_MADD 6'b000000          //madd指令功能码
+`define EXE_MADDU 6'b000001         //maddu指令功能码
+`define EXE_MSUB 6'b000100          //msub指令功能码
+`define EXE_MSUBU 6'b000101         //msubu指令功能码
 
 //空指令
 `define EXE_NOP 6'b000000           //空指令功能码
@@ -118,6 +122,10 @@
 `define EXE_MULT_OP 8'b0001_1000
 `define EXE_MULTU_OP 8'b0001_1001
 `define EXE_MUL_OP 8'b1010_1001
+`define EXE_MADD_OP 8'b1010_0110
+`define EXE_MADDU_OP 8'b1010_1000
+`define EXE_MSUB_OP 8'b1010_1010
+`define EXE_MSUBU_OP 8'b1010_1011
 
 `define EXE_NOP_OP 8'b0000_0000
 
@@ -148,6 +156,12 @@
 `define RegNum 32                   //通用寄存器的数量
 `define RegNumLog2 5                //寻址通用寄存器使用的地址位数
 `define NOPRegAddr 5'b00000         //$0寄存器地址
+
+
+//***********  与流水线暂停机制模块ctrl有关的宏定义  *************
+`define Stop 1'b1                   //流水线暂停
+`define NoStop 1'b0                 //流水线继续
+
 
 //***************** 与4位数码管相关宏定义 **********************
 `define DispDataBus 6:0             //4位数码管数据总线宽度

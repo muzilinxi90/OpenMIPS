@@ -4,6 +4,8 @@
 //  Vivado中设置为top模块不用包含其他模块，否则出现多重定义错误
 //********************************************************************
 
+`include "defines.v"
+
 module openmips(
     input wire clk,
     input wire rst,
@@ -85,10 +87,23 @@ module openmips(
     wire[`RegBus] hi;
     wire[`RegBus] lo;
 
+    //用于连接EX和EX_MEM模块之间实现乘累加、累减指令的信号
+    wire[`DoubleRegBus] hilo_temp_o;
+    wire[1:0] cnt_o;
+    wire[`DoubleRegBus] hilo_temp_i;
+    wire[1:0] cnt_i;
+
+    //连接ctrl和其他各个模块
+    wire[5:0] stall;
+    wire stallreq_from_id;
+    wire stallreq_from_ex;
+
+
     //PC_reg例化
     pc_reg pc_reg0(
         .clk(clk),
         .rst(rst),
+        .stall(stall),
         .pc(pc),
         .ce(rom_ce_o)
         );
@@ -99,6 +114,7 @@ module openmips(
     if_id if_id0(
         .clk(clk),
         .rst(rst),
+        .stall(stall),
         .if_pc(pc),
         .if_inst(rom_data_i),
         .id_pc(id_pc_i),
@@ -137,7 +153,10 @@ module openmips(
         //MEM阶段指令结果的数据通路信息
         .mem_wreg_i(mem_wreg_o),
         .mem_wd_i(mem_wd_o),
-        .mem_wdata_i(mem_wdata_o)
+        .mem_wdata_i(mem_wdata_o),
+
+        //输出到ctrl的暂停流水线请求
+        .stallreq(stallreq_from_id)
         );
 
     //通用寄存器regfile模块例化
@@ -167,6 +186,8 @@ module openmips(
     id_ex id_ex0(
         .clk(clk),
         .rst(rst),
+
+        .stall(stall),
 
         //从ID模块传递过来的信息
         .id_aluop(id_aluop_o),
@@ -217,13 +238,24 @@ module openmips(
         .wdata_o(ex_wdata_o),
         .hi_o(ex_hi_o),
         .lo_o(ex_lo_o),
-        .whilo_o(ex_whilo_o)
+        .whilo_o(ex_whilo_o),
+
+        //输出到ctrl的暂停流水线信号
+        .stallreq(stallreq_from_ex),
+
+        //与EX_MEM模块连接用于乘累加、累减指令的信号
+        .hilo_temp_i(hilo_temp_i),
+        .cnt_i(cnt_i),
+        .hilo_temp_o(hilo_temp_o),
+        .cnt_o(cnt_o)
         );
 
     //EX/MEM模块例化
     ex_mem ex_mem0(
         .clk(clk),
         .rst(rst),
+
+        .stall(stall),
 
         //来自EX模块的信息
         .ex_wd(ex_wd_o),
@@ -239,7 +271,13 @@ module openmips(
         .mem_wdata(mem_wdata_i),
         .mem_hi(mem_hi_i),
         .mem_lo(mem_lo_i),
-        .mem_whilo(mem_whilo_i)
+        .mem_whilo(mem_whilo_i),
+
+        //与EX模块连接用于乘累加、累减指令的信号
+        .hilo_i(hilo_temp_o),
+        .cnt_i(cnt_o),
+        .hilo_o(hilo_temp_i),
+        .cnt_o(cnt_i)
         );
 
     //MEM模块例化
@@ -268,6 +306,8 @@ module openmips(
         .clk(clk),
         .rst(rst),
 
+        .stall(stall),
+
         //来自MEM模块的信息
         .mem_wd(mem_wd_o),
         .mem_wreg(mem_wreg_o),
@@ -285,6 +325,7 @@ module openmips(
         .wb_whilo(wb_whilo_i)
         );
 
+    //例化特殊寄存器HI/LO
     hilo_reg hilo_reg0(
         .clk(clk),
         .rst(rst),
@@ -297,6 +338,14 @@ module openmips(
         //读端口
         .hi_o(hi),
         .lo_o(lo)
+        );
+
+    //例化流水线暂停控制模块ctrl
+    ctrl ctrl0(
+        .rst(rst),
+        .stallreq_from_id(stallreq_from_id),
+        .stallreq_from_ex(stallreq_from_ex),
+        .stall(stall)
         );
 
 endmodule

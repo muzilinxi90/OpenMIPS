@@ -1,9 +1,12 @@
 `timescale 1ns / 1ps
 //******************    给出指令地址    ***********************
 
+`include "defines.v"
+
 module pc_reg(
     input wire clk,                     //时钟信号
     input wire rst,                     //复位信号
+    input wire[5:0] stall,              //来自控制模块ctrl
     output reg[`InstAddrBus] pc,        //要读取的指令地址
     output reg ce                       //指令存储器使能信号
     );
@@ -16,11 +19,12 @@ module pc_reg(
         end
     end
 
+    //当stall[0]为NoStop时，PC加4，否则保持PC不变
     always @ ( posedge clk ) begin
         if(ce == `ChipDisable) begin
             pc <= 32'h0000_0000;        //指令存储器禁用的时，PC为0
-        end else begin
-            pc <= (pc + 32'h4);            //指令存储器使能时，PC值每时钟周期增加4
+        end else if(stall[0] == `NoStop) begin
+            pc <= (pc + 32'h4);         //指令存储器使能时，PC值每时钟周期增加4
         end
     end
 

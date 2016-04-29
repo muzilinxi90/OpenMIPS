@@ -4,6 +4,8 @@
 //  最小SOPC实现，实例化OpenMIPS和指令存储器ROM
 //******************************************************************
 
+`include "defines.v"
+
 module openmips_min_sopc(
     input wire clk,
     input wire rst,

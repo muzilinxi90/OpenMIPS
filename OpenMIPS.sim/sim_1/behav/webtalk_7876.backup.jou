@@ -2,8 +2,8 @@
 # Webtalk v2015.4 (64-bit)
 # SW Build 1412921 on Wed Nov 18 09:43:45 MST 2015
 # IP Build 1412160 on Tue Nov 17 13:47:24 MST 2015
-# Start of session at: Fri Apr 29 17:07:30 2016
-# Process ID: 6660
+# Start of session at: Fri Apr 29 17:07:13 2016
+# Process ID: 7876
 # Current directory: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.sim/sim_1/behav
 # Command line: wbtcv.exe -mode batch -source C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.sim/sim_1/behav/xsim.dir/openmips_min_sopc_tb_behav/webtalk/xsim_webtalk.tcl -notrace
 # Log file: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.sim/sim_1/behav/webtalk.log

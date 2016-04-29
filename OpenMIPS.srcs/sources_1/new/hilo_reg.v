@@ -3,6 +3,8 @@
 //      特殊寄存器HI、LO模块
 //******************************************************************************
 
+`include "defines.v"
+
 module hilo_reg(
     input wire clk,
     input wire rst,

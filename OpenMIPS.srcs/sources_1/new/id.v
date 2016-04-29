@@ -4,6 +4,8 @@
 //  源操作数1、源操作数2、要写入的目的寄存器地址等
 //********************************************
 
+`include "defines.v"
+
 module id(
     input wire rst,
     input wire[`InstAddrBus] pc_i,          //译码阶段的指令对应的地址
@@ -35,7 +37,10 @@ module id(
     //访存阶段指令的运算结果前推
     input wire mem_wreg_i,
     input wire[`RegAddrBus] mem_wd_i,
-    input wire[`RegBus] mem_wdata_i
+    input wire[`RegBus] mem_wdata_i,
+
+    //加载、存储指令输出暂停流水线信号
+    output wire stallreq
     );
 
 //***************  分析指令，判断指令的操作种类  *******************
@@ -53,6 +58,9 @@ module id(
 
     //指示指令是否有效
     reg instvalid;
+
+    //暂时赋值为0
+    assign stallreq = `NoStop;
 
 //******************************************************
 //  第一段：对指令进行译码,从三方面信息考虑:
@@ -410,6 +418,38 @@ module id(
                         `EXE_MUL:begin
                             wreg_o <= `WriteEnable;
                             aluop_o <= `EXE_MUL_OP;
+                            alusel_o <= `EXE_RES_MUL;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_MADD:begin
+                            wreg_o <= `WriteDisable;
+                            aluop_o <= `EXE_MADD_OP;
+                            alusel_o <= `EXE_RES_MUL;   //此处没有作用
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_MADDU:begin
+                            wreg_o <= `WriteDisable;
+                            aluop_o <= `EXE_MADDU_OP;
+                            alusel_o <= `EXE_RES_MUL;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_MSUB:begin
+                            wreg_o <= `WriteDisable;
+                            aluop_o <= `EXE_MSUB_OP;
+                            alusel_o <= `EXE_RES_MUL;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_MSUBU:begin
+                            wreg_o <= `WriteDisable;
+                            aluop_o <= `EXE_MSUBU_OP;
                             alusel_o <= `EXE_RES_MUL;
                             reg1_read_o <= 1'b1;
                             reg2_read_o <= 1'b1;
