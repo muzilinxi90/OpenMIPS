@@ -66,10 +66,14 @@
 `define EXE_MULT 6'b011000          //mult指令功能码
 `define EXE_MULTU 6'b011001         //multu指令功能码
 `define EXE_MUL 6'b000010           //mul指令功能码
+
 `define EXE_MADD 6'b000000          //madd指令功能码
 `define EXE_MADDU 6'b000001         //maddu指令功能码
 `define EXE_MSUB 6'b000100          //msub指令功能码
 `define EXE_MSUBU 6'b000101         //msubu指令功能码
+
+`define EXE_DIV 6'b011010           //div指令功能码
+`define EXE_DIVU 6'b011011          //divu指令功能码
 
 //空指令
 `define EXE_NOP 6'b000000           //空指令功能码
@@ -122,10 +126,14 @@
 `define EXE_MULT_OP 8'b0001_1000
 `define EXE_MULTU_OP 8'b0001_1001
 `define EXE_MUL_OP 8'b1010_1001
+
 `define EXE_MADD_OP 8'b1010_0110
 `define EXE_MADDU_OP 8'b1010_1000
 `define EXE_MSUB_OP 8'b1010_1010
 `define EXE_MSUBU_OP 8'b1010_1011
+
+`define EXE_DIV_OP 8'b0001_1010
+`define EXE_DIVU_OP 8'b0001_1011
 
 `define EXE_NOP_OP 8'b0000_0000
 
@@ -162,6 +170,15 @@
 `define Stop 1'b1                   //流水线暂停
 `define NoStop 1'b0                 //流水线继续
 
+//***************   与除法模块相关的宏定义    ******************
+`define DivFree 2'b00
+`define DivByZero 2'b01
+`define DivOn 2'b10
+`define DivEnd 2'b11
+`define DivResultReady 1'b1
+`define DivResultNotReady 1'b0
+`define DivStart 1'b1
+`define DivStop 1'b0
 
 //***************** 与4位数码管相关宏定义 **********************
 `define DispDataBus 6:0             //4位数码管数据总线宽度

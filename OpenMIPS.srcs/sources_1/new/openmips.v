@@ -93,6 +93,15 @@ module openmips(
     wire[`DoubleRegBus] hilo_temp_i;
     wire[1:0] cnt_i;
 
+    //连接EX模块和DIV模块的信号
+    wire[`DoubleRegBus] div_result;
+    wire div_ready;
+    wire[`RegBus] div_opdata1;
+    wire[`RegBus] div_opdata2;
+    wire div_start;
+    wire div_annul;
+    wire signed_div;
+
     //连接ctrl和其他各个模块
     wire[5:0] stall;
     wire stallreq_from_id;
@@ -247,7 +256,15 @@ module openmips(
         .hilo_temp_i(hilo_temp_i),
         .cnt_i(cnt_i),
         .hilo_temp_o(hilo_temp_o),
-        .cnt_o(cnt_o)
+        .cnt_o(cnt_o),
+
+        //与DIV模块连接
+        .div_opdata1_o(div_opdata1),
+        .div_opdata2_o(div_opdata2),
+        .signed_div_o(signed_div),
+        .div_start_o(div_start),
+        .div_ready_i(div_ready),
+        .div_result_i(div_result)
         );
 
     //EX/MEM模块例化
@@ -346,6 +363,22 @@ module openmips(
         .stallreq_from_id(stallreq_from_id),
         .stallreq_from_ex(stallreq_from_ex),
         .stall(stall)
+        );
+
+    //例化除法模块div
+    div div0(
+        .clk(clk),
+        .rst(rst),
+
+        .signed_div_i(signed_div),
+        .opdata1_i(div_opdata1),
+        .opdata2_i(div_opdata2),
+        .start_i(div_start),
+        //暂时固定为0，异常处理时修改
+        .annul_i(1'b0),
+
+        .ready_o(div_ready),
+        .result_o(div_result)
         );
 
 endmodule

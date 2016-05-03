@@ -283,6 +283,20 @@ module id(
                                     reg2_read_o <= 1'b1;
                                     instvalid <= `InstValid;
                                 end
+                                `EXE_DIV:begin
+                                    wreg_o <= `WriteDisable;
+                                    aluop_o <= `EXE_DIV_OP;
+                                    reg1_read_o <= 1'b1;
+                                    reg2_read_o <= 1'b1;
+                                    instvalid <= `InstValid;
+                                end
+                                `EXE_DIVU:begin
+                                    wreg_o <= `WriteDisable;
+                                    aluop_o <= `EXE_DIVU_OP;
+                                    reg1_read_o <= 1'b1;
+                                    reg2_read_o <= 1'b1;
+                                    instvalid <= `InstValid;
+                                end
                                 default:begin
                                 end
                             endcase//case(op3)

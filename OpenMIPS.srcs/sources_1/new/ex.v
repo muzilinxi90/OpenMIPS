@@ -47,7 +47,15 @@ module ex(
     input wire[`DoubleRegBus] hilo_temp_i,  //第一个执行周期得到的乘法结果
     input wire[1:0] cnt_i,                  //当前处于执行阶段的第几个时钟周期
     output reg[`DoubleRegBus] hilo_temp_o,  //第一个执行周期得到的乘法结果
-    output reg[1:0] cnt_o                   //下一个时钟周期处于执行阶段的第几个时钟周期
+    output reg[1:0] cnt_o,                  //下一个时钟周期处于执行阶段的第几个时钟周期
+
+    //与DIV模块连接的接口
+    input wire[`DoubleRegBus] div_result_i,
+    input wire div_ready_i,
+    output reg[`RegBus] div_opdata1_o,
+    output reg[`RegBus] div_opdata2_o,
+    output reg div_start_o,
+    output reg signed_div_o
     );
 
     //保存逻辑运算的结果
@@ -74,8 +82,10 @@ module ex(
     wire[`RegBus] opdata1_mult;     //乘法操作中的被乘数
     wire[`RegBus] opdata2_mult;     //乘法操作中的乘数
     wire[`DoubleRegBus] hilo_temp;  //临时保存乘法结果，宽度为64位
-    reg[`DoubleRegBus] hilo_temp1; //临时保存乘累加累减运算结果
+    reg[`DoubleRegBus] hilo_temp1;  //临时保存乘累加累减运算结果
     reg stallreq_for_madd_msub;     //请求流水线暂停
+
+    reg stallreq_for_div;           //是否由于除法运算导致流水线暂停
 
 //********************************************************************
 //  依据aluop_i指示的运算子类型进行运算
@@ -389,11 +399,72 @@ module ex(
         end//else
     end
 
-    //暂停流水线
-    //目前只有乘累加、乘累减指令会导致流水线暂停，所以stallreq直接等于
-    //stallreq_for_madd_msub的值
+    //除法运算:输出DIV模块控制信息，获取DIV模块给出的结果
     always @ ( * ) begin
-        stallreq = stallreq_for_madd_msub;
+        if(rst == `RstEnable) begin
+            stallreq_for_div <= `NoStop;
+            div_opdata1_o <= `ZeroWord;
+            div_opdata2_o <= `ZeroWord;
+            div_start_o <= `DivStop;
+            signed_div_o <= 1'b0;
+        end else begin
+            stallreq_for_div <= `NoStop;
+            div_opdata1_o <= `ZeroWord;
+            div_opdata2_o <= `ZeroWord;
+            div_start_o <= `DivStop;
+            signed_div_o <= 1'b0;
+            case(aluop_i)
+                `EXE_DIV_OP:begin
+                    if(div_ready_i == `DivResultNotReady) begin
+                        div_opdata1_o <= reg1_i;        //被除数
+                        div_opdata2_o <= reg2_i;        //除数
+                        div_start_o <= `DivStart;       //开始除法运算
+                        signed_div_o <= 1'b1;           //有符号除法
+                        stallreq_for_div <= `Stop;      //请求流水线暂停
+                    end else if(div_ready_i == `DivResultReady) begin
+                        div_opdata1_o <= reg1_i;
+                        div_opdata2_o <= reg2_i;
+                        div_start_o <= `DivStop;        //结束除法运算
+                        signed_div_o <= 1'b1;
+                        stallreq_for_div <= `NoStop;    //不再请求流水线暂停
+                    end else begin
+                        div_opdata1_o <= `ZeroWord;
+                        div_opdata2_o <= `ZeroWord;
+                        div_start_o <= `DivStop;
+                        signed_div_o <= 1'b0;
+                        stallreq_for_div <= `NoStop;
+                    end
+                end
+                `EXE_DIVU_OP:begin
+                    if(div_ready_i == `DivResultNotReady) begin
+                        div_opdata1_o <= reg1_i;
+                        div_opdata2_o <= reg2_i;
+                        div_start_o <= `DivStart;
+                        signed_div_o <= 1'b0;
+                        stallreq_for_div <= `Stop;
+                    end else if(div_ready_i == `DivResultReady) begin
+                        div_opdata1_o <= reg1_i;
+                        div_opdata2_o <= reg2_i;
+                        div_start_o <= `DivStop;
+                        signed_div_o <= 1'b0;
+                        stallreq_for_div <= `NoStop;
+                    end else begin
+                        div_opdata1_o <= `ZeroWord;
+                        div_opdata2_o <= `ZeroWord;
+                        div_start_o <= `DivStop;
+                        signed_div_o <= 1'b0;
+                        stallreq_for_div <= `NoStop;
+                    end
+                end
+                default:begin
+                end
+            endcase
+        end//slse
+    end
+
+    //暂停流水线
+    always @ ( * ) begin
+        stallreq = stallreq_for_madd_msub || stallreq_for_div;
     end
 
 //********************************************************************
@@ -432,7 +503,7 @@ module ex(
         endcase
     end
 
-    //MTHI、MTLO指令特殊处理
+    //特殊寄存器HI、LO写入控制
     always @ ( * ) begin
         if(rst == `RstEnable) begin
             whilo_o <= `WriteDisable;
@@ -461,6 +532,10 @@ module ex(
             whilo_o <= `WriteEnable;
             hi_o <= hilo_temp1[63:32];
             lo_o <= hilo_temp1[31:0];
+        end else if((aluop_i == `EXE_DIV_OP) || (aluop_i == `EXE_DIVU_OP)) begin
+            whilo_o <= `WriteEnable;
+            hi_o <= div_result_i[63:32];
+            lo_o <= div_result_i[31:0];
         end else begin
             whilo_o <= `WriteDisable;
             hi_o <= `ZeroWord;
