@@ -27,7 +27,15 @@ module id_ex(
     output reg[`RegBus] ex_reg1,        //执行阶段指令源操作数1
     output reg[`RegBus] ex_reg2,        //执行阶段指令源操作数2
     output reg[`RegAddrBus] ex_wd,      //执行阶段指令目的寄存器地址
-    output reg ex_wreg                  //执行阶段指令是否有目的寄存器
+    output reg ex_wreg,                 //执行阶段指令是否有目的寄存器
+
+    //转移指令及延迟槽相关信息
+    input wire id_is_in_delayslot,          //当前处于译码阶段的指令是否位于延迟槽
+    input wire[`RegBus] id_link_address,    //处于译码阶段的转移指令要保存的返回地址
+    input wire next_inst_in_delayslot_i,    //下一条进入译码阶段的指令是否位于延迟槽
+    output reg ex_is_in_delayslot,          //当前处于执行阶段的指令是否位于延迟槽
+    output reg[`RegBus] ex_link_address,    //处于执行阶段的转移指令要保存的返回地址
+    output reg is_in_delayslot_o            //当前处于译码阶段的指令是否位于延迟槽
     );
 
     // 1.当stall[2]为Stop，stall[3]为NoStop时，表示译码阶段暂停，而执行阶段
@@ -43,6 +51,9 @@ module id_ex(
             ex_reg2 <= `ZeroWord;
             ex_wd <= `NOPRegAddr;
             ex_wreg <= `WriteDisable;
+            ex_link_address <= `ZeroWord;
+            ex_is_in_delayslot <= `NotInDelaySlot;
+            is_in_delayslot_o <= `NotInDelaySlot;
         end else if(stall[2] == `Stop && stall[3] == `NoStop) begin
             ex_aluop <= `EXE_NOP_OP;
             ex_alusel <= `EXE_RES_NOP;
@@ -50,6 +61,8 @@ module id_ex(
             ex_reg2 <= `ZeroWord;
             ex_wd <= `NOPRegAddr;
             ex_wreg <= `WriteDisable;
+            ex_link_address <= `ZeroWord;
+            ex_is_in_delayslot <= `NotInDelaySlot;
         end else if(stall[2] == `NoStop) begin
             ex_aluop <= id_aluop;
             ex_alusel <= id_alusel;
@@ -57,6 +70,9 @@ module id_ex(
             ex_reg2 <= id_reg2;
             ex_wd <= id_wd;
             ex_wreg <= id_wreg;
+            ex_link_address <= id_link_address;
+            ex_is_in_delayslot <= id_is_in_delayslot;
+            is_in_delayslot_o <= next_inst_in_delayslot_i;
         end
     end
 endmodule

@@ -55,7 +55,12 @@ module ex(
     output reg[`RegBus] div_opdata1_o,
     output reg[`RegBus] div_opdata2_o,
     output reg div_start_o,
-    output reg signed_div_o
+    output reg signed_div_o,
+
+    //处于执行阶段的转移指令要保存的返回地址
+    input wire[`RegBus] link_address_i,
+    //当前执行阶段的指令是否位于延迟槽(异常处理过程中使用)
+    input wire is_in_delayslot_i
     );
 
     //保存逻辑运算的结果
@@ -496,6 +501,9 @@ module ex(
             end
             `EXE_RES_MUL:begin
                 wdata_o <= mulres[31:0];
+            end
+            `EXE_RES_JUMP_BRANCH:begin
+                wdata_o <= link_address_i;
             end
             default:begin
                 wdata_o <= `ZeroWord;

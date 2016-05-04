@@ -75,6 +75,19 @@
 `define EXE_DIV 6'b011010           //div指令功能码
 `define EXE_DIVU 6'b011011          //divu指令功能码
 
+`define EXE_J 6'b000010             //j指令码
+`define EXE_JAL 6'b000011           //jal指令码
+`define EXE_JALR 6'b001001          //jalr功能码
+`define EXE_JR 6'b001000            //jr功能码
+`define EXE_BEQ 6'b000100           //beq指令码
+`define EXE_BGEZ 5'b00001           //bgez功能码2
+`define EXE_BGEZAL 5'b10001         //bgezal功能码2
+`define EXE_BGTZ 6'b000111          //bgtz指令码
+`define EXE_BLEZ 6'b000110          //blez指令码
+`define EXE_BLTZ 5'b00000           //bltz功能码2
+`define EXE_BLTZAL 5'b10000         //bltzal功能码2
+`define EXE_BNE 6'b000101           //bne指令码
+
 //空指令
 `define EXE_NOP 6'b000000           //空指令功能码
 `define SSNOP 32'h0000_0040         //SSNOP指令
@@ -84,7 +97,7 @@
 `define EXE_PREF 6'b110011          //pref指令码
 `define EXE_SPECIAL_INST 6'b000000  //SPECIAL类指令的指令码
 `define EXE_SPECIAL2_INST 6'b011100 //SPECIAL2类指令的指令码
-`define EXE_REGIMM_INST 6'b000001   //???
+`define EXE_REGIMM_INST 6'b000001   //REGIMM类转移指令
 
 //*********AluOp：指令要执行的运算子类型（ID输出到EX）***********
 `define EXE_AND_OP 8'b0010_0100
@@ -135,6 +148,19 @@
 `define EXE_DIV_OP 8'b0001_1010
 `define EXE_DIVU_OP 8'b0001_1011
 
+`define EXE_J_OP 8'b0100_1111
+`define EXE_JAL_OP 8'b0101_0000
+`define EXE_JALR_OP 8'b0000_1001
+`define EXE_JR_OP 8'b0000_1000
+`define EXE_BEQ_OP 8'b0101_0001
+`define EXE_BGEZ_OP 8'b0100_0001
+`define EXE_BGEZAL_OP 8'b0100_1011
+`define EXE_BGTZ_OP 8'b0101_0100
+`define EXE_BLEZ_OP 8'b0101_0011
+`define EXE_BLTZ_OP 8'b0100_0000
+`define EXE_BLTZAL_OP 8'b0100_1010
+`define EXE_BNE_OP 8'b0101_0010
+
 `define EXE_NOP_OP 8'b0000_0000
 
 
@@ -144,6 +170,7 @@
 `define EXE_RES_MOVE 3'b011
 `define EXE_RES_ARITHMETIC 3'b100
 `define EXE_RES_MUL 3'b101
+`define EXE_RES_JUMP_BRANCH 3'b110
 
 `define EXE_RES_NOP 3'b000
 
@@ -179,6 +206,12 @@
 `define DivResultNotReady 1'b0
 `define DivStart 1'b1
 `define DivStop 1'b0
+
+//**************    转移指令相关宏定义   ****************
+`define Branch 1'b1                 //转移
+`define NotBranch 1'b0              //不转移
+`define InDelaySlot 1'b1            //在延迟槽中
+`define NotInDelaySlot 1'b0         //不在延迟槽中
 
 //***************** 与4位数码管相关宏定义 **********************
 `define DispDataBus 6:0             //4位数码管数据总线宽度

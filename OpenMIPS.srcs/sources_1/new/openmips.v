@@ -34,6 +34,8 @@ module openmips(
     wire[`RegBus] id_reg2_o;
     wire id_wreg_o;
     wire[`RegAddrBus] id_wd_o;
+    wire id_is_in_delayslot_o;
+    wire[`RegBus] id_link_address_o;
 
     //连接ID/EX模块与EX模块的变量
     wire[`AluOpBus] ex_aluop_i;
@@ -42,6 +44,8 @@ module openmips(
     wire[`RegBus] ex_reg2_i;
     wire ex_wreg_i;
     wire[`RegAddrBus] ex_wd_i;
+    wire ex_is_in_delayslot_i;
+    wire[`RegBus] ex_link_address_i;
 
     //连接EX模块与EX/MEM模块的变量
     wire ex_wreg_o;
@@ -102,6 +106,13 @@ module openmips(
     wire div_annul;
     wire signed_div;
 
+    //转移指令及延迟槽相关信号(PC和ID、ID/EX之间)
+    wire is_in_delayslot_i;
+    wire is_in_delayslot_o;
+    wire next_inst_in_delayslot_o;
+    wire id_branch_flag_o;
+    wire[`RegBus] branch_target_address;
+
     //连接ctrl和其他各个模块
     wire[5:0] stall;
     wire stallreq_from_id;
@@ -114,7 +125,9 @@ module openmips(
         .rst(rst),
         .stall(stall),
         .pc(pc),
-        .ce(rom_ce_o)
+        .ce(rom_ce_o),
+        .branch_flag_i(id_branch_flag_o),
+        .branch_target_address_i(branch_target_address)
         );
 
     assign rom_addr_o = pc;         //指令存储器的输入地址就是PC的值
@@ -165,7 +178,15 @@ module openmips(
         .mem_wdata_i(mem_wdata_o),
 
         //输出到ctrl的暂停流水线请求
-        .stallreq(stallreq_from_id)
+        .stallreq(stallreq_from_id),
+
+        //转移指令相关
+        .is_in_delayslot_i(is_in_delayslot_i),
+        .is_in_delayslot_o(id_is_in_delayslot_o),
+        .next_inst_in_delayslot_o(next_inst_in_delayslot_o),
+        .branch_flag_o(id_branch_flag_o),
+        .branch_target_address_o(branch_target_address),
+        .link_addr_o(id_link_address_o)
         );
 
     //通用寄存器regfile模块例化
@@ -205,6 +226,9 @@ module openmips(
         .id_reg2(id_reg2_o),
         .id_wd(id_wd_o),
         .id_wreg(id_wreg_o),
+        .id_link_address(id_link_address_o),
+        .id_is_in_delayslot(id_is_in_delayslot_o),
+        .next_inst_in_delayslot_i(next_inst_in_delayslot_o),
 
         //传递到EX模块的信息
         .ex_aluop(ex_aluop_i),
@@ -212,7 +236,10 @@ module openmips(
         .ex_reg1(ex_reg1_i),
         .ex_reg2(ex_reg2_i),
         .ex_wd(ex_wd_i),
-        .ex_wreg(ex_wreg_i)
+        .ex_wreg(ex_wreg_i),
+        .ex_link_address(ex_link_address_i),
+        .ex_is_in_delayslot(ex_is_in_delayslot_i),
+        .is_in_delayslot_o(is_in_delayslot_i)
         );
 
     //EX模块例化
@@ -264,7 +291,11 @@ module openmips(
         .signed_div_o(signed_div),
         .div_start_o(div_start),
         .div_ready_i(div_ready),
-        .div_result_i(div_result)
+        .div_result_i(div_result),
+
+        //转移指令相关
+        .link_address_i(ex_link_address_i),
+        .is_in_delayslot_i(ex_is_in_delayslot_i)
         );
 
     //EX/MEM模块例化
