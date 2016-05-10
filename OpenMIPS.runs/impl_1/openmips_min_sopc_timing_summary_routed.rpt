@@ -1,7 +1,7 @@
 Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2015.4 (win64) Build 1412921 Wed Nov 18 09:43:45 MST 2015
-| Date         : Sun Apr 24 16:50:29 2016
+| Date         : Tue May 10 14:29:49 2016
 | Host         : LMX-PC running 64-bit Service Pack 1  (build 7601)
 | Command      : report_timing_summary -warn_on_violation -max_paths 10 -file openmips_min_sopc_timing_summary_routed.rpt -rpx openmips_min_sopc_timing_summary_routed.rpx
 | Design       : openmips_min_sopc
@@ -52,7 +52,7 @@ Table of Contents
 
 1. checking no_clock
 --------------------
- There are 110 register/latch pins with no clock driven by root clock pin: clk (HIGH)
+ There are 810 register/latch pins with no clock driven by root clock pin: clk (HIGH)
 
  There are 2 register/latch pins with no clock driven by root clock pin: clk_div0/clk_div_reg/C (HIGH)
 
@@ -69,7 +69,7 @@ Table of Contents
 
 4. checking unconstrained_internal_endpoints
 --------------------------------------------
- There are 361 pins that are not constrained for maximum delay. (HIGH)
+ There are 2748 pins that are not constrained for maximum delay. (HIGH)
 
  There are 0 pins that are not constrained for maximum delay due to constant clock.
 

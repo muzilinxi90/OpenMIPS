@@ -2,8 +2,8 @@
 # Vivado v2015.4 (64-bit)
 # SW Build 1412921 on Wed Nov 18 09:43:45 MST 2015
 # IP Build 1412160 on Tue Nov 17 13:47:24 MST 2015
-# Start of session at: Sun Apr 24 16:46:28 2016
-# Process ID: 5392
+# Start of session at: Tue May 10 14:23:30 2016
+# Process ID: 6300
 # Current directory: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/synth_1
 # Command line: vivado.exe -log openmips_min_sopc.vds -mode batch -messageDb vivado.pb -notrace -source openmips_min_sopc.tcl
 # Log file: C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.runs/synth_1/openmips_min_sopc.vds
@@ -14,144 +14,151 @@ Command: synth_design -top openmips_min_sopc -part xc7a35ticpg236-1L
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35ti'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35ti'
+INFO: [Common 17-1223] The version limit for your license is '2016.05' and will expire in 21 days. A version limit expiration means that, although you may be able to continue to use the current version of tools or IP with this license, you will not be eligible for any updates or new releases.
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:13 ; elapsed = 00:00:21 . Memory (MB): peak = 295.016 ; gain = 123.039
+Starting RTL Elaboration : Time (s): cpu = 00:00:14 ; elapsed = 00:00:29 . Memory (MB): peak = 295.898 ; gain = 124.590
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'openmips_min_sopc' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/openmips_min_sopc.v:7]
-INFO: [Synth 8-638] synthesizing module 'openmips' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/openmips.v:7]
-INFO: [Synth 8-638] synthesizing module 'pc_reg' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/pc_reg.v:4]
-INFO: [Synth 8-256] done synthesizing module 'pc_reg' (1#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/pc_reg.v:4]
-INFO: [Synth 8-638] synthesizing module 'if_id' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/if_id.v:7]
-INFO: [Synth 8-256] done synthesizing module 'if_id' (2#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/if_id.v:7]
-INFO: [Synth 8-638] synthesizing module 'id' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id.v:7]
-INFO: [Synth 8-256] done synthesizing module 'id' (3#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id.v:7]
-INFO: [Synth 8-638] synthesizing module 'regfile' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile.v:7]
-INFO: [Synth 8-256] done synthesizing module 'regfile' (4#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile.v:7]
-INFO: [Synth 8-638] synthesizing module 'id_ex' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id_ex.v:7]
-INFO: [Synth 8-256] done synthesizing module 'id_ex' (5#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id_ex.v:7]
-INFO: [Synth 8-638] synthesizing module 'ex' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v:6]
-INFO: [Synth 8-256] done synthesizing module 'ex' (6#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v:6]
-INFO: [Synth 8-638] synthesizing module 'ex_mem' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex_mem.v:6]
-INFO: [Synth 8-256] done synthesizing module 'ex_mem' (7#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex_mem.v:6]
-INFO: [Synth 8-638] synthesizing module 'mem' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem.v:6]
-INFO: [Synth 8-256] done synthesizing module 'mem' (8#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem.v:6]
-INFO: [Synth 8-638] synthesizing module 'mem_wb' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem_wb.v:6]
-INFO: [Synth 8-256] done synthesizing module 'mem_wb' (9#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem_wb.v:6]
-INFO: [Synth 8-256] done synthesizing module 'openmips' (10#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/openmips.v:7]
-INFO: [Synth 8-638] synthesizing module 'inst_rom' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:6]
-WARNING: [Synth 8-3848] Net inst_mem[4] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[5] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[6] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[7] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[8] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[9] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[10] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[11] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[12] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[13] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[14] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[15] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[16] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[17] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[18] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[19] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[20] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[21] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[22] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[23] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[24] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[25] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[26] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[27] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[28] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[29] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[30] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[31] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[32] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[33] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[34] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[35] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[36] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[37] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[38] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[39] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[40] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[41] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[42] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[43] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[44] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[45] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[46] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[47] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[48] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[49] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[50] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[51] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[52] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[53] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[54] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[55] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[56] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[57] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[58] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[59] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[60] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[61] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[62] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[63] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[64] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[65] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[66] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[67] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[68] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[69] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[70] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[71] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[72] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[73] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[74] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[75] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[76] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[77] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[78] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[79] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[80] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[81] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[82] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[83] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[84] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[85] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[86] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[87] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[88] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[89] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[90] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[91] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[92] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[93] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[94] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[95] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[96] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[97] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[98] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[99] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[100] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[101] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[102] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
-WARNING: [Synth 8-3848] Net inst_mem[103] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:17]
+INFO: [Synth 8-638] synthesizing module 'openmips_min_sopc' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/openmips_min_sopc.v:9]
+INFO: [Synth 8-638] synthesizing module 'openmips' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/openmips.v:9]
+INFO: [Synth 8-638] synthesizing module 'pc_reg' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/pc_reg.v:6]
+INFO: [Synth 8-256] done synthesizing module 'pc_reg' (1#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/pc_reg.v:6]
+INFO: [Synth 8-638] synthesizing module 'if_id' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/if_id.v:9]
+INFO: [Synth 8-256] done synthesizing module 'if_id' (2#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/if_id.v:9]
+INFO: [Synth 8-638] synthesizing module 'id' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id.v:15]
+INFO: [Synth 8-256] done synthesizing module 'id' (3#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id.v:15]
+INFO: [Synth 8-638] synthesizing module 'regfile' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile.v:9]
+INFO: [Synth 8-256] done synthesizing module 'regfile' (4#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile.v:9]
+INFO: [Synth 8-638] synthesizing module 'id_ex' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id_ex.v:9]
+INFO: [Synth 8-256] done synthesizing module 'id_ex' (5#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id_ex.v:9]
+INFO: [Synth 8-638] synthesizing module 'ex' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v:8]
+INFO: [Synth 8-256] done synthesizing module 'ex' (6#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v:8]
+INFO: [Synth 8-638] synthesizing module 'ex_mem' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex_mem.v:8]
+INFO: [Synth 8-256] done synthesizing module 'ex_mem' (7#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex_mem.v:8]
+INFO: [Synth 8-638] synthesizing module 'mem' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem.v:8]
+INFO: [Synth 8-256] done synthesizing module 'mem' (8#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem.v:8]
+INFO: [Synth 8-638] synthesizing module 'mem_wb' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem_wb.v:8]
+INFO: [Synth 8-256] done synthesizing module 'mem_wb' (9#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem_wb.v:8]
+INFO: [Synth 8-638] synthesizing module 'hilo_reg' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/hilo_reg.v:8]
+INFO: [Synth 8-256] done synthesizing module 'hilo_reg' (10#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/hilo_reg.v:8]
+INFO: [Synth 8-638] synthesizing module 'ctrl' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ctrl.v:18]
+INFO: [Synth 8-256] done synthesizing module 'ctrl' (11#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ctrl.v:18]
+INFO: [Synth 8-638] synthesizing module 'div' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/div.v:8]
+INFO: [Synth 8-256] done synthesizing module 'div' (12#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/div.v:8]
+INFO: [Synth 8-256] done synthesizing module 'openmips' (13#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/openmips.v:9]
+INFO: [Synth 8-638] synthesizing module 'inst_rom' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:8]
+WARNING: [Synth 8-3848] Net inst_mem[12] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[13] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[14] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[15] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[16] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[17] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[18] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[19] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[20] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[21] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[22] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[23] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[24] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[25] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[26] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[27] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[28] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[29] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[30] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[31] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[32] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[33] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[34] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[35] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[36] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[37] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[38] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[39] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[40] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[41] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[42] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[43] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[44] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[45] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[46] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[47] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[48] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[49] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[50] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[51] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[52] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[53] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[54] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[55] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[56] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[57] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[58] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[59] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[60] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[61] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[62] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[63] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[64] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[65] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[66] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[67] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[68] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[69] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[70] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[71] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[72] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[73] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[74] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[75] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[76] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[77] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[78] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[79] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[80] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[81] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[82] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[83] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[84] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[85] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[86] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[87] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[88] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[89] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[90] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[91] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[92] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[93] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[94] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[95] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[96] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[97] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[98] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[99] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[100] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[101] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[102] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[103] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[104] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[105] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[106] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[107] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[108] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[109] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[110] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
+WARNING: [Synth 8-3848] Net inst_mem[111] in module/entity inst_rom does not have driver. [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:19]
 INFO: [Common 17-14] Message 'Synth 8-3848' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-256] done synthesizing module 'inst_rom' (11#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:6]
-INFO: [Synth 8-638] synthesizing module 'clk_div' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/clk_div.v:9]
-INFO: [Synth 8-256] done synthesizing module 'clk_div' (12#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/clk_div.v:9]
-INFO: [Synth 8-638] synthesizing module 'regfile_display' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:32]
-INFO: [Synth 8-226] default block is never used [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:74]
-INFO: [Synth 8-226] default block is never used [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:83]
-INFO: [Synth 8-226] default block is never used [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:94]
-INFO: [Synth 8-226] default block is never used [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:117]
-INFO: [Synth 8-256] done synthesizing module 'regfile_display' (13#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:32]
-INFO: [Synth 8-256] done synthesizing module 'openmips_min_sopc' (14#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/openmips_min_sopc.v:7]
+INFO: [Synth 8-256] done synthesizing module 'inst_rom' (14#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:8]
+INFO: [Synth 8-638] synthesizing module 'clk_div' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/clk_div.v:12]
+INFO: [Synth 8-256] done synthesizing module 'clk_div' (15#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/clk_div.v:12]
+INFO: [Synth 8-638] synthesizing module 'regfile_display' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:34]
+INFO: [Synth 8-226] default block is never used [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:76]
+INFO: [Synth 8-226] default block is never used [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:85]
+INFO: [Synth 8-226] default block is never used [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:96]
+INFO: [Synth 8-226] default block is never used [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:119]
+INFO: [Synth 8-256] done synthesizing module 'regfile_display' (16#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v:34]
+INFO: [Synth 8-256] done synthesizing module 'openmips_min_sopc' (17#1) [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/openmips_min_sopc.v:9]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:18 ; elapsed = 00:00:27 . Memory (MB): peak = 377.340 ; gain = 205.363
+Finished RTL Elaboration : Time (s): cpu = 00:00:21 ; elapsed = 00:00:39 . Memory (MB): peak = 389.449 ; gain = 218.141
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -161,7 +168,7 @@ Report Check Netlist:
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:19 ; elapsed = 00:00:29 . Memory (MB): peak = 377.340 ; gain = 205.363
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:22 ; elapsed = 00:00:40 . Memory (MB): peak = 389.449 ; gain = 218.141
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a35ticpg236-1L
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -177,66 +184,132 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.026 . Memory (MB): peak = 644.469 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 700.617 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:43 ; elapsed = 00:00:57 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Constraint Validation : Time (s): cpu = 00:00:49 ; elapsed = 00:01:19 . Memory (MB): peak = 700.617 ; gain = 529.309
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35ticpg236-1L
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:43 ; elapsed = 00:00:57 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:49 ; elapsed = 00:01:19 . Memory (MB): peak = 700.617 ; gain = 529.309
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:43 ; elapsed = 00:00:58 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:50 ; elapsed = 00:01:19 . Memory (MB): peak = 700.617 ; gain = 529.309
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-5546] ROM "wreg_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "reg1_read_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "reg1_read_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "reg1_read_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5587] ROM size for "reg2_read_o" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5587] ROM size for "reg2_read_o" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5587] ROM size for "aluop_o" is below threshold of ROM address width. It will be mapped to LUTs
 INFO: [Synth 8-5546] ROM "aluop_o" won't be mapped to RAM because it is too sparse
-WARNING: [Synth 8-327] inferring latch for variable 'reg2_addr_o_reg' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id.v:57]
-WARNING: [Synth 8-327] inferring latch for variable 'inst_mem_reg[0]' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:28]
-WARNING: [Synth 8-327] inferring latch for variable 'inst_mem_reg[1]' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:28]
-WARNING: [Synth 8-327] inferring latch for variable 'inst_mem_reg[2]' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:28]
-WARNING: [Synth 8-327] inferring latch for variable 'inst_mem_reg[3]' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v:28]
+INFO: [Synth 8-5546] ROM "aluop_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5587] ROM size for "alusel_o" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5546] ROM "alusel_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "alusel_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "wreg_o" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5587] ROM size for "wreg_o" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5546] ROM "wreg_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "branch_flag_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "signed_div_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "hilo_temp_o" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cnt_o" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stallreq_for_madd_msub" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5545] ROM "state" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "cnt" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+WARNING: [Synth 8-327] inferring latch for variable 'hilo_temp1_reg' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v:377]
+WARNING: [Synth 8-327] inferring latch for variable 'stallreq_for_madd_msub_reg' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v:370]
+WARNING: [Synth 8-327] inferring latch for variable 'hilo_temp_o_reg' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v:368]
+WARNING: [Synth 8-327] inferring latch for variable 'cnt_o_reg' [C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v:369]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:53 ; elapsed = 00:01:08 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:04 ; elapsed = 00:01:41 . Memory (MB): peak = 700.617 ; gain = 529.309
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
 +------+-----------------------+------------+----------+
 |      |RTL Partition          |Replication |Instances |
 +------+-----------------------+------------+----------+
-|1     |muxpart__5             |           1|    131040|
-|2     |case__11__GD           |           1|        32|
-|3     |inst_rom__GB2          |           1|       128|
-|4     |openmips_min_sopc__GC0 |           1|      2162|
+|1     |muxpart__44            |           1|    131040|
+|2     |case__96__GD           |           1|        32|
+|3     |openmips_min_sopc__GC0 |           1|     15111|
 +------+-----------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
+	   2 Input     64 Bit       Adders := 4     
+	   3 Input     33 Bit       Adders := 1     
+	   2 Input     32 Bit       Adders := 9     
+	   2 Input      6 Bit       Adders := 2     
 	   2 Input      2 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 3     
 +---Registers : 
-	               32 Bit    Registers := 6     
+	               65 Bit    Registers := 1     
+	               64 Bit    Registers := 2     
+	               32 Bit    Registers := 14    
 	                8 Bit    Registers := 1     
+	                6 Bit    Registers := 1     
 	                5 Bit    Registers := 3     
 	                3 Bit    Registers := 1     
-	                2 Bit    Registers := 1     
-	                1 Bit    Registers := 5     
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 10    
 +---RAMs : 
 	             1024 Bit         RAMs := 1     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 18    
-	   2 Input     16 Bit        Muxes := 2     
+	   2 Input     65 Bit        Muxes := 5     
+	   4 Input     65 Bit        Muxes := 2     
+	   2 Input     64 Bit        Muxes := 10    
+	   3 Input     64 Bit        Muxes := 2     
+	   4 Input     64 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 73    
+	  27 Input     32 Bit        Muxes := 2     
+	   8 Input     32 Bit        Muxes := 1     
+	   5 Input     32 Bit        Muxes := 2     
+	   4 Input     32 Bit        Muxes := 3     
+	   3 Input     32 Bit        Muxes := 2     
+	   2 Input     16 Bit        Muxes := 1     
+	   8 Input      8 Bit        Muxes := 1     
+	  19 Input      8 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 2     
+	   4 Input      8 Bit        Muxes := 1     
+	  28 Input      7 Bit        Muxes := 1     
+	   5 Input      7 Bit        Muxes := 1     
+	  32 Input      7 Bit        Muxes := 2     
 	  16 Input      7 Bit        Muxes := 1     
-	   3 Input      6 Bit        Muxes := 1     
-	   2 Input      5 Bit        Muxes := 3     
+	   4 Input      6 Bit        Muxes := 1     
+	   2 Input      6 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 5     
+	   4 Input      5 Bit        Muxes := 3     
+	   5 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 2     
 	   4 Input      4 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 4     
+	  19 Input      3 Bit        Muxes := 3     
+	  28 Input      3 Bit        Muxes := 1     
+	   8 Input      3 Bit        Muxes := 1     
+	   5 Input      3 Bit        Muxes := 1     
+	   7 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	   4 Input      3 Bit        Muxes := 1     
+	   6 Input      3 Bit        Muxes := 1     
+	  19 Input      2 Bit        Muxes := 2     
+	  27 Input      2 Bit        Muxes := 1     
+	   5 Input      2 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 5     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 34    
+	  28 Input      1 Bit        Muxes := 3     
+	   8 Input      1 Bit        Muxes := 3     
+	   5 Input      1 Bit        Muxes := 3     
+	   4 Input      1 Bit        Muxes := 11    
+	   3 Input      1 Bit        Muxes := 5     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -256,14 +329,41 @@ Module if_id
 Detailed RTL Component Info : 
 +---Registers : 
 	               32 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
 Module id 
 Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 3     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 4     
-	   2 Input     16 Bit        Muxes := 1     
-	   3 Input      6 Bit        Muxes := 1     
-	   2 Input      5 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 2     
+	   2 Input     32 Bit        Muxes := 17    
+	  27 Input     32 Bit        Muxes := 2     
+	   8 Input     32 Bit        Muxes := 1     
+	   5 Input     32 Bit        Muxes := 1     
+	   4 Input     32 Bit        Muxes := 1     
+	   8 Input      8 Bit        Muxes := 1     
+	  19 Input      8 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 2     
+	   4 Input      8 Bit        Muxes := 1     
+	  28 Input      7 Bit        Muxes := 1     
+	   5 Input      7 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 4     
+	   4 Input      5 Bit        Muxes := 3     
+	   5 Input      5 Bit        Muxes := 1     
+	  19 Input      3 Bit        Muxes := 3     
+	  28 Input      3 Bit        Muxes := 1     
+	   8 Input      3 Bit        Muxes := 1     
+	   5 Input      3 Bit        Muxes := 1     
+	   7 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	   4 Input      3 Bit        Muxes := 1     
+	  19 Input      2 Bit        Muxes := 2     
+	  27 Input      2 Bit        Muxes := 1     
+	  28 Input      1 Bit        Muxes := 3     
+	   8 Input      1 Bit        Muxes := 3     
+	   5 Input      1 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 4     
+	   4 Input      1 Bit        Muxes := 5     
 Module regfile 
 Detailed RTL Component Info : 
 +---RAMs : 
@@ -273,32 +373,96 @@ Detailed RTL Component Info :
 Module id_ex 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 2     
+	               32 Bit    Registers := 3     
 	                8 Bit    Registers := 1     
 	                5 Bit    Registers := 1     
 	                3 Bit    Registers := 1     
-	                1 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 2     
 Module ex 
 Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     64 Bit       Adders := 4     
+	   2 Input     32 Bit       Adders := 3     
+	   2 Input      6 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 1     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 2     
+	   2 Input     64 Bit        Muxes := 7     
+	   3 Input     64 Bit        Muxes := 2     
+	   2 Input     32 Bit        Muxes := 40    
+	   4 Input     32 Bit        Muxes := 2     
+	   5 Input     32 Bit        Muxes := 1     
+	   3 Input     32 Bit        Muxes := 2     
+	  32 Input      7 Bit        Muxes := 2     
+	   6 Input      3 Bit        Muxes := 1     
+	   5 Input      2 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 2     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 20    
+	   3 Input      1 Bit        Muxes := 5     
 Module ex_mem 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 1     
+	               64 Bit    Registers := 1     
+	               32 Bit    Registers := 3     
 	                5 Bit    Registers := 1     
-	                1 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     64 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 2     
 Module mem 
 Detailed RTL Component Info : 
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 3     
 	   2 Input      5 Bit        Muxes := 1     
 Module mem_wb 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 1     
+	               32 Bit    Registers := 3     
 	                5 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 2     
+Module hilo_reg 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+Module ctrl 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      4 Bit        Muxes := 2     
+Module div 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     33 Bit       Adders := 1     
+	   2 Input     32 Bit       Adders := 3     
+	   2 Input      6 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 2     
++---Registers : 
+	               65 Bit    Registers := 1     
+	               64 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
+	                6 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
 	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     65 Bit        Muxes := 5     
+	   4 Input     65 Bit        Muxes := 2     
+	   4 Input     64 Bit        Muxes := 1     
+	   2 Input     64 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 2     
+	   4 Input      6 Bit        Muxes := 1     
+	   2 Input      6 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   5 Input      2 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 1     
 Module clk_div 
 Detailed RTL Component Info : 
 +---Registers : 
@@ -328,163 +492,366 @@ BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
-Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:55 ; elapsed = 00:01:10 . Memory (MB): peak = 644.469 ; gain = 472.492
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:01:07 ; elapsed = 00:01:44 . Memory (MB): peak = 700.617 ; gain = 529.309
 ---------------------------------------------------------------------------------
 Start Cross Boundary Optimization
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "aluop_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "wreg_o" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+DSP Report: Generating DSP hilo_temp, operation Mode is: A*B.
+DSP Report: operator hilo_temp is absorbed into DSP hilo_temp.
+DSP Report: operator hilo_temp is absorbed into DSP hilo_temp.
+DSP Report: Generating DSP hilo_temp, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator hilo_temp is absorbed into DSP hilo_temp.
+DSP Report: operator hilo_temp is absorbed into DSP hilo_temp.
+DSP Report: Generating DSP hilo_temp, operation Mode is: A*B.
+DSP Report: operator hilo_temp is absorbed into DSP hilo_temp.
+DSP Report: operator hilo_temp is absorbed into DSP hilo_temp.
+DSP Report: Generating DSP hilo_temp, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator hilo_temp is absorbed into DSP hilo_temp.
+DSP Report: operator hilo_temp is absorbed into DSP hilo_temp.
+INFO: [Synth 8-5545] ROM "cnt" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+WARNING: [Synth 8-3331] design openmips_min_sopc has unconnected port write
 ---------------------------------------------------------------------------------
-Finished Cross Boundary Optimization : Time (s): cpu = 00:00:56 ; elapsed = 00:01:12 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Cross Boundary Optimization : Time (s): cpu = 00:01:14 ; elapsed = 00:01:53 . Memory (MB): peak = 700.617 ; gain = 529.309
 ---------------------------------------------------------------------------------
-Finished Parallel Reinference  : Time (s): cpu = 00:00:56 ; elapsed = 00:01:12 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Parallel Reinference  : Time (s): cpu = 00:01:14 ; elapsed = 00:01:53 . Memory (MB): peak = 700.617 ; gain = 529.309
 
 Report RTL Partitions: 
 +------+-----------------------+------------+----------+
 |      |RTL Partition          |Replication |Instances |
 +------+-----------------------+------------+----------+
-|1     |muxpart__5             |           1|    131040|
-|2     |case__11__GD           |           1|        64|
-|3     |inst_rom__GB2          |           1|       128|
-|4     |openmips_min_sopc__GC0 |           1|      2062|
+|1     |muxpart__44            |           1|    131040|
+|2     |case__96__GD           |           1|        64|
+|3     |openmips_min_sopc__GC0 |           1|     16681|
 +------+-----------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 
 Distributed RAM: 
-+-----------------------+-----------------------------+-----------+----------------------+---------------+-------------------+
-|Module Name            | RTL Object                  | Inference | Size (Depth x Width) | Primitives    | Hierarchical Name | 
-+-----------------------+-----------------------------+-----------+----------------------+---------------+-------------------+
-|openmips_min_sopc__GC0 | openmips0/regfile1/regs_reg | Implied   | 32 x 32              | RAM32M x 18   | ram__1            | 
-+-----------------------+-----------------------------+-----------+----------------------+---------------+-------------------+
++-----------------------+-------------------+-----------+----------------------+---------------+-------------------+
+|Module Name            | RTL Object        | Inference | Size (Depth x Width) | Primitives    | Hierarchical Name | 
++-----------------------+-------------------+-----------+----------------------+---------------+-------------------+
+|openmips_min_sopc__GC0 | regfile1/regs_reg | Implied   | 32 x 32              | RAM32M x 18   | openmips/ram__1   | 
++-----------------------+-------------------+-----------+----------------------+---------------+-------------------+
 
 Note: The table above shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once. "Hierarchical Name" reflects the Distributed RAM name as it appears in the hierarchical module and only part of it is displayed.
+DSP:
++------------+----------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping    | Neg Edge Clk | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+----------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|ex          | A*B            | No           | 18     | 16     | 48     | 25     | 48     | 0    | 0    | 1    | 1    | 1     | 0    | 0    | 
+|ex          | (PCIN>>17)+A*B | No           | 16     | 16     | 30     | 25     | 30     | 0    | 0    | 1    | 1    | 1     | 0    | 0    | 
+|ex          | A*B            | No           | 18     | 18     | 48     | 25     | 48     | 0    | 0    | 1    | 1    | 1     | 0    | 0    | 
+|ex          | (PCIN>>17)+A*B | No           | 18     | 16     | 31     | 25     | 47     | 0    | 0    | 1    | 1    | 1     | 0    | 0    | 
++------------+----------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Area Optimization
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][0] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][1] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][2] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][3] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][4] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][5] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][6] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][7] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][8] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][9] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][10] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][11] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][12] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][13] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][14] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][15] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][16] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][17] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][18] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][19] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][20] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][21] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][22] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][23] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][24] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][25] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][26] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][27] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][28] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][29] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][30] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[3][31] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][0] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][1] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][2] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][3] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][4] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][5] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][6] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][7] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][8] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][9] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][10] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][11] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][12] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][13] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][14] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][15] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][16] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][17] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][18] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][19] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][20] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][21] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][22] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][23] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][24] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][25] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][26] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][27] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][28] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][29] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][30] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[2][31] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][0] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][1] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][2] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][3] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][4] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][5] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][6] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][7] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][8] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][9] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][10] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][11] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][12] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][13] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][14] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][15] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][16] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][17] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][18] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][19] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][20] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][21] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][22] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][23] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][24] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][25] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][26] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][27] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][28] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][29] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][0] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][30] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[1][31] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][2] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[0][0] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][1] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[0][1] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][5] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[0][2] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][3] '
-INFO: [Synth 8-3886] merging instance 'inst_rom0i_1/\inst_mem_reg[0][3] ' (LD) to 'inst_rom0i_1/\inst_mem_reg[0][4] '
-INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-3333] propagating constant 1 across sequential element (inst_rom0i_1/\inst_mem_reg[0][29] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (inst_rom0i_1/\inst_mem_reg[0][31] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_2/\openmips0/id0/reg2_addr_o_reg[2] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_2/\openmips0/id_ex0/ex_alusel_reg[1] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_2/i_3/\openmips0/pc_reg0/pc_reg[0] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_2/i_3/\openmips0/pc_reg0/pc_reg[1] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_2/\openmips0/if_id0/id_inst_reg[27] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_2/\openmips0/id_ex0/ex_reg1_reg[3] )
+WARNING: [Synth 8-3332] Sequential element (\id_ex0/ex_is_in_delayslot_reg ) is unused and will be removed from module openmips.
+WARNING: [Synth 8-3332] Sequential element (\id_ex0/is_in_delayslot_o_reg ) is unused and will be removed from module openmips.
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\cnt_o_reg[0] ' (LDC) to 'i_1/openmips0/ex0/stallreq_for_madd_msub_reg'
+WARNING: [Synth 8-3332] Sequential element (\cnt_o_reg[0] ) is unused and will be removed from module ex.
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[15] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[6] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[20] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[7] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[19] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[7] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[18] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[21] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[22] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[7] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[24] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[7] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[25] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[7] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[9] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[2] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[6] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[8] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[7] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[27] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[31] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[27] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[30] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[27] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[29] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[2] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[2] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[26] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[28] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[26] '
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_1/openmips0/\if_id0/id_inst_reg[27] )
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[34]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[34]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[35]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[35]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[32]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[32]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[4]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[36]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[36]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[21]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[21]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[53]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[53]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[20]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[20]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[52]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[52]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[23]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[23]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[55]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[55]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[19]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[19]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[51]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[51]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[33]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[33]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[7]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[7]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[39]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[39]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[8]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[8]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[40]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[40]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[24]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[24]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[56]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[56]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[29]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[29]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[61]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[61]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[13]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[13]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[45]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[45]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[14]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[14]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[46]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[46]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[17]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[17]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[49]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[49]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[30]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[30]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[62]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[62]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[25]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[25]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[57]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[57]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[5]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[37]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[37]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[15]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[15]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[47]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[47]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[10]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[10]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[42]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[42]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[22]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[22]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[54]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[54]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[26]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[26]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[58]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[58]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[27]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[27]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[59]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[59]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[11]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[11]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[43]  is always disabled
+WARNING: [Synth 8-264] enable of latch i_1/openmips0/ex0/\hilo_temp1_reg[43]  is always disabled
+INFO: [Common 17-14] Message 'Synth 8-264' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[0] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[1] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[2] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[3] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[32] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[33] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[34] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[35] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[20] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[21] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[22] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[23] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[52] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[53] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[54] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[55] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[24] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[25] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[26] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[27] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[56] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[57] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[58] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[59] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[4] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[5] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[6] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[7] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[36] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[37] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[38] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[39] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[12] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[13] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[14] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[15] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[44] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[45] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[46] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[47] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[8] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[9] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[10] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[11] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[40] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[41] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[42] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[43] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[63] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[60] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[61] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[62] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[28] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[29] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[30] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[31] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[16] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[17] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[18] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[19] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[48] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[49] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[50] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\hilo_temp_o_reg[51] ' (LDC) to 'i_1/openmips0/ex0/\cnt_o_reg[1] '
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/ex0/\cnt_o_reg[1] ' (LDC) to 'i_1/openmips0/ex0/stallreq_for_madd_msub_reg'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_1/openmips0/ex0/stallreq_for_madd_msub_reg)
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[63] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[62] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[61] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[60] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[59] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[58] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[57] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[56] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[55] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[54] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[53] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[52] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[51] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[50] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[49] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[48] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[47] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[46] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[45] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[44] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[43] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[42] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[41] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[40] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[39] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[38] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[37] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[36] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[35] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[34] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[33] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[32] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[31] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[30] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[29] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[28] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[27] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[26] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[25] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[24] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[23] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[22] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[21] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[20] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[19] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[18] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[17] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[16] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[15] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[14] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[13] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[12] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[11] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[10] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[9] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[8] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[7] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[6] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[5] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[4] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[3] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[2] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[1] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp1_reg[0] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (stallreq_for_madd_msub_reg) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\cnt_o_reg[1] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[0] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[1] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[2] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[3] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[32] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[33] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[34] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[35] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[20] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[21] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[22] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[23] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[52] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[53] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[54] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[55] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[24] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[25] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[26] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[27] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[56] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[57] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[58] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[59] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[4] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[5] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[6] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[7] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[36] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[37] ) is unused and will be removed from module ex.
+WARNING: [Synth 8-3332] Sequential element (\hilo_temp_o_reg[38] ) is unused and will be removed from module ex.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3886] merging instance 'i_1/openmips0/\if_id0/id_inst_reg[17] ' (FDRE) to 'i_1/openmips0/\if_id0/id_inst_reg[10] '
 ---------------------------------------------------------------------------------
-Finished Area Optimization : Time (s): cpu = 00:01:09 ; elapsed = 00:01:26 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Area Optimization : Time (s): cpu = 00:02:18 ; elapsed = 00:03:00 . Memory (MB): peak = 700.617 ; gain = 529.309
 ---------------------------------------------------------------------------------
-Finished Parallel Area Optimization  : Time (s): cpu = 00:01:09 ; elapsed = 00:01:26 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Parallel Area Optimization  : Time (s): cpu = 00:02:18 ; elapsed = 00:03:00 . Memory (MB): peak = 700.617 ; gain = 529.309
 
 Report RTL Partitions: 
 +------+-----------------------+------------+----------+
 |      |RTL Partition          |Replication |Instances |
 +------+-----------------------+------------+----------+
-|1     |muxpart__5             |           1|        18|
-|2     |case__11__GD           |           1|        12|
-|3     |openmips_min_sopc__GC0 |           1|       302|
+|1     |muxpart__44            |           1|        54|
+|2     |case__96__GD           |           1|        30|
+|3     |openmips_min_sopc__GC0 |           1|      5703|
 +------+-----------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Timing Optimization
@@ -493,34 +860,34 @@ Start Timing Optimization
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:30 ; elapsed = 00:01:48 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:02:48 ; elapsed = 00:03:31 . Memory (MB): peak = 747.355 ; gain = 576.047
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:30 ; elapsed = 00:01:48 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Timing Optimization : Time (s): cpu = 00:02:48 ; elapsed = 00:03:31 . Memory (MB): peak = 749.344 ; gain = 578.035
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
 +------+-----------------------+------------+----------+
 |      |RTL Partition          |Replication |Instances |
 +------+-----------------------+------------+----------+
-|1     |muxpart__5             |           1|        18|
-|2     |case__11__GD           |           1|        12|
-|3     |openmips_min_sopc__GC0 |           1|       302|
+|1     |muxpart__44            |           1|        54|
+|2     |case__96__GD           |           1|        30|
+|3     |openmips_min_sopc__GC0 |           1|      5703|
 +------+-----------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:31 ; elapsed = 00:01:49 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Technology Mapping : Time (s): cpu = 00:02:51 ; elapsed = 00:03:35 . Memory (MB): peak = 792.668 ; gain = 621.359
 ---------------------------------------------------------------------------------
-Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:01:31 ; elapsed = 00:01:49 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:02:51 ; elapsed = 00:03:35 . Memory (MB): peak = 792.668 ; gain = 621.359
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
 | |RTL Partition |Replication |Instances |
 +-+--------------+------------+----------+
 +-+--------------+------------+----------+
-Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:01:31 ; elapsed = 00:01:49 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:02:51 ; elapsed = 00:03:35 . Memory (MB): peak = 792.668 ; gain = 621.359
 ---------------------------------------------------------------------------------
 Start IO Insertion
 ---------------------------------------------------------------------------------
@@ -537,7 +904,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:32 ; elapsed = 00:01:51 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished IO Insertion : Time (s): cpu = 00:02:52 ; elapsed = 00:03:36 . Memory (MB): peak = 792.668 ; gain = 621.359
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -550,7 +917,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:32 ; elapsed = 00:01:51 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Renaming Generated Instances : Time (s): cpu = 00:02:52 ; elapsed = 00:03:36 . Memory (MB): peak = 792.668 ; gain = 621.359
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -562,25 +929,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:32 ; elapsed = 00:01:51 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:53 ; elapsed = 00:03:37 . Memory (MB): peak = 792.668 ; gain = 621.359
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:32 ; elapsed = 00:01:51 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Renaming Generated Ports : Time (s): cpu = 00:02:53 ; elapsed = 00:03:37 . Memory (MB): peak = 792.668 ; gain = 621.359
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:32 ; elapsed = 00:01:51 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Handling Custom Attributes : Time (s): cpu = 00:02:53 ; elapsed = 00:03:37 . Memory (MB): peak = 792.668 ; gain = 621.359
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:32 ; elapsed = 00:01:51 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Renaming Generated Nets : Time (s): cpu = 00:02:53 ; elapsed = 00:03:37 . Memory (MB): peak = 792.668 ; gain = 621.359
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -593,56 +960,61 @@ Report BlackBoxes:
 +-+--------------+----------+
 
 Report Cell Usage: 
-+------+-------+------+
-|      |Cell   |Count |
-+------+-------+------+
-|1     |BUFG   |     1|
-|2     |CARRY4 |    11|
-|3     |LUT1   |    45|
-|4     |LUT2   |    20|
-|5     |LUT3   |    12|
-|6     |LUT4   |    15|
-|7     |LUT5   |     6|
-|8     |LUT6   |    20|
-|9     |RAM32M |     4|
-|10    |FDRE   |    80|
-|11    |IBUF   |     8|
-|12    |OBUF   |    12|
-+------+-------+------+
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |BUFG    |     1|
+|2     |CARRY4  |   121|
+|3     |DSP48E1 |     4|
+|4     |LUT1    |   256|
+|5     |LUT2    |   318|
+|6     |LUT3    |   127|
+|7     |LUT4    |   203|
+|8     |LUT5    |   302|
+|9     |LUT6    |   720|
+|10    |MUXF7   |     6|
+|11    |RAM32M  |    18|
+|12    |FDRE    |   668|
+|13    |IBUF    |     8|
+|14    |OBUF    |    12|
++------+--------+------+
 
 Report Instance Areas: 
 +------+-------------------+----------------+------+
 |      |Instance           |Module          |Cells |
 +------+-------------------+----------------+------+
-|1     |top                |                |   234|
+|1     |top                |                |  2764|
 |2     |  clk_div0         |clk_div         |    83|
-|3     |  openmips0        |openmips        |   120|
-|4     |    ex_mem0        |ex_mem          |    18|
-|5     |    id_ex0         |id_ex           |    11|
-|6     |    if_id0         |if_id           |    14|
-|7     |    mem_wb0        |mem_wb          |    11|
-|8     |    pc_reg0        |pc_reg          |    37|
-|9     |    regfile1       |regfile         |    29|
-|10    |  regfile_display0 |regfile_display |     9|
+|3     |  openmips0        |openmips        |  2603|
+|4     |    hilo_reg0      |hilo_reg        |    64|
+|5     |    div0           |div             |   453|
+|6     |    ex0            |ex              |    96|
+|7     |    ex_mem0        |ex_mem          |   293|
+|8     |    id_ex0         |id_ex           |  1154|
+|9     |    if_id0         |if_id           |   291|
+|10    |    mem_wb0        |mem_wb          |   143|
+|11    |    pc_reg0        |pc_reg          |    63|
+|12    |    regfile1       |regfile         |    46|
+|13    |  regfile_display0 |regfile_display |     8|
 +------+-------------------+----------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:33 ; elapsed = 00:01:51 . Memory (MB): peak = 644.469 ; gain = 472.492
+Finished Writing Synthesis Report : Time (s): cpu = 00:02:53 ; elapsed = 00:03:37 . Memory (MB): peak = 792.668 ; gain = 621.359
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 5 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:59 ; elapsed = 00:01:20 . Memory (MB): peak = 644.469 ; gain = 123.383
-Synthesis Optimization Complete : Time (s): cpu = 00:01:33 ; elapsed = 00:01:51 . Memory (MB): peak = 644.469 ; gain = 472.492
+Synthesis finished with 0 errors, 0 critical warnings and 350 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:02:13 ; elapsed = 00:02:56 . Memory (MB): peak = 792.668 ; gain = 227.805
+Synthesis Optimization Complete : Time (s): cpu = 00:02:53 ; elapsed = 00:03:38 . Memory (MB): peak = 792.668 ; gain = 621.359
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 23 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 151 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 4 instances were transformed.
-  RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 4 instances
+  A total of 18 instances were transformed.
+  RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 18 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-156 Infos, 105 Warnings, 0 Critical Warnings and 0 Errors encountered.
+162 Infos, 305 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:30 ; elapsed = 00:01:46 . Memory (MB): peak = 644.469 ; gain = 435.598
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.075 . Memory (MB): peak = 644.469 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Sun Apr 24 16:48:23 2016...
+synth_design: Time (s): cpu = 00:02:52 ; elapsed = 00:03:30 . Memory (MB): peak = 792.668 ; gain = 584.578
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.048 . Memory (MB): peak = 792.668 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Tue May 10 14:27:13 2016...

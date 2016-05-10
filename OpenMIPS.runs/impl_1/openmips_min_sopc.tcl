@@ -44,13 +44,10 @@ proc step_failed { step } {
 
 set_msg_config -id {HDL 9-1061} -limit 100000
 set_msg_config -id {HDL 9-1654} -limit 100000
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
 
 start_step write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
-  set_param xicom.use_bs_reader 1
   set_param simulator.modelsimInstallPath D:/modeltech64_10.4/win64
   open_checkpoint openmips_min_sopc_routed.dcp
   set_property webtalk.parent_dir C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.cache/wt [current_project]

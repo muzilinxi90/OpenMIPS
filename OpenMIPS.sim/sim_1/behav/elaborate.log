@@ -18,6 +18,7 @@ Compiling module xil_defaultlib.mem
 Compiling module xil_defaultlib.mem_wb
 Compiling module xil_defaultlib.hilo_reg
 Compiling module xil_defaultlib.ctrl
+Compiling module xil_defaultlib.div
 Compiling module xil_defaultlib.openmips
 Compiling module xil_defaultlib.inst_rom
 Compiling module xil_defaultlib.clk_div

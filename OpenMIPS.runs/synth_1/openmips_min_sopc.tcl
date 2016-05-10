@@ -5,8 +5,6 @@
 set_param simulator.modelsimInstallPath D:/modeltech64_10.4/win64
 set_msg_config -id {HDL 9-1061} -limit 100000
 set_msg_config -id {HDL 9-1654} -limit 100000
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
 create_project -in_memory -part xc7a35ticpg236-1L
 
 set_param project.compositeFile.enableAutoGeneration 0
@@ -18,15 +16,18 @@ set_property target_language Verilog [current_project]
 set_property vhdl_version vhdl_2k [current_fileset]
 read_verilog -library xil_defaultlib {
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/defines.v
+  C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id.v
+  C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/div.v
+  C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v
+  C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ctrl.v
+  C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/hilo_reg.v
+  C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex_mem.v
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile.v
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/pc_reg.v
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem_wb.v
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/mem.v
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/if_id.v
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id_ex.v
-  C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/id.v
-  C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex_mem.v
-  C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/ex.v
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/regfile_display.v
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/clk_div.v
   C:/Users/LMX/Desktop/MyProject/OpenMIPS/OpenMIPS.srcs/sources_1/new/inst_rom.v
