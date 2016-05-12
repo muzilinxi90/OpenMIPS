@@ -34,6 +34,8 @@ module id(
     output reg[`RegBus] reg2_o,             //译码阶段的指令要进行的运算的源操作数2
     output reg[`RegAddrBus] wd_o,           //译码阶段的指令要写入的目的寄存器地址
     output reg wreg_o,                      //译码阶段的指令是否有要写入的通用寄存器
+    //用于加载存储指令，将指令传递到执行阶段
+    output wire[`RegBus] inst_o,
 
     //执行阶段指令的运算结果前推
     input wire ex_wreg_i,
@@ -56,7 +58,10 @@ module id(
     output reg branch_flag_o,
     output reg[`RegBus] branch_target_address_o,
     output reg[`RegBus] link_addr_o,                //返回地址
-    output reg is_in_delayslot_o
+    output reg is_in_delayslot_o,
+
+    //用于解决load相关
+    input wire[`AluOpBus] ex_aluop_i
     );
 
 //***************  分析指令，判断指令的操作种类  *******************
@@ -80,13 +85,27 @@ module id(
     wire[`RegBus] pc_plus_4;
     wire[`RegBus] imm_sll2_signedext;
 
+    reg stallreq_for_reg1_loadrelate;
+    reg stallreq_for_reg2_loadrelate;
+    wire pre_inst_is_load;
+
     assign pc_plus_8 = pc_i + 8;        //保存当前译码阶段指令后面第2条指令地址
     assign pc_plus_4 = pc_i + 4;        //保存当前译码阶段指令后面紧接着的指令地址
     //imm_sll2_signedext对应分支指令中的offset左移两位，再符号扩展至32位的值
     assign imm_sll2_signedext ={{14{inst_i[15]}},inst_i[15:0],2'b00};
 
-    //暂时赋值为0
-    assign stallreq = `NoStop;
+    assign stallreq = stallreq_for_reg1_loadrelate | stallreq_for_reg2_loadrelate;
+    assign pre_inst_is_load = ((ex_aluop_i == `EXE_LB_OP) ||
+                              (ex_aluop_i == `EXE_LBU_OP)||
+                              (ex_aluop_i == `EXE_LH_OP) ||
+                              (ex_aluop_i == `EXE_LHU_OP)||
+                              (ex_aluop_i == `EXE_LW_OP) ||
+                              (ex_aluop_i == `EXE_LWR_OP)||
+                              (ex_aluop_i == `EXE_LWL_OP)||
+                              (ex_aluop_i == `EXE_LL_OP) ||
+                              (ex_aluop_i == `EXE_SC_OP)) ? 1'b1 : 1'b0;
+
+    assign inst_o = inst_i;
 
 //******************************************************
 //  第一段：对指令进行译码,从三方面信息考虑:
@@ -105,7 +124,7 @@ module id(
             reg2_read_o <= 1'b0;
             reg1_addr_o <= `NOPRegAddr;
             reg2_addr_o <= `NOPRegAddr;
-            imm <= 32'b0;
+            imm <= 32'h0;
             link_addr_o <= `ZeroWord;
             branch_target_address_o <= `ZeroWord;
             branch_flag_o <= `NotBranch;
@@ -682,6 +701,109 @@ module id(
                         end
                     endcase//case(op4)
                 end//EXE_REGIMM_INST
+                `EXE_LB:begin
+                    wreg_o <= `WriteEnable;
+                    aluop_o <= `EXE_LB_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b0;
+                    wd_o <= inst_i[20:16];
+                    instvalid <= `InstValid;
+                end
+                `EXE_LBU:begin
+                    wreg_o <= `WriteEnable;
+                    aluop_o <= `EXE_LBU_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b0;
+                    wd_o <= inst_i[20:16];
+                    instvalid <= `InstValid;
+                end
+                `EXE_LH:begin
+                    wreg_o <= `WriteEnable;
+                    aluop_o <= `EXE_LH_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b0;
+                    wd_o <= inst_i[20:16];
+                    instvalid <= `InstValid;
+                end
+                `EXE_LHU:begin
+                    wreg_o <= `WriteEnable;
+                    aluop_o <= `EXE_LHU_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b0;
+                    wd_o <= inst_i[20:16];
+                    instvalid <= `InstValid;
+                end
+                `EXE_LW:begin
+                    wreg_o <= `WriteEnable;
+                    aluop_o <= `EXE_LW_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b0;
+                    wd_o <= inst_i[20:16];
+                    instvalid <= `InstValid;
+                end
+                `EXE_LWL:begin
+                    wreg_o <= `WriteEnable;
+                    aluop_o <= `EXE_LWL_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b1;    //保持目的寄存器低位不变，因此要读出寄存器中的值
+                    wd_o <= inst_i[20:16];
+                    instvalid <= `InstValid;
+                end
+                `EXE_LWR:begin
+                    wreg_o <= `WriteEnable;
+                    aluop_o <= `EXE_LWR_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b1;
+                    wd_o <= inst_i[20:16];
+                    instvalid <= `InstValid;
+                end
+                `EXE_SB:begin
+                    wreg_o <= `WriteDisable;
+                    aluop_o <= `EXE_SB_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b1;
+                    instvalid <= `InstValid;
+                end
+                `EXE_SH:begin
+                    wreg_o <= `WriteDisable;
+                    aluop_o <= `EXE_SH_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b1;
+                    instvalid <= `InstValid;
+                end
+                `EXE_SW:begin
+                    wreg_o <= `WriteDisable;
+                    aluop_o <= `EXE_SW_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b1;
+                    instvalid <= `InstValid;
+                end
+                `EXE_SWL:begin
+                    wreg_o <= `WriteDisable;
+                    aluop_o <= `EXE_SWL_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b1;
+                    instvalid <= `InstValid;
+                end
+                `EXE_SWR:begin
+                    wreg_o <= `WriteDisable;
+                    aluop_o <= `EXE_SWR_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b1;
+                    instvalid <= `InstValid;
+                end
                 default:begin
                 end
             endcase//case(op)
@@ -730,8 +852,12 @@ module id(
 //阶段的结果mem_wdata_i作为reg1_o的值
 //******************************************************************************
     always @ ( * ) begin
+        stallreq_for_reg1_loadrelate <= `NoStop;
         if(rst == `RstEnable) begin
             reg1_o <= `ZeroWord;
+        end else if((pre_inst_is_load == 1'b1) && (ex_wd_i == reg1_addr_o) &&
+                    (reg1_read_o == 1'b1)) begin
+            stallreq_for_reg1_loadrelate <= `Stop;
             //解决相邻指令间RAW数据相关的数据通路
         end else if((reg1_read_o == 1'b1) && (ex_wreg_i == 1'b1)
                     && (ex_wd_i == reg1_addr_o)) begin
@@ -759,8 +885,12 @@ module id(
 //阶段的结果mem_wdata_i作为reg2_o的值
 //******************************************************************************
     always @ ( * ) begin
+        stallreq_for_reg2_loadrelate <= `NoStop;
         if(rst == `RstEnable) begin
             reg2_o <= `ZeroWord;
+        end else if((pre_inst_is_load == 1'b1) && (ex_wd_i == reg2_addr_o) &&
+                    (reg2_read_o == 1'b1)) begin
+            stallreq_for_reg2_loadrelate <= `Stop;
             //解决相邻指令间RAW数据相关的数据通路
         end else if((reg2_read_o == 1'b1) && (ex_wreg_i == 1'b1)
                     && (ex_wd_i == reg2_addr_o)) begin

@@ -11,7 +11,6 @@ module openmips_min_sopc_tb();
     reg rst;
     reg[`RegAddrBus] sw;
     reg sw_HL;
-    reg write;
 
     //输出
     wire[`DispDataBus] a_to_g;
@@ -28,7 +27,6 @@ module openmips_min_sopc_tb();
     //运行1000ns后，停止仿真
     initial begin
         rst = `RstEnable;
-        write = 1'b1;
         sw_HL = 1'b0;
         sw = 5'b00001;
         #100 rst = `RstDisable;
@@ -44,7 +42,6 @@ module openmips_min_sopc_tb();
         .disp_an(an),
         .dp(dp),
         .sw(sw),
-        .sw_HL(sw_HL),
-        .write(write)
+        .sw_HL(sw_HL)
         );
 endmodule

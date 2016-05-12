@@ -88,6 +88,22 @@
 `define EXE_BLTZAL 5'b10000         //bltzal功能码2
 `define EXE_BNE 6'b000101           //bne指令码
 
+//加载存储指令
+`define EXE_LB 6'b100000            //lb指令码
+`define EXE_LBU 6'b100100           //lbu指令码
+`define EXE_LH 6'b100001            //lh指令码
+`define EXE_LHU 6'b100101           //Lhu指令码
+`define EXE_LW 6'b100011            //lw指令码
+`define EXE_LWL 6'b100010           //lwl指令码
+`define EXE_LWR 6'b100110           //lwr指令码
+`define EXE_LL 6'b110000            //ll指令码
+`define EXE_SB 6'b101000            //sb指令码
+`define EXE_SH 6'b101001            //sh指令码
+`define EXE_SW 6'b101011            //sw指令码
+`define EXE_SWL 6'b101010           //swl指令码
+`define EXE_SWR 6'b101110           //swr指令码
+`define EXE_SC 6'b111000            //sc指令码
+
 //空指令
 `define EXE_NOP 6'b000000           //空指令功能码
 `define SSNOP 32'h0000_0040         //SSNOP指令
@@ -95,6 +111,7 @@
 //其他特殊指令
 `define EXE_SYNC 6'b001111          //sync指令功能码
 `define EXE_PREF 6'b110011          //pref指令码
+
 `define EXE_SPECIAL_INST 6'b000000  //SPECIAL类指令的指令码
 `define EXE_SPECIAL2_INST 6'b011100 //SPECIAL2类指令的指令码
 `define EXE_REGIMM_INST 6'b000001   //REGIMM类转移指令
@@ -161,7 +178,25 @@
 `define EXE_BLTZAL_OP 8'b0100_1010
 `define EXE_BNE_OP 8'b0101_0010
 
+`define EXE_LB_OP 8'b1110_0000
+`define EXE_LBU_OP 8'b1110_0100
+`define EXE_LH_OP 8'b1110_0001
+`define EXE_LHU_OP 8'b1110_0101
+`define EXE_LW_OP 8'b1110_0011
+`define EXE_LWL_OP 8'b1110_0010
+`define EXE_LWR_OP 8'b1110_0110
+`define EXE_LL_OP 8'b1111_0000
+`define EXE_SB_OP 8'b1110_1000
+`define EXE_SH_OP 8'b1110_1001
+`define EXE_SW_OP 8'b1110_1011
+`define EXE_SWL_OP 8'b1110_1010
+`define EXE_SWR_OP 8'b1110_1110
+`define EXE_SC_OP 8'b1111_1000
+
 `define EXE_NOP_OP 8'b0000_0000
+
+`define EXE_PREF_OP 8'b1111_0011
+`define EXE_SYNC_OP 8'b0000_1111
 
 
 //*********AluSel：指令要执行的运算类型（ID输出到EX）************
@@ -171,6 +206,7 @@
 `define EXE_RES_ARITHMETIC 3'b100
 `define EXE_RES_MUL 3'b101
 `define EXE_RES_JUMP_BRANCH 3'b110
+`define EXE_RES_LOAD_STORE 3'b111
 
 `define EXE_RES_NOP 3'b000
 
@@ -212,6 +248,19 @@
 `define NotBranch 1'b0              //不转移
 `define InDelaySlot 1'b1            //在延迟槽中
 `define NotInDelaySlot 1'b0         //不在延迟槽中
+
+//**************    数据存储器RAM相关宏定义    *****************
+`define DataAddrBus 31:0            //地址总线宽度
+`define DataBus 31:0                //数据总线宽度
+`define DataMemNum 131072           //RAM大小，单位是字，此处是128K word
+`define DataMemNumLog2 17           //实际使用的地址宽度
+`define ByteWidth 7:0               //字节宽度
+
+//**************    中断异常相关    ******************
+`define InterruptAssert 1'b1
+`define InterruptNotAssert 1'b0
+`define TrapAssert 1'b1
+`define TrapNotAssert 1'b0
 
 //***************** 与4位数码管相关宏定义 **********************
 `define DispDataBus 6:0             //4位数码管数据总线宽度

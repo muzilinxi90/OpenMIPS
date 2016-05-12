@@ -14,8 +14,8 @@ module id_ex(
     input wire[5:0] stall,
 
     //从译码阶段传递过来的信息
-    input wire[`AluSelBus] id_alusel,   //译码阶段指令运算类型
     input wire[`AluOpBus] id_aluop,     //译码阶段指令运算子类型
+    input wire[`AluSelBus] id_alusel,   //译码阶段指令运算类型
     input wire[`RegBus] id_reg1,        //译码阶段指令源操作数1
     input wire[`RegBus] id_reg2,        //译码阶段指令源操作数2
     input wire[`RegAddrBus] id_wd,      //译码阶段指令目的寄存器地址
@@ -35,7 +35,11 @@ module id_ex(
     input wire next_inst_in_delayslot_i,    //下一条进入译码阶段的指令是否位于延迟槽
     output reg ex_is_in_delayslot,          //当前处于执行阶段的指令是否位于延迟槽
     output reg[`RegBus] ex_link_address,    //处于执行阶段的转移指令要保存的返回地址
-    output reg is_in_delayslot_o            //当前处于译码阶段的指令是否位于延迟槽
+    output reg is_in_delayslot_o,           //当前处于译码阶段的指令是否位于延迟槽
+
+    //指令传递
+    input wire[`RegBus] id_inst,
+    output reg[`RegBus] ex_inst
     );
 
     // 1.当stall[2]为Stop，stall[3]为NoStop时，表示译码阶段暂停，而执行阶段
@@ -73,6 +77,7 @@ module id_ex(
             ex_link_address <= id_link_address;
             ex_is_in_delayslot <= id_is_in_delayslot;
             is_in_delayslot_o <= next_inst_in_delayslot_i;
+            ex_inst <= id_inst;
         end
     end
 endmodule
