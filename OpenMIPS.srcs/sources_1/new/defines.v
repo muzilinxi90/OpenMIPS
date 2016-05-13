@@ -96,12 +96,12 @@
 `define EXE_LW 6'b100011            //lw指令码
 `define EXE_LWL 6'b100010           //lwl指令码
 `define EXE_LWR 6'b100110           //lwr指令码
-`define EXE_LL 6'b110000            //ll指令码
 `define EXE_SB 6'b101000            //sb指令码
 `define EXE_SH 6'b101001            //sh指令码
 `define EXE_SW 6'b101011            //sw指令码
 `define EXE_SWL 6'b101010           //swl指令码
 `define EXE_SWR 6'b101110           //swr指令码
+`define EXE_LL 6'b110000            //ll指令码
 `define EXE_SC 6'b111000            //sc指令码
 
 //空指令
@@ -185,12 +185,12 @@
 `define EXE_LW_OP 8'b1110_0011
 `define EXE_LWL_OP 8'b1110_0010
 `define EXE_LWR_OP 8'b1110_0110
-`define EXE_LL_OP 8'b1111_0000
 `define EXE_SB_OP 8'b1110_1000
 `define EXE_SH_OP 8'b1110_1001
 `define EXE_SW_OP 8'b1110_1011
 `define EXE_SWL_OP 8'b1110_1010
 `define EXE_SWR_OP 8'b1110_1110
+`define EXE_LL_OP 8'b1111_0000
 `define EXE_SC_OP 8'b1111_1000
 
 `define EXE_NOP_OP 8'b0000_0000

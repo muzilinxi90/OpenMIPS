@@ -60,7 +60,7 @@ module id(
     output reg[`RegBus] link_addr_o,                //返回地址
     output reg is_in_delayslot_o,
 
-    //用于解决load相关
+    //用于解决load相关新增加的接口
     input wire[`AluOpBus] ex_aluop_i
     );
 
@@ -85,16 +85,22 @@ module id(
     wire[`RegBus] pc_plus_4;
     wire[`RegBus] imm_sll2_signedext;
 
+    //要读取的寄存器1是否与上一条指令存在load相关
     reg stallreq_for_reg1_loadrelate;
+    //要读取的寄存器2是否与上一条指令存在load相关
     reg stallreq_for_reg2_loadrelate;
+    //上一条指令是否是加载指令
     wire pre_inst_is_load;
 
     assign pc_plus_8 = pc_i + 8;        //保存当前译码阶段指令后面第2条指令地址
     assign pc_plus_4 = pc_i + 4;        //保存当前译码阶段指令后面紧接着的指令地址
+
     //imm_sll2_signedext对应分支指令中的offset左移两位，再符号扩展至32位的值
     assign imm_sll2_signedext ={{14{inst_i[15]}},inst_i[15:0],2'b00};
 
     assign stallreq = stallreq_for_reg1_loadrelate | stallreq_for_reg2_loadrelate;
+
+    //依据输入信号ex_aluop_i的值，判断上一条指令是否是加载指令(会更改寄存器值的指令)
     assign pre_inst_is_load = ((ex_aluop_i == `EXE_LB_OP) ||
                               (ex_aluop_i == `EXE_LBU_OP)||
                               (ex_aluop_i == `EXE_LH_OP) ||
@@ -804,6 +810,24 @@ module id(
                     reg2_read_o <= 1'b1;
                     instvalid <= `InstValid;
                 end
+                `EXE_LL:begin
+                    wreg_o <= `WriteEnable;
+                    aluop_o <= `EXE_LL_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b0;
+                    wd_o <= inst_i[20:16];
+                    instvalid <= `InstValid;
+                end
+                `EXE_SC:begin
+                    wreg_o <= `WriteEnable;
+                    aluop_o <= `EXE_SC_OP;
+                    alusel_o <= `EXE_RES_LOAD_STORE;
+                    reg1_read_o <= 1'b1;
+                    reg2_read_o <= 1'b1;
+                    wd_o <= inst_i[20:16];
+                    instvalid <= `InstValid;
+                end
                 default:begin
                 end
             endcase//case(op)
@@ -850,6 +874,10 @@ module id(
 //阶段的结果ex_wdata_i作为reg1_o的值
 //  2.如果regfile模块读端口1要读取的寄存器就是访存阶段要写的目的寄存器，那么直接把访存
 //阶段的结果mem_wdata_i作为reg1_o的值
+//
+//  解决load相关问题：如果上一条指令是加载指令，且该加载指令要加载到的目的寄存器就是
+//当前指令要通过regfile模块读端口1读取的通用寄存器，那么表示存在load相关，设置
+//stallreq_for_reg1_loadrelate为Stop
 //******************************************************************************
     always @ ( * ) begin
         stallreq_for_reg1_loadrelate <= `NoStop;
@@ -883,6 +911,10 @@ module id(
 //阶段的结果ex_wdata_i作为reg2_o的值
 //  2.如果regfile模块读端口2要读取的寄存器就是访存阶段要写的目的寄存器，那么直接把访存
 //阶段的结果mem_wdata_i作为reg2_o的值
+//
+//  解决load相关问题：如果上一条指令是加载指令，且该加载指令要加载到的目的寄存器就是
+//当前指令要通过regfile模块读端口2读取的通用寄存器，那么表示存在load相关，设置
+//stallreq_for_reg2_loadrelate为Stop
 //******************************************************************************
     always @ ( * ) begin
         stallreq_for_reg2_loadrelate <= `NoStop;

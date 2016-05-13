@@ -64,10 +64,11 @@ module openmips(
     wire[`RegBus] ex_hi_o;
     wire[`RegBus] ex_lo_o;
     wire ex_whilo_o;
-    wire[`AluOpBus] ex_aluop_o;
     wire[`RegBus] ex_mem_addr_o;
     wire[`RegBus] ex_reg1_o;
     wire[`RegBus] ex_reg2_o;
+    //解决load相关：EX模块回传给ID模块的指令码
+    wire[`AluOpBus] ex_aluop_o;
 
     //连接EX/MEM模块与MEM模块的变量
     wire mem_wreg_i;
@@ -88,14 +89,18 @@ module openmips(
     wire[`RegBus] mem_hi_o;
     wire[`RegBus] mem_lo_o;
     wire mem_whilo_o;
+    wire mem_LLbit_we_o;
+    wire mem_LLbit_value_o;
 
-    //连接MEM/WB模块与回写阶段输入(通用寄存器堆)的变量
+    //连接MEM/WB模块与回写阶段输入(各类寄存器)的变量
     wire wb_wreg_i;
     wire[`RegAddrBus] wb_wd_i;
     wire[`RegBus] wb_wdata_i;
     wire[`RegBus] wb_hi_i;
     wire[`RegBus] wb_lo_i;
     wire wb_whilo_i;
+    wire wb_LLbit_we_i;
+    wire wb_LLbit_value_i;
 
     //连接ID模块与通用寄存器regfile模块的变量
     wire reg1_read;
@@ -136,6 +141,8 @@ module openmips(
     wire stallreq_from_id;
     wire stallreq_from_ex;
 
+    //LLbit寄存器模块输出
+    wire LLbit_o;
 
     //PC_reg例化
     pc_reg pc_reg0(
@@ -167,6 +174,7 @@ module openmips(
         .pc_i(id_pc_i),
         .inst_i(id_inst_i),
 
+        //解决load相关从EX模块回传的指令码
         .ex_aluop_i(ex_aluop_o),
 
         //来自regfile模块的输入
@@ -395,7 +403,14 @@ module openmips(
         .mem_addr_o(ram_addr_o),
         .mem_we_o(ram_we_o),
         .mem_sel_o(ram_sel_o),
-        .mem_data_o(ram_data_o)
+        .mem_data_o(ram_data_o),
+
+        //LLbit寄存器相关信息
+        .LLbit_i(LLbit_o),
+        .wb_LLbit_we_i(wb_LLbit_we_i),
+        .wb_LLbit_value_i(wb_LLbit_value_i),
+        .LLbit_we_o(mem_LLbit_we_o),
+        .LLbit_value_o(mem_LLbit_value_o)
         );
 
     //MEM/WB模块例化
@@ -419,7 +434,13 @@ module openmips(
         .wb_wdata(wb_wdata_i),
         .wb_hi(wb_hi_i),
         .wb_lo(wb_lo_i),
-        .wb_whilo(wb_whilo_i)
+        .wb_whilo(wb_whilo_i),
+
+        //LLbit寄存器相关信息
+        .mem_LLbit_we(mem_LLbit_we_o),
+        .mem_LLbit_value(mem_LLbit_value_o),
+        .wb_LLbit_we(wb_LLbit_we_i),
+        .wb_LLbit_value(wb_LLbit_value_i)
         );
 
     //例化特殊寄存器HI/LO
@@ -459,6 +480,16 @@ module openmips(
 
         .ready_o(div_ready),
         .result_o(div_result)
+        );
+
+    //例化LLbit寄存器模块
+    LLbit_reg LLbit_reg0(
+        .rst(rst),
+        .clk(clk),
+        .flush(1'b0),
+        .we(wb_LLbit_we_i),
+        .LLbit_i(wb_LLbit_value_i),
+        .LLbit_o(LLbit_o)
         );
 
 endmodule

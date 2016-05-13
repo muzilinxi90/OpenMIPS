@@ -30,17 +30,26 @@ module mem(
     input wire[`AluOpBus] aluop_i,      //加载存储指令操作类型
     input wire[`RegBus] mem_addr_i,     //加载存储指令对应的存储器地址
     input wire[`RegBus] reg2_i,         //存储指令要存储的数据或lwl/lwr要写入目的寄存器的原始值
+
     //与数据存储器RAM的交互接口
     input wire[`RegBus] mem_data_i,     //从数据存储器读取的数据
     output reg[`RegBus] mem_addr_o,     //要访问的数据存储器的地址
     output wire mem_we_o,               //是否是写操作
     output reg[3:0] mem_sel_o,          //字节选择信号
     output reg[`RegBus] mem_data_o,     //要写入数据存储器的数据
-    output reg mem_ce_o                 //数据存储器使能信号
+    output reg mem_ce_o,                //数据存储器使能信号
+
+    //LLbit寄存器相关接口
+    input wire LLbit_i,                 //LLbit模块给出的LLbit寄存器的值
+    input wire wb_LLbit_we_i,           //回写阶段的指令是否要写LLbit寄存器(旁路信息)
+    input wire wb_LLbit_value_i,        //回写阶段的指令要写入LLbit寄存器的值(旁路信息)
+    output reg LLbit_we_o,              //访存阶段的指令是否要写LLbit寄存器
+    output reg LLbit_value_o            //访存阶段的指令要写入LLbit寄存器的值
     );
 
     wire[`RegBus] zero32;
-    reg mem_we;
+    reg mem_we;                         //访问数据存储器RAM读写控制
+    reg LLbit;                          //保存LLbit寄存器的最新值
 
     assign mem_we_o = mem_we;
     assign zero32 = `ZeroWord;
@@ -58,6 +67,8 @@ module mem(
             mem_sel_o <= 4'b0000;
             mem_data_o <= `ZeroWord;
             mem_ce_o <= `ChipDisable;
+            LLbit_we_o <= 1'b0;
+            LLbit_value_o <= 1'b0;
         end else begin
             wd_o <= wd_i;
             wreg_o <= wreg_i;
@@ -69,6 +80,8 @@ module mem(
             mem_addr_o <= `ZeroWord;
             mem_sel_o <= 4'b1111;
             mem_ce_o <= `ChipDisable;
+            LLbit_we_o <= 1'b0;
+            LLbit_value_o <= 1'b0;
             case(aluop_i)
                 `EXE_LB_OP:begin                //对加载的字节符号扩展
                     mem_addr_o <= mem_addr_i;
@@ -312,10 +325,50 @@ module mem(
                         end
                     endcase
                 end
+                `EXE_LL_OP:begin
+                    mem_addr_o <= mem_addr_i;
+                    mem_we <= `WriteDisable;
+                    wdata_o <= mem_data_i;
+                    LLbit_we_o <= 1'b1;
+                    LLbit_value_o <= 1'b1;
+                    mem_sel_o <= 4'b1111;
+                    mem_ce_o <= `ChipEnable;
+                end
+                `EXE_SC_OP:begin
+                    if(LLbit == 1'b1) begin
+                        LLbit_we_o <= 1'b1;
+                        LLbit_value_o <= 1'b0;
+                        mem_addr_o <= mem_addr_i;
+                        mem_we <= `WriteEnable;
+                        mem_data_o <= reg2_i;
+                        wdata_o <= 32'b1;
+                        mem_sel_o <= 4'b1111;
+                        mem_ce_o <= `ChipEnable;
+                    end else begin
+                        wdata_o <= 32'b0;
+                    end
+                end
                 default:begin
                 end
             endcase//case(aluop_i)
         end//esle
     end//always
+
+
+//******************************************************************************
+// 获取LLbit寄存器的最新值：如果回写阶段的指令要写LLbit，那么回写阶段要写入的值就是
+// LLbit寄存器的最新值，反之，LLbit模块给出的值LLbit_i是最新值
+//******************************************************************************
+    always @ ( * ) begin
+        if(rst == `RstEnable) begin
+            LLbit <= 1'b0;
+        end else begin
+            if(wb_LLbit_we_i == 1'b1) begin
+                LLbit <= wb_LLbit_value_i;
+            end else begin
+                LLbit <= LLbit_i;
+            end
+        end
+    end
 
 endmodule

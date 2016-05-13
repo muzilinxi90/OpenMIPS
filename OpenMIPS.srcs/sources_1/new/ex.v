@@ -68,7 +68,6 @@ module ex(
     output wire[`RegBus] mem_addr_o,        //加载存储指令对应的存储器地址
     output wire[`RegBus] reg2_o             //存储指令要存储的数据或lwl/lwr指令要
                                             //加载到目的寄存器的原始值
-
     );
 
     //保存逻辑运算的结果
