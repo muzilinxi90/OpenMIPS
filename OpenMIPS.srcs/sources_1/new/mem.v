@@ -14,6 +14,7 @@ module mem(
     input wire[`RegAddrBus] wd_i,
     input wire wreg_i,
     input wire[`RegBus] wdata_i,
+
     input wire[`RegBus] hi_i,
     input wire[`RegBus] lo_i,
     input wire whilo_i,
@@ -22,6 +23,7 @@ module mem(
     output reg[`RegAddrBus] wd_o,
     output reg wreg_o,
     output reg[`RegBus] wdata_o,
+
     output reg[`RegBus] hi_o,
     output reg[`RegBus] lo_o,
     output reg whilo_o,
@@ -44,7 +46,15 @@ module mem(
     input wire wb_LLbit_we_i,           //回写阶段的指令是否要写LLbit寄存器(旁路信息)
     input wire wb_LLbit_value_i,        //回写阶段的指令要写入LLbit寄存器的值(旁路信息)
     output reg LLbit_we_o,              //访存阶段的指令是否要写LLbit寄存器
-    output reg LLbit_value_o            //访存阶段的指令要写入LLbit寄存器的值
+    output reg LLbit_value_o,           //访存阶段的指令要写入LLbit寄存器的值
+
+    //协处理器访问指令相关接口
+    input wire cp0_reg_we_i,
+    input wire[4:0] cp0_reg_write_addr_i,
+    input wire[`RegBus] cp0_reg_data_i,
+    output reg cp0_reg_we_o,
+    output reg[4:0] cp0_reg_write_addr_o,
+    output reg[`RegBus] cp0_reg_data_o
     );
 
     wire[`RegBus] zero32;
@@ -59,29 +69,45 @@ module mem(
             wd_o <= `NOPRegAddr;
             wreg_o <= `WriteDisable;
             wdata_o <= `ZeroWord;
+
             hi_o <= `ZeroWord;
             lo_o <= `ZeroWord;
             whilo_o <= `WriteDisable;
+
             mem_addr_o <= `ZeroWord;
             mem_we <= `WriteDisable;
             mem_sel_o <= 4'b0000;
             mem_data_o <= `ZeroWord;
             mem_ce_o <= `ChipDisable;
+
             LLbit_we_o <= 1'b0;
             LLbit_value_o <= 1'b0;
+
+            cp0_reg_we_o <= `WriteDisable;
+            cp0_reg_write_addr_o <= 5'b00000;
+            cp0_reg_data_o <= `ZeroWord;
+
         end else begin
             wd_o <= wd_i;
             wreg_o <= wreg_i;
             wdata_o <= wdata_i;
+
             hi_o <= hi_i;
             lo_o <=lo_i;
             whilo_o <= whilo_i;
+
             mem_we <= `WriteDisable;
             mem_addr_o <= `ZeroWord;
             mem_sel_o <= 4'b1111;
             mem_ce_o <= `ChipDisable;
+
             LLbit_we_o <= 1'b0;
             LLbit_value_o <= 1'b0;
+
+            cp0_reg_we_o <= cp0_reg_we_i;
+            cp0_reg_write_addr_o <= cp0_reg_write_addr_i;
+            cp0_reg_data_o <= cp0_reg_data_i;
+
             case(aluop_i)
                 `EXE_LB_OP:begin                //对加载的字节符号扩展
                     mem_addr_o <= mem_addr_i;

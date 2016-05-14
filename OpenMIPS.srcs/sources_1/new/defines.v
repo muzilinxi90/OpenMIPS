@@ -193,6 +193,9 @@
 `define EXE_LL_OP 8'b1111_0000
 `define EXE_SC_OP 8'b1111_1000
 
+`define EXE_MFC0_OP 8'b0101_1101
+`define EXE_MTC0_OP 8'b0110_0000
+
 `define EXE_NOP_OP 8'b0000_0000
 
 `define EXE_PREF_OP 8'b1111_0011
@@ -261,6 +264,15 @@
 `define InterruptNotAssert 1'b0
 `define TrapAssert 1'b1
 `define TrapNotAssert 1'b0
+
+//**************    定义CP0中各个寄存器的地址    *****************
+`define CP0_REG_COUNT 5'b01001      //标号9
+`define CP0_REG_COMPARE 5'b01011    //标号11
+`define CP0_REG_STATUS 5'b01100     //标号12
+`define CP0_REG_CAUSE 5'b01101      //标号13
+`define CP0_REG_EPC 5'b01110        //标号14
+`define CP0_REG_PRId 5'b01111       //标号15
+`define CP0_REG_CONFIG 5'b10000     //标号16
 
 //***************** 与4位数码管相关宏定义 **********************
 `define DispDataBus 6:0             //4位数码管数据总线宽度

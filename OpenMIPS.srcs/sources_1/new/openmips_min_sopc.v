@@ -32,6 +32,10 @@ module openmips_min_sopc(
     wire[`DataBus] mem_data_o;
     wire[3:0] mem_sel_i;
 
+    //外部中断和时钟中断
+    wire[5:0] int;
+    wire timer_int;
+
     //连接分频模块
     wire clk_div;
 
@@ -56,7 +60,10 @@ module openmips_min_sopc(
         .ram_sel_o(mem_sel_i),
 
         .display_reg_raddr(display_reg_raddr),
-        .reg_display_rdata(reg_display_rdata)
+        .reg_display_rdata(reg_display_rdata),
+
+        .int_i(int),
+        .timer_int_o(timer_int)
         );
 
     //例化指令存储器ROM

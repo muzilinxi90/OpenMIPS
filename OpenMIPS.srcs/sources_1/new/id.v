@@ -863,6 +863,28 @@ module id(
                     instvalid <= `InstValid;
                 end
             end//if(sll/srl/sra)
+
+            //mfc0指令
+            if(inst_i[31:21] == 11'b010000_00000 &&
+                inst_i[10:0] == 11'b00000000_000) begin
+                aluop_o <= `EXE_MFC0_OP;
+                alusel_o <= `EXE_RES_MOVE;
+                wd_o <= inst_i[20:16];
+                wreg_o <= `WriteEnable;
+                instvalid <= `InstValid;
+                reg1_read_o <= 1'b0;
+                reg2_read_o <= 1'b0;
+            //mtc0指令
+            end else if(inst_i[31:21] == 11'b010000_00100 &&
+                inst_i[10:0] == 11'b00000000_000) begin
+                aluop_o <= `EXE_MTC0_OP;
+                alusel_o <= `EXE_RES_NOP;
+                wreg_o <= `WriteDisable;
+                instvalid <= `InstValid;
+                reg1_read_o <= 1'b1;
+                reg2_read_o <= 1'b0;
+                reg1_addr_o <= inst_i[20:16];
+            end
         end//else
     end//always
 

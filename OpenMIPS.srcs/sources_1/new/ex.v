@@ -66,8 +66,24 @@ module ex(
     input wire[`RegBus] inst_i,             //接收未译码的原始指令
     output wire[`AluOpBus] aluop_o,         //向访存阶段输出加载存储指令类型
     output wire[`RegBus] mem_addr_o,        //加载存储指令对应的存储器地址
-    output wire[`RegBus] reg2_o             //存储指令要存储的数据或lwl/lwr指令要
+    output wire[`RegBus] reg2_o,            //存储指令要存储的数据或lwl/lwr指令要
                                             //加载到目的寄存器的原始值
+    //协处理器相关接口
+    //访存阶段的指令是否要写CP0中的寄存器(数据前推)
+    input wire mem_cp0_reg_we,
+    input wire[4:0] mem_cp0_reg_write_addr,
+    input wire[`RegBus] mem_cp0_reg_data,
+    //回写阶段的指令是否要写CP0中的寄存器(数据前推)
+    input wire wb_cp0_reg_we,
+    input wire[4:0] wb_cp0_reg_write_addr,
+    input wire[`RegBus] wb_cp0_reg_data,
+    //与CP0直接相连，用于读取其中指定的寄存器的值
+    output reg[4:0] cp0_reg_read_addr_o,
+    input wire[`RegBus] cp0_reg_data_i,
+    //向流水线下一级传递，用于写CP0中的指定寄存器
+    output reg cp0_reg_we_o,
+    output reg[4:0] cp0_reg_write_addr_o,
+    output reg[`RegBus] cp0_reg_data_o
     );
 
     //保存逻辑运算的结果
@@ -183,6 +199,20 @@ module ex(
                 end
                 `EXE_MOVN_OP:begin
                     moveres <= reg1_i;
+                end
+                `EXE_MFC0_OP:begin
+                    //要从CP0中读取的寄存器的地址
+                    cp0_reg_read_addr_o <= inst_i[15:11];
+                    //读取到的CP0中指定寄存器的值
+                    moveres <= cp0_reg_data_i;
+                    //判断是否存在数据相关
+                    if(mem_cp0_reg_we == `WriteEnable &&
+                        mem_cp0_reg_write_addr == inst_i[15:11]) begin
+                        moveres <= mem_cp0_reg_data;
+                    end else if(wb_cp0_reg_we == `WriteEnable &&
+                        wb_cp0_reg_write_addr == inst_i[15:11]) begin
+                        moveres <= wb_cp0_reg_data;
+                    end
                 end
                 default:begin
                 end
@@ -568,5 +598,25 @@ module ex(
     assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
     //reg2_i是存储指令要存储的数据，或者lwl、lwr指令要加载到的目的寄存器的原始值
     assign reg2_o = reg2_i;
+
+
+//******************************************************************************
+//  mtc0指令执行过程
+//******************************************************************************
+    always @ ( * ) begin
+        if(rst == `RstEnable) begin
+            cp0_reg_we_o <= `WriteDisable;
+            cp0_reg_write_addr_o <= 5'b00000;
+            cp0_reg_data_o <= `ZeroWord;
+        end else if(aluop_i == `EXE_MTC0_OP) begin
+            cp0_reg_we_o <= `WriteEnable;
+            cp0_reg_write_addr_o <= inst_i[15:11];
+            cp0_reg_data_o <= reg1_i;
+        end else begin
+            cp0_reg_we_o <= `WriteDisable;
+            cp0_reg_write_addr_o <= 5'b00000;
+            cp0_reg_data_o <= `ZeroWord;
+        end
+    end
 
 endmodule
