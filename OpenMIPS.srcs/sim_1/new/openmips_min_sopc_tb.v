@@ -31,7 +31,7 @@ module openmips_min_sopc_tb();
         sw = 5'b00001;
         #100 rst = `RstDisable;
         #400 sw_HL = 1'b1;
-        #1000 $stop;
+        #2000 $stop;
     end
 
     //例化最小SOPC

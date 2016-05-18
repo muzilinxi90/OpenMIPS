@@ -1,9 +1,8 @@
-//*******************************************************
-//                  项目的全部宏定义
-//  将此文件Set Global Include后，其他文件不用再包含
-//*******************************************************
+//******************************************************************************
+//                             项目的全部宏定义
+//******************************************************************************
 
-//*************   全局的宏定义   ****************
+//***************************   全局的宏定义   **********************************
 `define RstEnable 1'b1              //复位信号有效
 `define RstDisable 1'b0             //复位信号无效
 `define ZeroWord 32'h0000_0000      //32位的数值0
@@ -21,7 +20,7 @@
 `define ChipDisable 1'b0            //芯片禁止
 
 
-//************  与具体指令有关的宏定义  *************
+//***************************  与具体指令有关的宏定义  ***************************
 //逻辑操作指令SPECIAL类的功能码
 `define EXE_AND 6'b100100           //and指令功能码
 `define EXE_OR 6'b100101            //or指令功能码
@@ -75,6 +74,7 @@
 `define EXE_DIV 6'b011010           //div指令功能码
 `define EXE_DIVU 6'b011011          //divu指令功能码
 
+//分支跳转指令
 `define EXE_J 6'b000010             //j指令码
 `define EXE_JAL 6'b000011           //jal指令码
 `define EXE_JALR 6'b001001          //jalr功能码
@@ -104,6 +104,25 @@
 `define EXE_LL 6'b110000            //ll指令码
 `define EXE_SC 6'b111000            //sc指令码
 
+//异常相关指令
+//不包含立即数的自陷指令(指令码为SPECIAL类，根据功能码区分)
+`define EXE_TEQ 6'b110100
+`define EXE_TGE 6'b110000
+`define EXE_TGEU 6'b110001
+`define EXE_TLT 6'b110010
+`define EXE_TLTU 6'b110011
+`define EXE_TNE 6'b110110
+//含立即数的自陷指令(指令码为REGIMM类，根据20～16bit区分)
+`define EXE_TEQI 5'b01100
+`define EXE_TGEI 5'b01000
+`define EXE_TGEIU 5'b01001
+`define EXE_TLTI 5'b01010
+`define EXE_TLTIU 5'b01011
+`define EXE_TNEI 5'b01110
+
+`define EXE_SYSCALL 6'b001100
+`define EXE_ERET 32'b010000_1_0000_0000_0000_0000_000_011000
+
 //空指令
 `define EXE_NOP 6'b000000           //空指令功能码
 `define SSNOP 32'h0000_0040         //SSNOP指令
@@ -116,7 +135,8 @@
 `define EXE_SPECIAL2_INST 6'b011100 //SPECIAL2类指令的指令码
 `define EXE_REGIMM_INST 6'b000001   //REGIMM类转移指令
 
-//*********AluOp：指令要执行的运算子类型（ID输出到EX）***********
+//*********************AluOp：指令要执行的运算子类型（ID输出到EX）*****************
+//逻辑操作指令
 `define EXE_AND_OP 8'b0010_0100
 `define EXE_OR_OP 8'b0010_0101
 `define EXE_XOR_OP 8'b0010_0110
@@ -126,6 +146,7 @@
 `define EXE_XORI_OP 8'b0101_1011
 `define EXE_LUI_OP 8'b0101_1100
 
+//移位操作指令
 `define EXE_SLL_OP 8'b0111_1100
 `define EXE_SLLV_OP 8'b0000_0100
 `define EXE_SRL_OP 8'b0000_0010
@@ -133,6 +154,7 @@
 `define EXE_SRA_OP 8'b0000_0011
 `define EXE_SRAV_OP 8'b0000_0111
 
+//移动操作指令
 `define EXE_MOVZ_OP 8'b0000_1010
 `define EXE_MOVN_OP 8'b0000_1011
 `define EXE_MFHI_OP 8'b0001_0000
@@ -140,6 +162,7 @@
 `define EXE_MFLO_OP 8'b0001_0010
 `define EXE_MTLO_OP 8'b0001_0011
 
+//算术操作指令
 `define EXE_SLT_OP 8'b0010_1010
 `define EXE_SLTU_OP 8'b0010_1011
 `define EXE_SLTI_OP 8'b0101_0111
@@ -165,6 +188,7 @@
 `define EXE_DIV_OP 8'b0001_1010
 `define EXE_DIVU_OP 8'b0001_1011
 
+//分支跳转指令
 `define EXE_J_OP 8'b0100_1111
 `define EXE_JAL_OP 8'b0101_0000
 `define EXE_JALR_OP 8'b0000_1001
@@ -178,6 +202,7 @@
 `define EXE_BLTZAL_OP 8'b0100_1010
 `define EXE_BNE_OP 8'b0101_0010
 
+//加载存储指令
 `define EXE_LB_OP 8'b1110_0000
 `define EXE_LBU_OP 8'b1110_0100
 `define EXE_LH_OP 8'b1110_0001
@@ -193,16 +218,36 @@
 `define EXE_LL_OP 8'b1111_0000
 `define EXE_SC_OP 8'b1111_1000
 
+//协处理器访问指令
 `define EXE_MFC0_OP 8'b0101_1101
 `define EXE_MTC0_OP 8'b0110_0000
 
+//异常相关指令
+`define EXE_TEQ_OP 8'b0011_0100
+`define EXE_TGE_OP 8'b0011_0000
+`define EXE_TGEU_OP 8'b0011_0001
+`define EXE_TLT_OP 8'b0011_0010
+`define EXE_TLTU_OP 8'b0011_0011
+`define EXE_TNE_OP 8'b0011_0110
+
+`define EXE_TEQI_OP 8'b0100_1000
+`define EXE_TGEI_OP 8'b0100_0100
+`define EXE_TGEIU_OP 8'b0100_0101
+`define EXE_TLTI_OP 8'b0100_0110
+`define EXE_TLTIU_OP 8'b0100_0111
+`define EXE_TNEI_OP 8'b0100_1001
+
+`define EXE_SYSCALL_OP 8'b0000_1100
+`define EXE_ERET_OP 8'b0110_1011
+
+//其他特殊指令
 `define EXE_NOP_OP 8'b0000_0000
 
 `define EXE_PREF_OP 8'b1111_0011
 `define EXE_SYNC_OP 8'b0000_1111
 
 
-//*********AluSel：指令要执行的运算类型（ID输出到EX）************
+//*****************AluSel：指令要执行的运算类型（ID输出到EX）**********************
 `define EXE_RES_LOGIC 3'b001
 `define EXE_RES_SHIFT 3'b010
 `define EXE_RES_MOVE 3'b011
@@ -211,17 +256,17 @@
 `define EXE_RES_JUMP_BRANCH 3'b110
 `define EXE_RES_LOAD_STORE 3'b111
 
-`define EXE_RES_NOP 3'b000
+`define EXE_RES_NOP 3'b000              //指令执行后没有需要写入通用寄存器的结果
 
 
-//************  与指令存储器ROM有关的宏定义  ***********
+//*************************  与指令存储器ROM有关的宏定义  ************************
 `define InstAddrBus 31:0            //ROM的地址总线宽度
 `define InstBus 31:0                //ROM的数据总线宽度
-`define InstMemNum 4096             //ROM的实际大小为128KB(4*1024条32位指令)
-`define InstRealAddrbus 19          //ROM实际使用的地址线宽度
+`define InstMemNum 32768            //ROM的实际大小为128KB(32*1024条32位(4字节)指令)
+`define InstRealAddrBus 17          //ROM实际使用的地址线宽度
 
 
-//***********  与通用寄存器堆Regfile有关的宏定义  *************
+//********************  与通用寄存器堆Regfile有关的宏定义  ***********************
 `define RegAddrBus 4:0              //Regfile模块的地址线宽度
 `define RegBus 31:0                 //Regfile模块的数据线宽度
 `define RegWidth 32                 //通用寄存器的宽度
@@ -232,11 +277,12 @@
 `define NOPRegAddr 5'b00000         //$0寄存器地址
 
 
-//***********  与流水线暂停机制模块ctrl有关的宏定义  *************
+//*******************  与流水线暂停机制模块ctrl有关的宏定义  **********************
 `define Stop 1'b1                   //流水线暂停
 `define NoStop 1'b0                 //流水线继续
 
-//***************   与除法模块相关的宏定义    ******************
+
+//************************   与除法模块相关的宏定义    ***************************
 `define DivFree 2'b00
 `define DivByZero 2'b01
 `define DivOn 2'b10
@@ -246,26 +292,30 @@
 `define DivStart 1'b1
 `define DivStop 1'b0
 
-//**************    转移指令相关宏定义   ****************
+
+//**************************    转移指令相关宏定义   *****************************
 `define Branch 1'b1                 //转移
 `define NotBranch 1'b0              //不转移
 `define InDelaySlot 1'b1            //在延迟槽中
 `define NotInDelaySlot 1'b0         //不在延迟槽中
 
-//**************    数据存储器RAM相关宏定义    *****************
+
+//***********************    数据存储器RAM相关宏定义    **************************
 `define DataAddrBus 31:0            //地址总线宽度
 `define DataBus 31:0                //数据总线宽度
 `define DataMemNum 131072           //RAM大小，单位是字，此处是128K word
 `define DataMemNumLog2 17           //实际使用的地址宽度
 `define ByteWidth 7:0               //字节宽度
 
-//**************    中断异常相关    ******************
+
+//******************************    异常相关    *********************************
 `define InterruptAssert 1'b1
 `define InterruptNotAssert 1'b0
 `define TrapAssert 1'b1
 `define TrapNotAssert 1'b0
 
-//**************    定义CP0中各个寄存器的地址    *****************
+
+//**********************    定义CP0中各个寄存器的地址    *************************
 `define CP0_REG_COUNT 5'b01001      //标号9
 `define CP0_REG_COMPARE 5'b01011    //标号11
 `define CP0_REG_STATUS 5'b01100     //标号12
@@ -274,6 +324,7 @@
 `define CP0_REG_PRId 5'b01111       //标号15
 `define CP0_REG_CONFIG 5'b10000     //标号16
 
-//***************** 与4位数码管相关宏定义 **********************
+
+//************************** 与4位数码管相关宏定义 *******************************
 `define DispDataBus 6:0             //4位数码管数据总线宽度
 `define DispAnBus 3:0               //4位数码管选通信号宽度

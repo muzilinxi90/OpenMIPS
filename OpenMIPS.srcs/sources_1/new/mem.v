@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
-//********************************************************************
-//  访存阶段：加载存储指令在此实现
+//******************************************************************************
+//  访存阶段：加载存储指令在此实现，异常处理在此实现
 //  读数据存储器RAM时总是返回一个对齐的字给MEM模块
 //  写数据存储器RAM时只能写指令要求写的字节、半字或者字
-//********************************************************************
+//******************************************************************************
 
 `include "defines.v"
 
@@ -11,8 +11,8 @@ module mem(
     input wire rst,
 
     //来自执行阶段的信息
-    input wire[`RegAddrBus] wd_i,
     input wire wreg_i,
+    input wire[`RegAddrBus] wd_i,
     input wire[`RegBus] wdata_i,
 
     input wire[`RegBus] hi_i,
@@ -20,8 +20,8 @@ module mem(
     input wire whilo_i,
 
     //访存阶段结果
-    output reg[`RegAddrBus] wd_o,
     output reg wreg_o,
+    output reg[`RegAddrBus] wd_o,
     output reg[`RegBus] wdata_o,
 
     output reg[`RegBus] hi_o,
@@ -41,7 +41,7 @@ module mem(
     output reg[`RegBus] mem_data_o,     //要写入数据存储器的数据
     output reg mem_ce_o,                //数据存储器使能信号
 
-    //LLbit寄存器相关接口
+    //LLbit寄存器相关接口(ll、sc指令)
     input wire LLbit_i,                 //LLbit模块给出的LLbit寄存器的值
     input wire wb_LLbit_we_i,           //回写阶段的指令是否要写LLbit寄存器(旁路信息)
     input wire wb_LLbit_value_i,        //回写阶段的指令要写入LLbit寄存器的值(旁路信息)
@@ -54,15 +54,47 @@ module mem(
     input wire[`RegBus] cp0_reg_data_i,
     output reg cp0_reg_we_o,
     output reg[4:0] cp0_reg_write_addr_o,
-    output reg[`RegBus] cp0_reg_data_o
+    output reg[`RegBus] cp0_reg_data_o,
+
+    //异常处理相关接口
+    //来自执行阶段
+    input wire[31:0] excepttype_i,                      //译码执行阶段收集到的异常信息
+    input wire is_in_delayslot_i,                       //访存阶段指令是否是延迟槽指令
+    input wire[`InstAddrBus] current_inst_address_i,    //访存阶段指令的地址
+    //来自CP0模块
+    input wire[`RegBus] cp0_status_i,
+    input wire[`RegBus] cp0_cause_i,
+    input wire[`RegBus] cp0_epc_i,
+    //来自回写阶段的前推信息
+    input wire wb_cp0_reg_we,
+    input wire[4:0] wb_cp0_reg_write_addr,
+    input wire[`RegBus] wb_cp0_reg_data,
+    //向回写阶段输出
+    output reg[31:0] excepttype_o,                      //最终的异常类型
+    output wire is_in_delayslot_o,                      //访存阶段指令是否是延迟槽指令
+    output wire[`InstAddrBus] current_inst_address_o,   //访存阶段指令的地址
+    output wire[`RegBus] cp0_epc_o                      //CP0中EPC寄存器的最新值
     );
 
-    wire[`RegBus] zero32;
     reg mem_we;                         //访问数据存储器RAM读写控制
     reg LLbit;                          //保存LLbit寄存器的最新值
+    wire[`RegBus] zero32;
 
-    assign mem_we_o = mem_we;
+    reg[`RegBus] cp0_status;            //用来保存CP0中Status寄存器的最新值
+    reg[`RegBus] cp0_cause;             //用来保存CP0中Cause寄存器的最新值
+    reg[`RegBus] cp0_epc;               //用来保存CP0中EPC寄存器的最新值
+
+
+    //mem_we_o输出到数据存储器，表示是否是对数据存储器的写操作，如果发生了异常，那么
+    //需要取消对数据存储器的写操作
+    assign mem_we_o = mem_we & (~(|excepttype_o));
+
     assign zero32 = `ZeroWord;
+
+    assign is_in_delayslot_o = is_in_delayslot_i;
+
+    assign current_inst_address_o = current_inst_address_i;
+
 
     always @ ( * ) begin
         if(rst == `RstEnable) begin
@@ -395,6 +427,88 @@ module mem(
                 LLbit <= LLbit_i;
             end
         end
+    end
+
+
+//******************************************************************************
+//  得到CP0中寄存器的最新值
+//******************************************************************************
+    //得到CP0中Status寄存器的最新值，步骤如下：
+    //判断当前处于回写阶段的指令是否要写CP0中Status寄存器，如果要写，那么要写入的值就是
+    //Status寄存器的最新值，反之，从CP0模块通过cp0_status_i接口传入的数据就是Status
+    //寄存器的最新值
+    always @ ( * ) begin
+        if(rst == `RstEnable) begin
+            cp0_status <= `ZeroWord;
+        end else if((wb_cp0_reg_we == `WriteEnable) &&
+                    (wb_cp0_reg_write_addr == `CP0_REG_STATUS)) begin
+            cp0_status <= wb_cp0_reg_data;
+        end else begin
+            cp0_status <= cp0_status_i;
+        end
+    end
+
+    //得到CP0中EPC寄存器的最新值，原理同Status寄存器
+    always @ ( * ) begin
+        if(rst == `RstEnable) begin
+            cp0_epc <= `ZeroWord;
+        end else if((wb_cp0_reg_we == `WriteEnable) &&
+                    (wb_cp0_reg_write_addr == `CP0_REG_EPC)) begin
+            cp0_epc <= wb_cp0_reg_data;
+        end else begin
+            cp0_epc <= cp0_epc_i;
+        end
+    end
+
+    //将EPC寄存器的最新值通过接口cp0_epc_o输出
+    assign cp0_epc_o = cp0_epc;
+
+    //得到CP0中Cause寄存器的最新值，原理同Status寄存器
+    //要注意的是：Cause寄存器只有几个字段是可写的
+    always @ ( * ) begin
+        if(rst == `RstEnable) begin
+            cp0_cause <= `ZeroWord;
+        end else if((wb_cp0_reg_we == `WriteEnable) &&
+                    (wb_cp0_reg_write_addr == `CP0_REG_CAUSE)) begin
+            cp0_cause[9:8] <= wb_cp0_reg_data[9:8];         //IP[1:0]字段
+            cp0_cause[22] <= wb_cp0_reg_data[22];           //WP字段
+            cp0_cause[23] <= wb_cp0_reg_data[23];           //IV字段
+        end else begin
+            cp0_cause <= cp0_cause_i;
+        end
+    end
+
+
+//******************************************************************************
+//  给出最终的异常类型
+//******************************************************************************
+    always @ ( * ) begin
+        if(rst == `RstEnable) begin
+            excepttype_o <= `ZeroWord;
+        end else begin
+            excepttype_o <= `ZeroWord;
+            //当前处于访存阶段的指令的地址为0，表示处理器处于复位状态，或者刚刚发生异常，
+            //正在清除流水线(flush为1)，或者流水线处于暂停状态，在这三种情况下都不处理
+            //异常
+            if(current_inst_address_i != `ZeroWord) begin
+                //status[15:8]是否屏蔽相应中断，0表示屏蔽；cause[15:8]中断挂起字段；
+                //status[1]EXL字段，表示是否处于异常级；status[0]中断使能
+                if(((cp0_cause[15:8] & cp0_status[15:8]) != 8'h00) &&
+                    (cp0_status[1] == 1'b0) && (cp0_status[0] == 1'b1)) begin
+                    excepttype_o <= 32'h0000_0001;          //interrupt
+                end else if(excepttype_i[8] == 1'b1) begin
+                    excepttype_o <= 32'h0000_0008;          //syscall
+                end else if(excepttype_i[9] == 1'b1) begin
+                    excepttype_o <= 32'h0000_000a;          //inst_invalid
+                end else if(excepttype_i[10] == 1'b1) begin
+                    excepttype_o <= 32'h0000_000d;          //trap
+                end else if(excepttype_i[11] == 1'b1) begin
+                    excepttype_o <= 32'h0000_000c;          //ov
+                end else if(excepttype_i[12] == 1'b1) begin
+                    excepttype_o <= 32'h0000_000e;          //eret
+                end
+            end//if
+        end//else
     end
 
 endmodule

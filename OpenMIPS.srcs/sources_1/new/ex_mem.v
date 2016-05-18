@@ -6,15 +6,15 @@
 `include "defines.v"
 
 module ex_mem(
-    input wire clk,
     input wire rst,
+    input wire clk,
 
     //来自ctrl的控制信息
     input wire[5:0] stall,
 
     //来自执行阶段的信息
-    input wire[`RegAddrBus] ex_wd,
     input wire ex_wreg,
+    input wire[`RegAddrBus] ex_wd,
     input wire[`RegBus] ex_wdata,
 
     input wire[`RegBus] ex_hi,
@@ -22,15 +22,15 @@ module ex_mem(
     input wire ex_whilo,
 
     //送到访存阶段的信息
-    output reg[`RegAddrBus] mem_wd,
     output reg mem_wreg,
+    output reg[`RegAddrBus] mem_wd,
     output reg[`RegBus] mem_wdata,
 
     output reg[`RegBus] mem_hi,
     output reg[`RegBus] mem_lo,
     output reg mem_whilo,
 
-    //乘累加、乘累减运算数据接口
+    //乘累加、乘累减运算数据接口：回传回EX模块
     input wire[`DoubleRegBus] hilo_i,
     input wire[1:0] cnt_i,
     output reg[`DoubleRegBus] hilo_o,
@@ -50,7 +50,17 @@ module ex_mem(
     input wire[`RegBus] ex_cp0_reg_data,
     output reg mem_cp0_reg_we,
     output reg[4:0] mem_cp0_reg_write_addr,
-    output reg[`RegBus] mem_cp0_reg_data
+    output reg[`RegBus] mem_cp0_reg_data,
+
+    //异常处理相关接口
+    input wire[31:0] ex_excepttype,                     //译码执行阶段收集到的异常信息
+    input wire ex_is_in_delayslot,                      //执行阶段指令是否是延迟槽指令
+    input wire[`InstAddrBus] ex_current_inst_address,   //执行阶段指令的地址
+    output reg[31:0] mem_excepttype,                    //译码执行阶段收集到的异常信息
+    output reg mem_is_in_delayslot,                     //访存阶段指令是否是延迟槽指令
+    output reg[`InstAddrBus] mem_current_inst_address,  //访存阶段指令的地址
+
+    input wire flush
     );
 
     // 1)当stall[3]为Stop，stall[4]为NoStop时，表示执行阶段暂停，而访存阶段
@@ -62,8 +72,8 @@ module ex_mem(
     // mem_lo、mem_whilo不变
     always @ ( posedge clk ) begin
         if(rst == `RstEnable) begin
-            mem_wd <= `NOPRegAddr;
             mem_wreg <= `WriteDisable;
+            mem_wd <= `NOPRegAddr;
             mem_wdata <= `ZeroWord;
 
             mem_hi <= `ZeroWord;
@@ -81,15 +91,45 @@ module ex_mem(
             mem_cp0_reg_write_addr <= 5'b00000;
             mem_cp0_reg_data <= `ZeroWord;
 
-        end else if(stall[3] == `Stop && stall[4] == `NoStop) begin
-            mem_wd <= `NOPRegAddr;
+            mem_excepttype <= `ZeroWord;
+            mem_is_in_delayslot <= `NotInDelaySlot;
+            mem_current_inst_address <= `ZeroWord;
+
+        end else if(flush == 1'b1) begin
             mem_wreg <= `WriteDisable;
+            mem_wd <= `NOPRegAddr;
             mem_wdata <= `ZeroWord;
 
             mem_hi <= `ZeroWord;
             mem_lo <= `ZeroWord;
             mem_whilo <= `WriteDisable;
 
+            hilo_o <= {`ZeroWord,`ZeroWord};
+            cnt_o <= 2'b00;
+
+            mem_aluop <= `EXE_NOP_OP;
+            mem_mem_addr <= `ZeroWord;
+            mem_reg2 <= `ZeroWord;
+
+            mem_cp0_reg_we <= `WriteDisable;
+            mem_cp0_reg_write_addr <= 5'b00000;
+            mem_cp0_reg_data <= `ZeroWord;
+
+            mem_excepttype <= `ZeroWord;
+            mem_is_in_delayslot <= `NotInDelaySlot;
+            mem_current_inst_address <= `ZeroWord;
+
+        end else if(stall[3] == `Stop && stall[4] == `NoStop) begin
+            mem_wreg <= `WriteDisable;
+            mem_wd <= `NOPRegAddr;
+            mem_wdata <= `ZeroWord;
+
+            mem_hi <= `ZeroWord;
+            mem_lo <= `ZeroWord;
+            mem_whilo <= `WriteDisable;
+
+            //输出到EX模块，执行阶段暂停时保持输出不变，向下一级流水线输出的置零，相当
+            //于向下一级插入空指令
             hilo_o <= hilo_i;
             cnt_o <= cnt_i;
 
@@ -101,9 +141,13 @@ module ex_mem(
             mem_cp0_reg_write_addr <= 5'b00000;
             mem_cp0_reg_data <= `ZeroWord;
 
+            mem_excepttype <= `ZeroWord;
+            mem_is_in_delayslot <= `NotInDelaySlot;
+            mem_current_inst_address <= `ZeroWord;
+
         end else if(stall[3] == `NoStop) begin
-            mem_wd <= ex_wd;
             mem_wreg <= ex_wreg;
+            mem_wd <= ex_wd;
             mem_wdata <= ex_wdata;
 
             mem_hi <= ex_hi;
@@ -120,6 +164,11 @@ module ex_mem(
             mem_cp0_reg_we <= ex_cp0_reg_we;
             mem_cp0_reg_write_addr <= ex_cp0_reg_write_addr;
             mem_cp0_reg_data <= ex_cp0_reg_data;
+
+            mem_excepttype <= ex_excepttype;
+            mem_is_in_delayslot <= ex_is_in_delayslot;
+            mem_current_inst_address <= ex_current_inst_address;
+
         end else begin
             hilo_o <= hilo_i;
             cnt_o <= cnt_i;

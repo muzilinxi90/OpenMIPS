@@ -43,10 +43,13 @@ module openmips_min_sopc(
     wire[`RegBus] reg_display_rdata;
     wire[`RegAddrBus] display_reg_raddr;
 
+    //时钟中断输出作为一个中断输入
+    assign int = {5'b00000,timer_int};
+
     //例化处理器OpenMIPS
     openmips openmips0(
-        .clk(clk),
         .rst(rst),
+        .clk(clk),
 
         .rom_addr_o(inst_addr),
         .rom_data_i(inst),
@@ -59,11 +62,11 @@ module openmips_min_sopc(
         .ram_data_i(mem_data_o),
         .ram_sel_o(mem_sel_i),
 
-        .display_reg_raddr(display_reg_raddr),
-        .reg_display_rdata(reg_display_rdata),
-
         .int_i(int),
-        .timer_int_o(timer_int)
+        .timer_int_o(timer_int),
+
+        .display_reg_raddr(display_reg_raddr),
+        .reg_display_rdata(reg_display_rdata)
         );
 
     //例化指令存储器ROM

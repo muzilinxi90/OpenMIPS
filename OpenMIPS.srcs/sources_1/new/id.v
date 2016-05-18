@@ -4,10 +4,9 @@
 // 目的寄存器地址等
 //
 //                            代码重构
-// 1)译码部分可以重构，利用操作码op和函数码op3完全可以区分开全部指令，没有必要使用op2
-// 以及其他判断条件;
-// 2)每条指令下的输出赋值如果符合默认情况可以删除掉;
-// 3)instvalid用处不大
+// 1)译码部分可以重构，利用操作码op和函数码op3完全可以区分开大部分指令，使用其他条件的
+// 单独处理
+// 2)每条指令下的输出赋值如果符合默认情况可以删除掉
 //******************************************************************************
 
 `include "defines.v"
@@ -17,23 +16,24 @@ module id(
     input wire[`InstAddrBus] pc_i,          //译码阶段的指令对应的地址
     input wire[`InstBus] inst_i,            //译码阶段的指令
 
-    //读取的regfile的值
-    input wire[`RegBus] reg1_data_i,        //从Regfile输入的第一个读寄存器端口的输入
-    input wire[`RegBus] reg2_data_i,        //从Regfile输入的第二个读寄存器端口的输入
-
+    //与指令存储器ROM的接口
     //输出到regfile的信息
     output reg reg1_read_o,                 //Regfile模块的第一个读寄存器端口的使能信号
     output reg reg2_read_o,                 //Regfile模块的第二个读寄存器端口的使能信号
     output reg[`RegAddrBus] reg1_addr_o,    //Regfile模块的第一个读寄存器端口的读地址信号
     output reg[`RegAddrBus] reg2_addr_o,    //Regfile模块的第二个读寄存器端口的读地址信号
+    //读取的regfile的值
+    input wire[`RegBus] reg1_data_i,        //从Regfile输入的第一个读寄存器端口的输入
+    input wire[`RegBus] reg2_data_i,        //从Regfile输入的第二个读寄存器端口的输入
 
     //送到执行阶段的信息
     output reg[`AluOpBus] aluop_o,          //译码阶段的指令要进行的运算的子类型
     output reg[`AluSelBus] alusel_o,        //译码阶段的指令要进行的运算的类型
     output reg[`RegBus] reg1_o,             //译码阶段的指令要进行的运算的源操作数1
     output reg[`RegBus] reg2_o,             //译码阶段的指令要进行的运算的源操作数2
-    output reg[`RegAddrBus] wd_o,           //译码阶段的指令要写入的目的寄存器地址
     output reg wreg_o,                      //译码阶段的指令是否有要写入的通用寄存器
+    output reg[`RegAddrBus] wd_o,           //译码阶段的指令要写入的目的寄存器地址
+
     //用于加载存储指令，将指令传递到执行阶段
     output wire[`RegBus] inst_o,
 
@@ -51,33 +51,41 @@ module id(
     output wire stallreq,
 
     //转移指令相关控制信号
-    //如果上一条指令是转移指令，那么下一条指令进入译码阶段的时候，输入变量
-    //is_in_delayslot_i为true，表示是延迟槽指令，反之为false
-    input wire is_in_delayslot_i,
-    output reg next_inst_in_delayslot_o,
+    //传递到PC模块
     output reg branch_flag_o,
     output reg[`RegBus] branch_target_address_o,
+    //传递到下一级流水线
     output reg[`RegBus] link_addr_o,                //返回地址
-    output reg is_in_delayslot_o,
+    output reg is_in_delayslot_o,                   //传递到EX阶段
+    //如果一条指令为分支跳转指令，会设置next_inst_in_delayslot_o为true，表示下一条
+    //指令为延迟槽指令，next_inst_in_delayslot_o连接到ID/EX模块的next_inst_in_delayslot_i,
+    //经过ID/EX时序逻辑的一个时钟周期延迟，从ID/EX模块的is_in_delayslot_o输出到ID模块
+    //的is_in_delayslot_i，此时下一条指令正好在译码阶段，表示此指令为延迟槽指令
+    input wire is_in_delayslot_i,
+    output reg next_inst_in_delayslot_o,
 
     //用于解决load相关新增加的接口
-    input wire[`AluOpBus] ex_aluop_i
+    input wire[`AluOpBus] ex_aluop_i,
+
+    //异常处理相关接口
+    output wire[31:0] excepttype_o,                     //收集的异常信息
+    output wire[`InstAddrBus] current_inst_address_o    //译码阶段指令的地址
     );
 
-//***************  分析指令，判断指令的操作种类  *******************
+//***********************  分析指令，判断指令的操作种类  **************************
     //6位指令码op
     wire[5:0] op = inst_i[31:26];
     //op2为移位位数shamt
     wire[4:0] op2 = inst_i[10:6];
     //6位功能码op3
     wire[5:0] op3 = inst_i[5:0];
-    //指令rt段
+    //指令rt段，部分指令用此字段区分
     wire[4:0] op4 = inst_i[20:16];
 
     //保存指令执行需要的立即数
     reg[`RegBus] imm;
 
-    //指示指令是否有效
+    //指示指令是否有效，无效指令会产生异常
     reg instvalid;
 
     //转移指令相关
@@ -91,6 +99,11 @@ module id(
     reg stallreq_for_reg2_loadrelate;
     //上一条指令是否是加载指令
     wire pre_inst_is_load;
+
+    //异常相关
+    reg excepttype_is_syscall;          //是否是系统调用异常syscall
+    reg excepttype_is_eret;             //是否是异常返回指令eret
+
 
     assign pc_plus_8 = pc_i + 8;        //保存当前译码阶段指令后面第2条指令地址
     assign pc_plus_4 = pc_i + 4;        //保存当前译码阶段指令后面紧接着的指令地址
@@ -113,54 +126,75 @@ module id(
 
     assign inst_o = inst_i;
 
-//******************************************************
+    //excepttype_o的低8bit留给外部中断，第8bit表示是否是syscall指令引起的系统调用异常，
+    //第9bit表示是否是无效指令引起的异常，第12bit表示是否是eret指令，eret指令认为是一种
+    //特殊的异常——返回异常
+    assign excepttype_o = {19'b0,excepttype_is_eret,2'b00,instvalid,
+                            excepttype_is_syscall,8'b0000_0000};
+
+    //输入信号pc_i就是当前处于译码阶段的指令的地址
+    assign current_inst_address_o = pc_i;
+
+//******************************************************************************
 //  第一段：对指令进行译码,从三方面信息考虑:
-//  1.要读取的寄存器(操作数)情况:reg1、reg2、imm
-//  2.要执行的运算:alusel、aluop
+//  1.要执行的运算:alusel、aluop
+//  2.要读取的寄存器(操作数)情况:reg1、reg2、imm
 //  3.要写入的目的寄存器:wreg_o、wd_o
-//******************************************************
+//******************************************************************************
     always @ ( * ) begin
         if(rst == `RstEnable) begin
             aluop_o <= `EXE_NOP_OP;
             alusel_o <= `EXE_RES_NOP;
-            wd_o <= `NOPRegAddr;
-            wreg_o <= `WriteDisable;
-            instvalid <= `InstValid;
             reg1_read_o <= 1'b0;
             reg2_read_o <= 1'b0;
             reg1_addr_o <= `NOPRegAddr;
             reg2_addr_o <= `NOPRegAddr;
-            imm <= 32'h0;
-            link_addr_o <= `ZeroWord;
-            branch_target_address_o <= `ZeroWord;
+            imm <= `ZeroWord;
+            wreg_o <= `WriteDisable;
+            wd_o <= `NOPRegAddr;
+            instvalid <= `InstValid;
+
             branch_flag_o <= `NotBranch;
+            branch_target_address_o <= `ZeroWord;
+
+            link_addr_o <= `ZeroWord;
+
             next_inst_in_delayslot_o <= `NotInDelaySlot;
+
+            excepttype_is_syscall <= `False_v;
+            excepttype_is_eret <= `False_v;
 
         //复位无效,设置各个信息的默认值
         end else begin
             aluop_o <= `EXE_NOP_OP;
             alusel_o <= `EXE_RES_NOP;
-            wd_o <= inst_i[15:11];          //默认目的寄存器地址为rd
-            wreg_o <= `WriteDisable;
-            instvalid <= `InstInvalid;
             reg1_read_o <= 1'b0;
             reg2_read_o <= 1'b0;
-            reg1_addr_o <= inst_i[25:21];   //默认源操作数1地址为rs
-            reg2_addr_o <= inst_i[20:16];   //默认源操作数2地址为rt
-            imm <= `ZeroWord;               //默认立即数imm
-            link_addr_o <= `ZeroWord;
-            branch_target_address_o <= `ZeroWord;
+            reg1_addr_o <= inst_i[25:21];           //默认源操作数1地址为rs
+            reg2_addr_o <= inst_i[20:16];           //默认源操作数2地址为rt
+            imm <= `ZeroWord;                       //默认立即数imm
+            wreg_o <= `WriteDisable;
+            wd_o <= inst_i[15:11];                  //默认目的寄存器地址为rd
+
             branch_flag_o <= `NotBranch;
+            branch_target_address_o <= `ZeroWord;
+
+            link_addr_o <= `ZeroWord;
+
             next_inst_in_delayslot_o <= `NotInDelaySlot;
 
-            //译码部分
+            excepttype_is_syscall <= `False_v;      //默认没有系统调用异常
+            excepttype_is_eret <= `False_v;         //默认不是eret指令
+            instvalid <= `InstInvalid;              //默认是无效指令
+
+            //译码部分，由op指令码分支
             case(op)
                 //指令码是SPECIAL
                 `EXE_SPECIAL_INST:begin
                     case(op2)
-                        //op2全0,不是移位指令(case(op2)没什么用)
-                        //使用操作码op结合函数码op3完全可以判断
+                        //SPECIAL类中op2部分为0的指令
                         5'b00000:begin
+                            //功能码op3分支
                             case(op3)
                                 `EXE_OR:begin
                                     wreg_o <= `WriteEnable;
@@ -389,9 +423,74 @@ module id(
                         default:begin
                         end
                     endcase//case(op2)
+
+                    //SPECIAL类中op2不为0的指令，需要以功能码op3来分支
+                    case(op3)
+                        `EXE_TEQ:begin
+                            aluop_o <= `EXE_TEQ_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TGE:begin
+                            aluop_o <= `EXE_TGE_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TGEU:begin
+                            aluop_o <= `EXE_TGEU_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TLT:begin
+                            aluop_o <= `EXE_TLT_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TLTU:begin
+                            aluop_o <= `EXE_TLTU_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TNE:begin
+                            aluop_o <= `EXE_TNE_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_SYSCALL:begin
+                            aluop_o <= `EXE_SYSCALL_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b0;
+                            reg2_read_o <= 1'b0;
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                            excepttype_is_syscall <= `True_v;
+                        end
+                        default:begin
+                        end
+                    endcase//op3
                 end//`EXE_SPECIAL_INST
 
-                //与立即数指令(指令码op)
+
+                //以指令码op就可以区分的指令
+                //与立即数指令
                 `EXE_ANDI:begin
                     wreg_o <= `WriteEnable;
                     aluop_o <= `EXE_AND_OP;
@@ -496,6 +595,7 @@ module id(
                     wd_o <= inst_i[20:16];
                     instvalid <= `InstValid;
                 end
+
                 `EXE_SPECIAL2_INST:begin
                     case(op3)
                         `EXE_CLZ:begin
@@ -558,6 +658,7 @@ module id(
                         end
                     endcase//case(op3)
                 end//EXE_SPECIAL2_INST
+
                 `EXE_J:begin
                     wreg_o <= `WriteDisable;
                     aluop_o <= `EXE_J_OP;
@@ -641,6 +742,7 @@ module id(
                         next_inst_in_delayslot_o <= `InDelaySlot;
                     end
                 end
+
                 `EXE_REGIMM_INST:begin
                     case(op4)
                         `EXE_BGEZ:begin
@@ -703,10 +805,65 @@ module id(
                                 next_inst_in_delayslot_o <= `InDelaySlot;
                             end
                         end
+                        `EXE_TEQI:begin
+                            aluop_o <= `EXE_TEQI_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b0;
+                            imm <= {{16{inst_i[15]}},inst_i[15:0]};
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TGEI:begin
+                            aluop_o <= `EXE_TGEI_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b0;
+                            imm <= {{16{inst_i[15]}},inst_i[15:0]};
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TGEIU:begin
+                            aluop_o <= `EXE_TGEIU_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b0;
+                            imm <= {{16{inst_i[15]}},inst_i[15:0]};
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TLTI:begin
+                            aluop_o <= `EXE_TLTI_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b0;
+                            imm <= {{16{inst_i[15]}},inst_i[15:0]};
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TLTIU:begin
+                            aluop_o <= `EXE_TLTIU_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b0;
+                            imm <= {{16{inst_i[15]}},inst_i[15:0]};
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
+                        `EXE_TNEI:begin
+                            aluop_o <= `EXE_TNEI_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b0;
+                            imm <= {{16{inst_i[15]}},inst_i[15:0]};
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;
+                        end
                         default:begin
                         end
                     endcase//case(op4)
                 end//EXE_REGIMM_INST
+
                 `EXE_LB:begin
                     wreg_o <= `WriteEnable;
                     aluop_o <= `EXE_LB_OP;
@@ -884,8 +1041,18 @@ module id(
                 reg1_read_o <= 1'b1;
                 reg2_read_o <= 1'b0;
                 reg1_addr_o <= inst_i[20:16];
+            //eret指令
+            end else if(inst_i == `EXE_ERET) begin
+                aluop_o <= `EXE_ERET_OP;
+                alusel_o <= `EXE_RES_NOP;
+                reg1_read_o <= 1'b0;
+                reg2_read_o <= 1'b0;
+                wreg_o <= `WriteDisable;
+                instvalid <= `InstValid;
+                excepttype_is_eret <= `True_v;
             end
-        end//else
+
+        end//else(复位信号无效，设置各个信号默认值)
     end//always
 
 //******************************************************************************

@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
-//********************************************
-//  运算执行
-//********************************************
+//******************************************************************************
+//                              EX模块
+//******************************************************************************
 
 `include "defines.v"
 
@@ -13,12 +13,12 @@ module ex(
     input wire[`AluSelBus] alusel_i,
     input wire[`RegBus] reg1_i,
     input wire[`RegBus] reg2_i,
-    input wire[`RegAddrBus] wd_i,
     input wire wreg_i,
+    input wire[`RegAddrBus] wd_i,
 
     //执行的结果
-    output reg[`RegAddrBus] wd_o,       //执行阶段指令最终要写入的目的寄存器地址
     output reg wreg_o,                  //执行阶段指令最终是否有目的寄存器
+    output reg[`RegAddrBus] wd_o,       //执行阶段指令最终要写入的目的寄存器地址
     output reg[`RegBus] wdata_o,        //执行阶段指令最终要写入目的寄存器的值
 
     //HILO模块给出的HI、LO寄存器的值
@@ -83,7 +83,15 @@ module ex(
     //向流水线下一级传递，用于写CP0中的指定寄存器
     output reg cp0_reg_we_o,
     output reg[4:0] cp0_reg_write_addr_o,
-    output reg[`RegBus] cp0_reg_data_o
+    output reg[`RegBus] cp0_reg_data_o,
+
+    //异常处理相关
+    input wire[31:0] excepttype_i,                      //译码阶段收集到的异常信息
+    input wire[`InstAddrBus] current_inst_address_i,    //执行阶段指令的地址
+    output wire[31:0] excepttype_o,                     //译码和执行阶段收集到的异常信息
+    //传递到访存阶段，当异常发生时，这两个信息用来确定保存到EPC寄存器的值
+    output wire[`InstAddrBus] current_inst_address_o,   //执行阶段指令的地址
+    output wire is_in_delayslot_o                       //执行阶段的指令是否是延迟槽指令
     );
 
     //保存逻辑运算的结果
@@ -115,10 +123,24 @@ module ex(
 
     reg stallreq_for_div;           //是否由于除法运算导致流水线暂停
 
-//********************************************************************
-//  依据aluop_i指示的运算子类型进行运算
-//********************************************************************
-    //************************逻辑运算******************************
+    reg trapassert;                 //表示是否有自陷异常
+    reg ovassert;                   //表示是否有溢出异常
+
+    //执行阶段输出的异常信息就是译码阶段的异常信息加上自陷异常、溢出异常的信息，
+    //其中第10bit表示是否有自陷异常，第11bit表示是否有溢出异常
+    assign excepttype_o = {excepttype_i[31:12],ovassert,trapassert,
+                            excepttype_i[9:8],8'h00};
+
+    assign is_in_delayslot_o = is_in_delayslot_i;
+
+    assign current_inst_address_o = current_inst_address_i;
+
+
+//******************************************************************************
+//                  依据aluop_i指示的运算子类型进行运算
+//******************************************************************************
+
+//********************************逻辑运算***************************************
     always @ ( * ) begin
         if(rst == `RstEnable) begin
             logicout <= `ZeroWord;
@@ -143,7 +165,7 @@ module ex(
         end//else
     end//always
 
-    //***********************移位运算*******************************
+//********************************移位运算***************************************
     always @ ( * ) begin
         if(rst == `RstEnable) begin
             shiftres <= `ZeroWord;
@@ -167,7 +189,7 @@ module ex(
         end//else
     end//always
 
-    //************************移动操作***************************
+//**********************************移动操作*************************************
     //得到最新的HI、LO寄存器的值，此处要解决数据相关问题
     always @ ( * ) begin
         if(rst == `RstEnable) begin
@@ -220,14 +242,18 @@ module ex(
         end//else
     end//always
 
-    //*********************** 算术运算  *****************************
+//********************************算术运算***************************************
     //一、计算变量的值
-    //1.如果是减法或者有符号比较运算，那么reg2_i_mux等于第二个操作数reg2_i
-    //的补码，否则就等于第二个操作数
+    //1.如果是减法运算、有符号比较运算、有符号自陷指令，那么reg2_i_mux等于第二个操作数
+    //reg2_i的补码，否则就等于第二个操作数
     assign reg2_i_mux = (
                          (aluop_i == `EXE_SUB_OP)  ||
                          (aluop_i == `EXE_SUBU_OP) ||
-                         (aluop_i == `EXE_SLT_OP)
+                         (aluop_i == `EXE_SLT_OP)  ||
+                         (aluop_i == `EXE_TGE_OP)  ||
+                         (aluop_i == `EXE_TGEI_OP) ||
+                         (aluop_i == `EXE_TLT_OP)  ||
+                         (aluop_i == `EXE_TLTI_OP)
                         ) ? ((~reg2_i)+1) : reg2_i;
 
     // 2.分三种情况：
@@ -235,9 +261,9 @@ module ex(
     //     就是加法运算的结果;
     //     2)如果是减法运算，此时reg2_i_mux是第二个操作数reg2_i的补码，所以
     //     result_sum就是减法运算的结果
-    //     3)如果是有符号比较运算，此时reg2_i_mux也是第二个操作数reg2_i的补码，
-    //     所以result_sum也是减法运算的结果，可以通过判断减法的结果是否小于零，
-    //     进而判断第一个操作数reg1_i是否小于第二个操作数reg2_i
+    //     3)如果是有符号比较运算或有符号自陷指令，此时reg2_i_mux也是第二个操作数
+    //     reg2_i的补码，所以result_sum也是减法运算的结果，可以通过判断减法的结果是否
+    //     小于零，进而判断第一个操作数reg1_i是否小于第二个操作数reg2_i
     assign result_sum = reg1_i + reg2_i_mux;
 
     // 3.计算是否溢出。加法指令(add和addi)、减法指令(sub)执行时，需要判断是否溢出，
@@ -248,18 +274,24 @@ module ex(
                     ((reg1_i[31] && reg2_i_mux[31]) && (!result_sum[31]));
 
     // 4.计算操作数1是否小于操作数2,分两种情况:
-    //     1)aluop_i为EXE_SLT_OP表示有符号比较运算，此时又分为3种情况:
+    //     1)当前指令为有符号比较指令或者有符号自陷异常指令时，此时又分为3种情况:
     //         a)reg1_i为负数、reg2_i为正数，显然reg1_i小于reg2_i
     //         b)reg1_i为正数、reg2_i为正数，并且reg1_i减去reg2_i的值小于0
     //           (即result_sum为负)，此时也有reg1_i小于reg2_i
     //         c)reg1_i为负数、reg2_i为负数，并且reg1_i减去reg2_i的值小于0
     //           (即result_sum为负)，此时也有reg1_i小于reg2_i
-    //     2)无符号数比较时，直接使用比较运算符比较reg1_i和reg2_i
-    assign reg1_lt_reg2 = (aluop_i == `EXE_SLT_OP) ?
-                          ((reg1_i[31] && !reg2_i[31]) ||
+    //     2)当前指令为无符号比较指令或者无符号自陷异常指令时，直接使用比较运算符比较
+    //       reg1_i和reg2_i(冒号后面的分支)
+    assign reg1_lt_reg2 = (
+                            (aluop_i == `EXE_SLT_OP)  ||
+                            (aluop_i == `EXE_TGE_OP)  ||
+                            (aluop_i == `EXE_TGEI_OP) ||
+                            (aluop_i == `EXE_TLT_OP)  ||
+                            (aluop_i == `EXE_TLTI_OP)
+                          ) ? ((reg1_i[31] && !reg2_i[31]) ||
                            (!reg1_i[31] && !reg2_i[31] && result_sum[31]) ||
-                           (reg1_i[31] && reg2_i[31] && !result_sum[31]))
-                          : (reg1_i < reg2_i);
+                           (reg1_i[31] && reg2_i[31] && result_sum[31]))
+                            : (reg1_i < reg2_i);
 
     // 5.对操作数1逐位取反，赋给reg1_i_not
     assign reg1_i_not = ~reg1_i;
@@ -509,18 +541,58 @@ module ex(
         stallreq = stallreq_for_madd_msub || stallreq_for_div;
     end
 
-//********************************************************************
+//**************************判断是否发生自陷异常**********************************
+//依据上面得到的比较结果，判断是否满足自陷指令的条件，从而给出变量trapassert的值
+    always @ ( * ) begin
+        if(rst == `RstEnable) begin
+            trapassert <= `TrapNotAssert;
+        end else begin
+            trapassert <= `TrapNotAssert;
+            case(aluop_i)
+                `EXE_TEQ_OP,`EXE_TEQI_OP:begin
+                    if(reg1_i == reg2_i) begin
+                        trapassert <= `TrapAssert;
+                    end
+                end
+                `EXE_TGE_OP,`EXE_TGEI_OP,`EXE_TGEU_OP,`EXE_TGEIU_OP:begin
+                    if(~reg1_lt_reg2) begin
+                        trapassert <= `TrapAssert;
+                    end
+                end
+                `EXE_TLT_OP,`EXE_TLTI_OP,`EXE_TLTU_OP,`EXE_TLTIU_OP:begin
+                    if(reg1_lt_reg2) begin
+                        trapassert <= `TrapAssert;
+                    end
+                end
+                `EXE_TNE_OP,`EXE_TNEI_OP:begin
+                    if(reg1_i != reg2_i) begin
+                        trapassert <= `TrapAssert;
+                    end
+                end
+                default:begin
+                    trapassert <= `TrapNotAssert;
+                end
+            endcase//case(aluop_i)
+        end//else
+    end//always
+
+
+//******************************************************************************
 //  依据alusel_i指示的运算类型，选择一个运算结果作为最终的结果(写回通用寄存器)
-//********************************************************************
+//******************************************************************************
     always @ ( * ) begin
         wd_o <= wd_i;                       //要写的目的寄存器地址
+
         //如果是add、addi、sub、subi指令，且发生溢出，那么设置wreg_o为WriteDisable,
-        //表示不写目的寄存器
+        //表示不写目的寄存器；依据指令类型以及ov_sum的值判断是否发生溢出异常，从而给出
+        //变量ovassert的值
         if(((aluop_i == `EXE_ADD_OP) || (aluop_i == `EXE_ADDI_OP) ||
             (aluop_i == `EXE_SUB_OP)) && (ov_sum == 1'b1)) begin
             wreg_o <= `WriteDisable;
+            ovassert <= 1'b1;               //发生了溢出异常
         end else begin
             wreg_o <= wreg_i;
+            ovassert <= 1'b0;               //没有发生溢出异常
         end
 
         case(alusel_i)
@@ -548,7 +620,10 @@ module ex(
         endcase
     end
 
-    //特殊寄存器HI、LO写入控制
+
+//******************************************************************************
+//                          特殊寄存器HI、LO写入控制
+//******************************************************************************
     always @ ( * ) begin
         if(rst == `RstEnable) begin
             whilo_o <= `WriteDisable;
@@ -588,8 +663,9 @@ module ex(
         end
     end
 
+
 //******************************************************************************
-//  加载存储指令相关处理过程
+//                          加载存储指令相关处理过程
 //******************************************************************************
     //aluop_o传递到访存阶段，届时将利用其确定加载、存储类型
     assign aluop_o = aluop_i;
@@ -601,7 +677,7 @@ module ex(
 
 
 //******************************************************************************
-//  mtc0指令执行过程
+//                            mtc0指令执行过程
 //******************************************************************************
     always @ ( * ) begin
         if(rst == `RstEnable) begin

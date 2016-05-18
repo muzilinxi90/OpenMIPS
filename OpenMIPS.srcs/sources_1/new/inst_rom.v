@@ -19,7 +19,7 @@ module inst_rom(
     //inst_rom.txt是一个文本文件，里面每行存储一条32位宽度的指令（十六进制），
     //系统函数$readmemh将inst_rom.txt中的数据一次填写到inst_mem数组中
     //如果要综合，需要修改这里初始化存储器的方法
-    initial $readmemh("C:/Users/LMX/Desktop/MyProject/TestFile/CP0Test.data",inst_mem);
+    initial $readmemh("C:/Users/LMX/Desktop/MyProject/TestFile/TimerIntTest.data",inst_mem);
 
     //板级测试，程序写死在ROM中
     // always @ ( * ) begin
@@ -44,7 +44,7 @@ module inst_rom(
         end else begin
             //地址是按字节的，因此指令地址从地址线第2位到第19位，
             //指令有四个字节，指令内字节地址为0~1位
-            inst <= inst_mem[addr[`InstRealAddrbus:2]];
+            inst <= inst_mem[addr[`InstRealAddrBus-1:2]];
         end
     end
 endmodule
