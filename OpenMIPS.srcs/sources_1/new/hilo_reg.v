@@ -1,13 +1,13 @@
 `timescale 1ns / 1ps
 //******************************************************************************
-//      特殊寄存器HI、LO模块
+//                          特殊寄存器HI、LO模块
 //******************************************************************************
 
 `include "defines.v"
 
 module hilo_reg(
-    input wire clk,
     input wire rst,
+    input wire clk,
 
     //写端口
     input wire we,
@@ -28,4 +28,5 @@ module hilo_reg(
             lo_o <= lo_i;
         end
     end
+    
 endmodule

@@ -19,8 +19,6 @@ module if_id(
 
     //来自ctrl的控制信号
     input wire[5:0] stall,
-
-    //异常相关流水线清除信号
     input wire flush
     );
 
@@ -44,5 +42,5 @@ module if_id(
         end
         //其余情况下(流水线暂停)，保持译码阶段的寄存器id_pc、id_inst不变
     end
-    
+
 endmodule

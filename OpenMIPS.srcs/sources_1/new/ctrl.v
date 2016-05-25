@@ -18,14 +18,20 @@
 
 module ctrl(
     input wire rst,
+
+    //流水线暂停相关
+    input wire stallreq_from_if,        //来自取指阶段的暂停请求
     input wire stallreq_from_id,        //来自译码阶段的暂停请求
     input wire stallreq_from_ex,        //来自执行阶段的暂停请求
+    input wire stallreq_from_mem,       //来自访存阶段的暂停请求
+
     output reg[5:0] stall,
 
     //异常相关
     input wire[31:0] excepttype_i,      //最终的异常类型，来自MEM模块
     input wire[`RegBus] cp0_epc_i,      //EPC寄存器的最新值，来自MEM模块
     output reg[`InstAddrBus] new_pc,    //异常处理入口地址
+
     output reg flush
     );
 
@@ -59,10 +65,22 @@ module ctrl(
                 default:begin
                 end
             endcase
+        end else if(stallreq_from_mem == `Stop) begin
+            stall <= 6'b011111;
+            flush <= 1'b0;
         end else if(stallreq_from_ex == `Stop) begin
             stall <= 6'b001111;
             flush <= 1'b0;
         end else if(stallreq_from_id == `Stop) begin
+            stall <= 6'b000111;
+            flush <= 1'b0;
+        //取指阶段请求暂停，理论上应该只暂停取指阶段、保持PC不变，也就是设置stall为
+        //6'b000011。但是考虑到一种特殊情况：假设译码阶段的指令是转移指令，那么此时
+        //取指阶段将要取到的指令就是延迟槽指令，将译码阶段也暂停，保持了转移指令与延
+        //迟槽指令在流水线中的相对位置，从而能够正确识别出延迟槽指令；如果取指阶段暂停，
+        //而不使译码阶段暂停，那么转移指令会在下一周期进入执行阶段，同时在译码阶段会
+        //填充空指令，这样就使得填充的空指令被误认为是延迟槽指令，从而出错。
+        end else if(stallreq_from_if == `Stop) begin
             stall <= 6'b000111;
             flush <= 1'b0;
         end else begin
@@ -71,4 +89,5 @@ module ctrl(
             new_pc <= `ZeroWord;
         end
     end
+    
 endmodule

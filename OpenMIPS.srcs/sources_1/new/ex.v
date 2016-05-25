@@ -20,15 +20,13 @@ module ex(
     output reg wreg_o,                  //执行阶段指令最终是否有目的寄存器
     output reg[`RegAddrBus] wd_o,       //执行阶段指令最终要写入的目的寄存器地址
     output reg[`RegBus] wdata_o,        //执行阶段指令最终要写入目的寄存器的值
+    output reg[`RegBus] hi_o,
+    output reg[`RegBus] lo_o,
+    output reg whilo_o,
 
     //HILO模块给出的HI、LO寄存器的值
     input wire[`RegBus] hi_i,
     input wire[`RegBus] lo_i,
-
-    //执行阶段的指令对HI/LO寄存器的写操作请求
-    output reg[`RegBus] hi_o,
-    output reg[`RegBus] lo_o,
-    output reg whilo_o,
 
     //访存阶段返回到执行阶段的HI/LO数据通路，用于检测HI/LO寄存器的数据相关
     input wire[`RegBus] mem_hi_i,
@@ -58,14 +56,14 @@ module ex(
     output reg signed_div_o,
 
     //处于执行阶段的转移指令要保存的返回地址
-    input wire[`RegBus] link_address_i,
+    input wire[`InstAddrBus] link_address_i,
     //当前执行阶段的指令是否位于延迟槽(异常处理过程中使用)
     input wire is_in_delayslot_i,
 
     //加载存储指令相关接口
-    input wire[`RegBus] inst_i,             //接收未译码的原始指令
+    input wire[`InstBus] inst_i,            //接收未译码的原始指令
     output wire[`AluOpBus] aluop_o,         //向访存阶段输出加载存储指令类型
-    output wire[`RegBus] mem_addr_o,        //加载存储指令对应的存储器地址
+    output wire[`DataAddrBus] mem_addr_o,   //加载存储指令对应的存储器地址
     output wire[`RegBus] reg2_o,            //存储指令要存储的数据或lwl/lwr指令要
                                             //加载到目的寄存器的原始值
     //协处理器相关接口
@@ -100,6 +98,8 @@ module ex(
     reg[`RegBus] shiftres;
     //移动操作的结果
     reg[`RegBus] moveres;
+    //保存算术运算的结果
+    reg[`RegBus] arithmeticres;
     //保存HI寄存器的最新值
     reg[`RegBus] HI;
     //保存LO寄存器的最新值
@@ -108,23 +108,23 @@ module ex(
     reg[`DoubleRegBus] mulres;
 
     //算术运算相关中间变量
-    wire ov_sum;                    //保存溢出情况
-    wire reg1_eq_reg2;              //第一个操作数是否等于第二个操作数
-    wire reg1_lt_reg2;              //第一个操作数是否小于第二个操作数
-    reg[`RegBus] arithmeticres;     //保存算术运算的结果
     wire[`RegBus] reg2_i_mux;       //保存输入的第二个操作数reg2_i的补码
     wire[`RegBus] reg1_i_not;       //保存输入的第一个操作数reg1_i取反后的值
     wire[`RegBus] result_sum;       //保存加法结果
+    wire ov_sum;                    //保存溢出情况
+    wire reg1_eq_reg2;              //第一个操作数是否等于第二个操作数
+    wire reg1_lt_reg2;              //第一个操作数是否小于第二个操作数
     wire[`RegBus] opdata1_mult;     //乘法操作中的被乘数
     wire[`RegBus] opdata2_mult;     //乘法操作中的乘数
     wire[`DoubleRegBus] hilo_temp;  //临时保存乘法结果，宽度为64位
     reg[`DoubleRegBus] hilo_temp1;  //临时保存乘累加累减运算结果
-    reg stallreq_for_madd_msub;     //请求流水线暂停
 
+    reg stallreq_for_madd_msub;     //请求流水线暂停
     reg stallreq_for_div;           //是否由于除法运算导致流水线暂停
 
     reg trapassert;                 //表示是否有自陷异常
     reg ovassert;                   //表示是否有溢出异常
+
 
     //执行阶段输出的异常信息就是译码阶段的异常信息加上自陷异常、溢出异常的信息，
     //其中第10bit表示是否有自陷异常，第11bit表示是否有溢出异常
@@ -652,7 +652,8 @@ module ex(
             whilo_o <= `WriteEnable;
             hi_o <= hilo_temp1[63:32];
             lo_o <= hilo_temp1[31:0];
-        end else if((aluop_i == `EXE_DIV_OP) || (aluop_i == `EXE_DIVU_OP)) begin
+        end else if((aluop_i == `EXE_DIV_OP) ||
+                    (aluop_i == `EXE_DIVU_OP)) begin
             whilo_o <= `WriteEnable;
             hi_o <= div_result_i[63:32];
             lo_o <= div_result_i[31:0];

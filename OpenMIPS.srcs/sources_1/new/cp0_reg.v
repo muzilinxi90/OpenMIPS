@@ -19,7 +19,11 @@ module cp0_reg(
     input wire[4:0] raddr_i,        //要读取的CP0寄存器的地址
     output reg[`RegBus] data_o,     //读出的CP0某个寄存器的值
 
-    input wire[5:0] int_i,          //6个外部硬件中断输入
+    //异常相关输入接口
+    input wire[31:0] excepttype_i,                  //最终的异常类型
+    input wire[5:0] int_i,                          //6个外部硬件中断输入
+    input wire[`InstAddrBus] current_inst_addr_i,   //发生异常的指令地址
+    input wire is_in_delayslot_i,                   //发生异常的指令是否是延迟槽指令
 
     output reg[`RegBus] count_o,    //Count寄存器的值
     output reg[`RegBus] compare_o,  //Compare寄存器的值
@@ -29,12 +33,7 @@ module cp0_reg(
     output reg[`RegBus] config_o,   //Config寄存器的值
     output reg[`RegBus] prid_o,     //PRId寄存器的值
 
-    output reg timer_int_o,         //是否有定时中断发生
-
-    //异常相关输入接口
-    input wire[31:0] excepttype_i,              //最终的异常类型
-    input wire[`RegBus] current_inst_addr_i,    //发生异常的指令地址
-    input wire is_in_delayslot_i                //发生异常的指令是否是延迟槽指令
+    output reg timer_int_o          //是否有定时中断发生
     );
 
 //******************************************************************************

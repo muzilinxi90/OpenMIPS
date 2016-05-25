@@ -1,13 +1,13 @@
 `timescale 1ns / 1ps
 //******************************************************************************
-//          试商法实现除法模块
+//                          试商法实现除法模块
 //******************************************************************************
 
 `include "defines.v"
 
 module div(
-    input wire clk,
     input wire rst,
+    input wire clk,
 
     input wire signed_div_i,            //是否是有符号除法
     input wire[31:0] opdata1_i,         //被除数

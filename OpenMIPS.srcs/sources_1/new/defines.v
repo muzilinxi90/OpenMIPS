@@ -12,8 +12,6 @@
 `define ReadDisable 1'b0            //禁止读
 `define AluOpBus 7:0                //译码阶段的输出aluop_o的宽度
 `define AluSelBus 2:0               //译码阶段的输出alusel_o的宽度
-`define InstValid 1'b0              //指令有效
-`define InstInvalid 1'b1            //指令无效
 `define True_v  1'b1                //逻辑“真”
 `define False_v 1'b0                //逻辑“假”
 `define ChipEnable  1'b1            //芯片使能
@@ -303,12 +301,14 @@
 //***********************    数据存储器RAM相关宏定义    **************************
 `define DataAddrBus 31:0            //地址总线宽度
 `define DataBus 31:0                //数据总线宽度
-`define DataMemNum 131072           //RAM大小，单位是字，此处是128K word
-`define DataMemNumLog2 17           //实际使用的地址宽度
+`define DataMemNum 131072           //RAM大小，单位是字，此处是128K word(4字节)
+`define DataMemNumLog2 19           //实际使用的地址宽度
 `define ByteWidth 7:0               //字节宽度
 
 
 //******************************    异常相关    *********************************
+`define InstValid 1'b0              //指令有效，无效指令异常instvalid标记为0
+`define InstInvalid 1'b1            //指令无效，无效指令异常instvalid标记为1
 `define InterruptAssert 1'b1
 `define InterruptNotAssert 1'b0
 `define TrapAssert 1'b1
@@ -325,6 +325,8 @@
 `define CP0_REG_CONFIG 5'b10000     //标号16
 
 
-//************************** 与4位数码管相关宏定义 *******************************
-`define DispDataBus 6:0             //4位数码管数据总线宽度
-`define DispAnBus 3:0               //4位数码管选通信号宽度
+//****************************Wishbone总线接口相关*******************************
+`define WB_IDLE 2'b00               //空闲状态
+`define WB_BUSY 2'b01               //总线忙状态
+`define WB_WAIT_FOR_FLUSHING 2'b10
+`define WB_WAIT_FOR_STALL 2'b11     //等待暂停结束状态

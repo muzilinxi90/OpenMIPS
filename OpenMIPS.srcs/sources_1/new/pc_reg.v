@@ -9,26 +9,24 @@ module pc_reg(
     input wire rst,                     //复位信号
     input wire clk,                     //时钟信号
 
-    output reg ce,                      //指令存储器使能信号
+    output reg ce,                      //指令存储器访问请求信号
     output reg[`InstAddrBus] pc,        //要读取的指令地址
 
     //来自控制模块ctrl
     input wire[5:0] stall,
+    input wire flush,                   //流水线清除信号
+    input wire[`InstAddrBus] new_pc,    //异常处理例程入口地址
 
     //来自ID模块的信息(转移指令相关)
     input wire branch_flag_i,
-    input wire[`InstAddrBus] branch_target_address_i,
-
-    //异常处理相关
-    input wire flush,                   //流水线清除信号
-    input wire[`InstAddrBus] new_pc     //异常处理例程入口地址
+    input wire[`InstAddrBus] branch_target_address_i
     );
 
     always @ ( posedge clk ) begin
         if(rst == `RstEnable) begin
-            ce <= `ChipDisable;         //复位时指令存储器禁用
+            ce <= `ChipDisable;
         end else begin
-            ce <= `ChipEnable;          //复位结束后，指令存储器使能
+            ce <= `ChipEnable;
         end
     end
 

@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
-//********************************************************************
-//  将执行阶段取得的运算结果，在下一个时钟传递到流水线访存阶段
-//********************************************************************
+//******************************************************************************
+//          将执行阶段取得的运算结果，在下一个时钟传递到流水线访存阶段
+//******************************************************************************
 
 `include "defines.v"
 
@@ -11,6 +11,7 @@ module ex_mem(
 
     //来自ctrl的控制信息
     input wire[5:0] stall,
+    input wire flush,
 
     //来自执行阶段的信息
     input wire ex_wreg,
@@ -38,10 +39,10 @@ module ex_mem(
 
     //加载存储指令相关接口
     input wire[`AluOpBus] ex_aluop,
-    input wire[`RegBus] ex_mem_addr,
+    input wire[`DataAddrBus] ex_mem_addr,
     input wire[`RegBus] ex_reg2,
     output reg[`AluOpBus] mem_aluop,
-    output reg[`RegBus] mem_mem_addr,
+    output reg[`DataAddrBus] mem_mem_addr,
     output reg[`RegBus] mem_reg2,
 
     //协处理器访问指令相关接口
@@ -58,9 +59,7 @@ module ex_mem(
     input wire[`InstAddrBus] ex_current_inst_address,   //执行阶段指令的地址
     output reg[31:0] mem_excepttype,                    //译码执行阶段收集到的异常信息
     output reg mem_is_in_delayslot,                     //访存阶段指令是否是延迟槽指令
-    output reg[`InstAddrBus] mem_current_inst_address,  //访存阶段指令的地址
-
-    input wire flush
+    output reg[`InstAddrBus] mem_current_inst_address   //访存阶段指令的地址
     );
 
     // 1)当stall[3]为Stop，stall[4]为NoStop时，表示执行阶段暂停，而访存阶段
@@ -128,8 +127,7 @@ module ex_mem(
             mem_lo <= `ZeroWord;
             mem_whilo <= `WriteDisable;
 
-            //输出到EX模块，执行阶段暂停时保持输出不变，向下一级流水线输出的置零，相当
-            //于向下一级插入空指令
+            //执行阶段暂停时，之后的阶段不暂停时，回传到EX模块用于乘累加、乘累减运算
             hilo_o <= hilo_i;
             cnt_o <= cnt_i;
 
@@ -154,6 +152,7 @@ module ex_mem(
             mem_lo <= ex_lo;
             mem_whilo <= ex_whilo;
 
+            //流水线不暂停时，该信息不起作用，其他信息传到流水线下一阶段
             hilo_o <= {`ZeroWord, `ZeroWord};
             cnt_o <= 2'b00;
 
@@ -170,8 +169,10 @@ module ex_mem(
             mem_current_inst_address <= ex_current_inst_address;
 
         end else begin
+            //流水线暂停时，回传到EX模块用于乘累加、乘累减运算
             hilo_o <= hilo_i;
             cnt_o <= cnt_i;
         end
     end
+
 endmodule

@@ -29,17 +29,17 @@ module mem(
     output reg whilo_o,
 
     //加载存储指令相关接口
-    input wire[`AluOpBus] aluop_i,      //加载存储指令操作类型
-    input wire[`RegBus] mem_addr_i,     //加载存储指令对应的存储器地址
-    input wire[`RegBus] reg2_i,         //存储指令要存储的数据或lwl/lwr要写入目的寄存器的原始值
-
-    //与数据存储器RAM的交互接口
-    input wire[`RegBus] mem_data_i,     //从数据存储器读取的数据
-    output reg[`RegBus] mem_addr_o,     //要访问的数据存储器的地址
-    output wire mem_we_o,               //是否是写操作
-    output reg[3:0] mem_sel_o,          //字节选择信号
-    output reg[`RegBus] mem_data_o,     //要写入数据存储器的数据
-    output reg mem_ce_o,                //数据存储器使能信号
+    input wire[`AluOpBus] aluop_i,          //加载存储指令操作类型
+    input wire[`DataAddrBus] mem_addr_i,    //加载存储指令对应的存储器地址
+    input wire[`RegBus] reg2_i,             //存储指令要存储的数据或lwl/lwr要写入
+                                            //目的寄存器的原始值
+    //与数据Wishbone总线接口模块的交互信息
+    output reg[`DataAddrBus] mem_addr_o,    //要访问的数据存储器的地址
+    input wire[`DataBus] mem_data_i,        //从数据存储器读取的数据
+    output reg[`DataBus] mem_data_o,         //要写入数据存储器的数据
+    output reg mem_ce_o,                    //数据存储器使能信号
+    output wire mem_we_o,                   //是否是写操作
+    output reg[3:0] mem_sel_o,              //字节选择信号
 
     //LLbit寄存器相关接口(ll、sc指令)
     input wire LLbit_i,                 //LLbit模块给出的LLbit寄存器的值
@@ -145,8 +145,9 @@ module mem(
                     mem_addr_o <= mem_addr_i;
                     mem_we <= `WriteDisable;
                     mem_ce_o <= `ChipEnable;
-                    //使用case条件分支是参考了Wishbone总线相关规范，为后期添加
-                    //Wishbone总线接口做准备
+                    //使用case条件分支是参考了Wishbone总线相关规范：Wishbone总线会
+                    //将要访问的地址末两位置0，返回一个对齐的32位字，要使用mem_sel_o
+                    //选择需要的字节
                     case(mem_addr_i[1:0])
                         2'b00:begin
                             wdata_o <= {{24{mem_data_i[31]}},mem_data_i[31:24]};

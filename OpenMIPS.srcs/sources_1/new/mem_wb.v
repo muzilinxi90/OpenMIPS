@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //******************************************************************************
-//  将访存阶段的运算结果，在下一个时钟传递到回写阶段
+//              将访存阶段的运算结果，在下一个时钟传递到回写阶段
 //******************************************************************************
 
 `include "defines.v"
@@ -11,6 +11,7 @@ module mem_wb(
 
     //来自ctrl模块的信息
     input wire[5:0] stall,
+    input wire flush,
 
     //访存阶段的结果
     input wire mem_wreg,
@@ -42,10 +43,7 @@ module mem_wb(
     input wire[`RegBus] mem_cp0_reg_data,
     output reg wb_cp0_reg_we,
     output reg[4:0] wb_cp0_reg_write_addr,
-    output reg[`RegBus] wb_cp0_reg_data,
-
-    //清除流水线信号
-    input wire flush
+    output reg[`RegBus] wb_cp0_reg_data
     );
 
     // 1)当stall[4]为Stop，stall[5]为NoStop时，表示访存阶段暂停，而回写阶段继续，

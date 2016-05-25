@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 //******************************************************************************
-// 对指令进行译码，得到最终运算的类型、子类型、源操作数1、源操作数2、要写入的
-// 目的寄存器地址等
+// 对指令进行译码，得到最终运算的类型、子类型、源操作数1、源操作数2、要写入的目的寄存器
+// 地址等
 //
-//                            代码重构
+// 代码重构：
 // 1)译码部分可以重构，利用操作码op和函数码op3完全可以区分开大部分指令，使用其他条件的
 // 单独处理
 // 2)每条指令下的输出赋值如果符合默认情况可以删除掉
@@ -33,9 +33,7 @@ module id(
     output reg[`RegBus] reg2_o,             //译码阶段的指令要进行的运算的源操作数2
     output reg wreg_o,                      //译码阶段的指令是否有要写入的通用寄存器
     output reg[`RegAddrBus] wd_o,           //译码阶段的指令要写入的目的寄存器地址
-
-    //用于加载存储指令，将指令传递到执行阶段
-    output wire[`RegBus] inst_o,
+    output wire[`InstBus] inst_o,           //用于加载存储指令，将指令传递到执行阶段
 
     //执行阶段指令的运算结果前推
     input wire ex_wreg_i,
@@ -53,10 +51,10 @@ module id(
     //转移指令相关控制信号
     //传递到PC模块
     output reg branch_flag_o,
-    output reg[`RegBus] branch_target_address_o,
+    output reg[`InstAddrBus] branch_target_address_o,
     //传递到下一级流水线
-    output reg[`RegBus] link_addr_o,                //返回地址
-    output reg is_in_delayslot_o,                   //传递到EX阶段
+    output reg[`InstAddrBus] link_addr_o,               //返回地址
+    output reg is_in_delayslot_o,                       //传递到EX阶段
     //如果一条指令为分支跳转指令，会设置next_inst_in_delayslot_o为true，表示下一条
     //指令为延迟槽指令，next_inst_in_delayslot_o连接到ID/EX模块的next_inst_in_delayslot_i,
     //经过ID/EX时序逻辑的一个时钟周期延迟，从ID/EX模块的is_in_delayslot_o输出到ID模块
@@ -64,7 +62,7 @@ module id(
     input wire is_in_delayslot_i,
     output reg next_inst_in_delayslot_o,
 
-    //用于解决load相关新增加的接口
+    //处于执行阶段的指令的信息，用于解决load相关
     input wire[`AluOpBus] ex_aluop_i,
 
     //异常处理相关接口
@@ -114,7 +112,7 @@ module id(
     assign stallreq = stallreq_for_reg1_loadrelate | stallreq_for_reg2_loadrelate;
 
     //依据输入信号ex_aluop_i的值，判断上一条指令是否是加载指令(会更改寄存器值的指令)
-    assign pre_inst_is_load = ((ex_aluop_i == `EXE_LB_OP) ||
+    assign pre_inst_is_load = ((ex_aluop_i == `EXE_LB_OP)||
                               (ex_aluop_i == `EXE_LBU_OP)||
                               (ex_aluop_i == `EXE_LH_OP) ||
                               (ex_aluop_i == `EXE_LHU_OP)||
@@ -503,21 +501,13 @@ module id(
                 end
                 //或立即数指令
                 `EXE_ORI:begin
-                    //ori指令需要将结果写入目的寄存器
                     wreg_o <= `WriteEnable;
-                    //运算的子类型是逻辑“或”运算
                     aluop_o <= `EXE_OR_OP;
-                    //运算类型是逻辑运算
                     alusel_o <= `EXE_RES_LOGIC;
-                    //需要通过regfile的读端口1读取寄存器
                     reg1_read_o <= 1'b1;
-                    //不需要通过regfile的读端口2读取寄存器
                     reg2_read_o <= 1'b0;
-                    //指令执行需要的立即数
                     imm <= {16'h0,inst_i[15:0]};
-                    //指令执行要写的目的寄存器地址
                     wd_o <= inst_i[20:16];
-                    //ori指令是有效指令
                     instvalid <= `InstValid;
                 end
                 //异或立即数
@@ -1075,11 +1065,11 @@ module id(
         end else if((pre_inst_is_load == 1'b1) && (ex_wd_i == reg1_addr_o) &&
                     (reg1_read_o == 1'b1)) begin
             stallreq_for_reg1_loadrelate <= `Stop;
-            //解决相邻指令间RAW数据相关的数据通路
+        //解决相邻指令间RAW数据相关
         end else if((reg1_read_o == 1'b1) && (ex_wreg_i == 1'b1)
                     && (ex_wd_i == reg1_addr_o)) begin
             reg1_o <= ex_wdata_i;
-            //解决间隔一条指令间RAW数据相关的数据通路
+        //解决间隔一条指令间RAW数据相关
         end else if((reg1_read_o == 1'b1) && (mem_wreg_i == 1'b1)
                     && (mem_wd_i == reg1_addr_o)) begin
             reg1_o <= mem_wdata_i;
@@ -1112,11 +1102,11 @@ module id(
         end else if((pre_inst_is_load == 1'b1) && (ex_wd_i == reg2_addr_o) &&
                     (reg2_read_o == 1'b1)) begin
             stallreq_for_reg2_loadrelate <= `Stop;
-            //解决相邻指令间RAW数据相关的数据通路
+        //解决相邻指令间RAW数据相关
         end else if((reg2_read_o == 1'b1) && (ex_wreg_i == 1'b1)
                     && (ex_wd_i == reg2_addr_o)) begin
             reg2_o <= ex_wdata_i;
-            //解决间隔一条指令间RAW数据相关的数据通路
+        //解决间隔一条指令间RAW数据相关
         end else if((reg2_read_o == 1'b1) && (mem_wreg_i == 1'b1)
                     && (mem_wd_i == reg2_addr_o)) begin
             reg2_o <= mem_wdata_i;
